@@ -567,7 +567,7 @@
         let datesWithData = [];
         let currentDate = new Date();
         let selectedDate = null;
-        let allMeetingTitles = [];
+        let allMeetingDates = []; // Changé de allMeetingTitles à allMeetingDates
         
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchText');
@@ -768,7 +768,7 @@
                 }
                 
                 extractDatesWithData();
-                prepareMeetingTitles();
+                prepareMeetingDates(); // Changé de prepareMeetingTitles à prepareMeetingDates
                 showDataInfo();
                 renderCalendar();
                 renderDateList();
@@ -784,7 +784,7 @@
         function extractDatesWithData() {
             datesWithData = [];
             
-            // MODIFICATION: Utiliser la colonne B (index 1) pour les dates au lieu de la colonne A (index 0)
+            // Utiliser la colonne B (index 1) pour les dates
             const dateColumnIndex = 1;
             
             sheetData.forEach((row, index) => {
@@ -807,16 +807,16 @@
             console.log(`📅 ${datesWithData.length} dates avec données trouvées (colonne B)`);
         }
         
-        function prepareMeetingTitles() {
-            // MODIFICATION: Utiliser la troisième colonne (index 2) pour les titres des réunions
-            const titleColumnIndex = 2;
+        function prepareMeetingDates() {
+            // Utiliser la colonne B (index 1) pour les dates des suggestions
+            const dateColumnIndex = 1;
             
-            allMeetingTitles = sheetData
-                .map(row => row[titleColumnIndex] || '')
+            allMeetingDates = sheetData
+                .map(row => row[dateColumnIndex] || '')
                 .filter(value => value && value.trim() !== '')
                 .map(value => value.trim());
             
-            console.log('💡 Titres de réunions chargés:', allMeetingTitles.length);
+            console.log('📅 Dates de réunions chargées pour suggestions:', allMeetingDates.length);
         }
         
         function parseDate(dateStr) {
@@ -1010,7 +1010,7 @@
         
         function findPVByDate(date) {
             return sheetData.filter((row, index) => {
-                // MODIFICATION: Utiliser la colonne B (index 1) pour les dates
+                // Utiliser la colonne B (index 1) pour les dates
                 const rowDateStr = row[1] || '';
                 const rowDate = parseDate(rowDateStr);
                 
@@ -1052,17 +1052,17 @@
         }
         
         // RECHERCHE SIMPLE - SANS GESTION COMPLEXE DES CASSES/ACCENTS
-        function findMatchingMeetingTitles(searchTerm) {
+        function findMatchingMeetingDates(searchTerm) {
             if (!searchTerm || searchTerm.length < 2) return [];
             
             const searchLower = searchTerm.toLowerCase();
-            const matchingTitles = [];
+            const matchingDates = [];
             
             sheetData.forEach((row, index) => {
-                // MODIFICATION: Utiliser la troisième colonne (index 2) pour les titres des réunions
-                const meetingTitle = row[2] || '';
+                // Utiliser la colonne B (index 1) pour les dates des suggestions
+                const meetingDate = row[1] || '';
                 
-                if (meetingTitle && meetingTitle.trim() !== '') {
+                if (meetingDate && meetingDate.trim() !== '') {
                     // Recherche simple dans toutes les colonnes
                     const hasMatch = row.some(cell => {
                         const cellValue = String(cell).toLowerCase();
@@ -1070,12 +1070,12 @@
                     });
                     
                     if (hasMatch) {
-                        matchingTitles.push(meetingTitle.trim());
+                        matchingDates.push(meetingDate.trim());
                     }
                 }
             });
             
-            return [...new Set(matchingTitles)];
+            return [...new Set(matchingDates)];
         }
         
         function showSuggestions(searchTerm) {
@@ -1086,36 +1086,36 @@
                 return;
             }
             
-            const matchingTitles = findMatchingMeetingTitles(searchTerm);
+            const matchingDates = findMatchingMeetingDates(searchTerm);
             
-            if (matchingTitles.length === 0) {
+            if (matchingDates.length === 0) {
                 suggestionsContainer.style.display = 'none';
                 return;
             }
             
-            const suggestionsToShow = matchingTitles.slice(0, 10);
+            const suggestionsToShow = matchingDates.slice(0, 10);
             
             suggestionsContainer.innerHTML = suggestionsToShow
-                .map(title => {
-                    const lowerTitle = title.toLowerCase();
+                .map(dateStr => {
+                    const lowerDate = dateStr.toLowerCase();
                     const lowerSearchTerm = searchTerm.toLowerCase();
-                    const startIndex = lowerTitle.indexOf(lowerSearchTerm);
+                    const startIndex = lowerDate.indexOf(lowerSearchTerm);
                     
                     if (startIndex !== -1) {
                         const endIndex = startIndex + searchTerm.length;
-                        const before = title.substring(0, startIndex);
-                        const match = title.substring(startIndex, endIndex);
-                        const after = title.substring(endIndex);
+                        const before = dateStr.substring(0, startIndex);
+                        const match = dateStr.substring(startIndex, endIndex);
+                        const after = dateStr.substring(endIndex);
                         
                         return `
-                            <div class="suggestion-item" data-value="${title}">
-                                📋 ${before}<span class="suggestion-highlight">${match}</span>${after}
+                            <div class="suggestion-item" data-value="${dateStr}">
+                                📅 ${before}<span class="suggestion-highlight">${match}</span>${after}
                             </div>
                         `;
                     } else {
                         return `
-                            <div class="suggestion-item" data-value="${title}">
-                                📋 ${title}
+                            <div class="suggestion-item" data-value="${dateStr}">
+                                📅 ${dateStr}
                             </div>
                         `;
                     }
@@ -1249,9 +1249,9 @@
                 `;
                 
                 results.forEach((row, index) => {
-                    // MODIFICATION: Utiliser la colonne B (index 1) pour la date
+                    // Utiliser la colonne B (index 1) pour la date
                     const dateStr = row[1] || 'Date non spécifiée';
-                    // MODIFICATION: Utiliser la colonne C (index 2) pour le titre
+                    // Utiliser la colonne C (index 2) pour le titre
                     const titre = row[2] || `PV ${index + 1}`;
                     
                     html += `
