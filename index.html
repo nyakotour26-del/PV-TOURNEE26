@@ -444,6 +444,22 @@
             font-size: 14px;
         }
         
+        /* Styles pour les titres spécifiques */
+        .title-culte {
+            color: #FF8C00 !important; /* Orange */
+            font-weight: bold;
+        }
+        
+        .title-fanamarihana {
+            color: #FF0000 !important; /* Rouge */
+            font-weight: bold;
+        }
+        
+        .title-fanapahan-kevitra {
+            color: #FF1493 !important; /* Rose fushia */
+            font-weight: bold;
+        }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -567,7 +583,7 @@
         let datesWithData = [];
         let currentDate = new Date();
         let selectedDate = null;
-        let allMeetingDates = []; // Changé de allMeetingTitles à allMeetingDates
+        let allMeetingDates = [];
         
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchText');
@@ -768,7 +784,7 @@
                 }
                 
                 extractDatesWithData();
-                prepareMeetingDates(); // Changé de prepareMeetingTitles à prepareMeetingDates
+                prepareMeetingDates();
                 showDataInfo();
                 renderCalendar();
                 renderDateList();
@@ -784,7 +800,6 @@
         function extractDatesWithData() {
             datesWithData = [];
             
-            // Utiliser la colonne B (index 1) pour les dates
             const dateColumnIndex = 1;
             
             sheetData.forEach((row, index) => {
@@ -801,14 +816,12 @@
                 }
             });
             
-            // Trier les dates par ordre chronologique
             datesWithData.sort((a, b) => a.date - b.date);
             
             console.log(`📅 ${datesWithData.length} dates avec données trouvées (colonne B)`);
         }
         
         function prepareMeetingDates() {
-            // Utiliser la colonne B (index 1) pour les dates des suggestions
             const dateColumnIndex = 1;
             
             allMeetingDates = sheetData
@@ -820,7 +833,6 @@
         }
         
         function parseDate(dateStr) {
-            // Essayer différents formats de date
             const dateFormats = [
                 'DD/MM/YYYY',
                 'DD-MM-YYYY',
@@ -835,7 +847,6 @@
                 }
             }
             
-            // Si aucun format ne fonctionne, essayer le parsing natif
             const nativeDate = new Date(dateStr);
             if (!isNaN(nativeDate.getTime())) {
                 return nativeDate;
@@ -883,16 +894,13 @@
             const calendarGrid = document.getElementById('calendarGrid');
             const currentMonthElement = document.getElementById('currentMonth');
             
-            // Afficher le mois et l'année actuels
             currentMonthElement.textContent = currentDate.toLocaleDateString('fr-FR', {
                 month: 'long',
                 year: 'numeric'
             });
             
-            // Vider le calendrier
             calendarGrid.innerHTML = '';
             
-            // Ajouter les en-têtes des jours de la semaine
             const daysOfWeek = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
             daysOfWeek.forEach(day => {
                 const dayHeader = document.createElement('div');
@@ -901,17 +909,12 @@
                 calendarGrid.appendChild(dayHeader);
             });
             
-            // Obtenir le premier jour du mois
             const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-            // Obtenir le dernier jour du mois
             const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
             
-            // Calculer le jour de la semaine du premier jour (0 = dimanche, 1 = lundi, etc.)
             let firstDayOfWeek = firstDayOfMonth.getDay();
-            // Ajuster pour que lundi = 0
             firstDayOfWeek = firstDayOfWeek === 0 ? 6 : firstDayOfWeek - 1;
             
-            // Ajouter les jours du mois précédent
             const prevMonthLastDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
             for (let i = firstDayOfWeek - 1; i >= 0; i--) {
                 const day = document.createElement('div');
@@ -920,13 +923,11 @@
                 calendarGrid.appendChild(day);
             }
             
-            // Ajouter les jours du mois actuel
             for (let i = 1; i <= lastDayOfMonth.getDate(); i++) {
                 const day = document.createElement('div');
                 day.className = 'calendar-day';
                 day.textContent = i;
                 
-                // Vérifier si cette date a des données
                 const dateToCheck = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
                 const hasData = datesWithData.some(item => 
                     item.date.getDate() === dateToCheck.getDate() &&
@@ -938,7 +939,6 @@
                     day.classList.add('has-data');
                 }
                 
-                // Vérifier si c'est la date sélectionnée
                 if (selectedDate && 
                     selectedDate.getDate() === i &&
                     selectedDate.getMonth() === currentDate.getMonth() &&
@@ -953,8 +953,7 @@
                 calendarGrid.appendChild(day);
             }
             
-            // Ajouter les jours du mois suivant
-            const totalCells = 42; // 6 semaines * 7 jours
+            const totalCells = 42;
             const daysInCalendar = firstDayOfWeek + lastDayOfMonth.getDate();
             const nextMonthDays = totalCells - daysInCalendar;
             
@@ -989,7 +988,6 @@
                 
                 dateItem.addEventListener('click', () => {
                     selectDate(item.date);
-                    // Mettre à jour le calendrier pour afficher le mois de la date sélectionnée
                     currentDate = new Date(item.date);
                     renderCalendar();
                 });
@@ -1003,14 +1001,12 @@
             renderCalendar();
             renderDateList();
             
-            // Trouver les PV correspondant à cette date
             const matchingRows = findPVByDate(date);
             displayResults(matchingRows, `PV du ${formatDateForDisplay(date)}`);
         }
         
         function findPVByDate(date) {
             return sheetData.filter((row, index) => {
-                // Utiliser la colonne B (index 1) pour les dates
                 const rowDateStr = row[1] || '';
                 const rowDate = parseDate(rowDateStr);
                 
@@ -1047,11 +1043,9 @@
             currentDate = new Date(selectedDate);
             renderCalendar();
             
-            // Sélectionner cette date
             selectDate(selectedDate);
         }
         
-        // RECHERCHE SIMPLE - SANS GESTION COMPLEXE DES CASSES/ACCENTS
         function findMatchingMeetingDates(searchTerm) {
             if (!searchTerm || searchTerm.length < 2) return [];
             
@@ -1059,11 +1053,9 @@
             const matchingDates = [];
             
             sheetData.forEach((row, index) => {
-                // Utiliser la colonne B (index 1) pour les dates des suggestions
                 const meetingDate = row[1] || '';
                 
                 if (meetingDate && meetingDate.trim() !== '') {
-                    // Recherche simple dans toutes les colonnes
                     const hasMatch = row.some(cell => {
                         const cellValue = String(cell).toLowerCase();
                         return cellValue.includes(searchLower);
@@ -1197,7 +1189,6 @@
             displayResults(sheetData, 'Tous les PV');
         }
         
-        // RECHERCHE SIMPLE - INSENSIBLE À LA CASSE
         function searchData(searchValue) {
             const searchLower = searchValue.toLowerCase();
             
@@ -1228,6 +1219,29 @@
             return text;
         }
         
+        function getTitleClass(header) {
+            if (!header) return '';
+            
+            const headerLower = header.toLowerCase();
+            
+            // Vérifier "titre culte" (insensible à la casse)
+            if (headerLower.includes('culte')) {
+                return 'title-culte';
+            }
+            
+            // Vérifier "Fanamarihana manokana"
+            if (headerLower.includes('fanamarihana') || headerLower.includes('manokana')) {
+                return 'title-fanamarihana';
+            }
+            
+            // Vérifier "Fanapahan-kevitra sy Asa ho atao"
+            if (headerLower.includes('fanapahan') || headerLower.includes('kevitra') || headerLower.includes('asa') || headerLower.includes('atao')) {
+                return 'title-fanapahan-kevitra';
+            }
+            
+            return '';
+        }
+        
         function displayResults(results, searchTerm) {
             const resultsSection = document.getElementById('resultsSection');
             const resultContent = document.getElementById('resultContent');
@@ -1249,9 +1263,7 @@
                 `;
                 
                 results.forEach((row, index) => {
-                    // Utiliser la colonne B (index 1) pour la date
                     const dateStr = row[1] || 'Date non spécifiée';
-                    // Utiliser la colonne C (index 2) pour le titre
                     const titre = row[2] || `PV ${index + 1}`;
                     
                     html += `
@@ -1266,18 +1278,17 @@
                                 <table class="data-table">
                     `;
                     
-                    // Afficher toutes les colonnes avec données
                     for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                         const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                         let value = row[colIndex] || '';
                         
                         if (value !== undefined && value !== null && value !== '' && value.trim() !== '') {
-                            // Mettre en évidence le texte recherché
                             const highlightedValue = highlightText(value, searchTerm);
+                            const titleClass = getTitleClass(header);
                             
                             html += `
                                 <tr>
-                                    <th>${header}</th>
+                                    <th class="${titleClass}">${header}</th>
                                     <td>${formatCellValue(highlightedValue)}</td>
                                 </tr>
                             `;
