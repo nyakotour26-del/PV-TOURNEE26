@@ -27,6 +27,8 @@
             color: var(--text-color);
             background-color: #f5f7fa;
             padding: 20px;
+            background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23e8f5e8" d="M50 20 Q60 10 70 20 Q80 30 70 40 Q60 50 50 40 Q40 30 50 20 Z"/><path fill="%23d4edda" d="M30 60 Q40 50 50 60 Q60 70 50 80 Q40 90 30 80 Q20 70 30 60 Z"/><path fill="%23c8e6c9" d="M70 60 Q80 50 90 60 Q100 70 90 80 Q80 90 70 80 Q60 70 70 60 Z"/></svg>');
+            background-size: 200px 200px;
         }
         
         .container {
@@ -37,15 +39,43 @@
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
-            background-color: white;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #4CAF50;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path fill="%234CAF50" opacity="0.1" d="M60 20 Q70 10 80 20 Q90 30 80 40 Q70 50 60 40 Q50 30 60 20 Z"/><path fill="%234CAF50" opacity="0.1" d="M20 70 Q30 60 40 70 Q50 80 40 90 Q30 100 20 90 Q10 80 20 70 Z"/><path fill="%234CAF50" opacity="0.1" d="M90 70 Q100 60 110 70 Q120 80 110 90 Q100 100 90 90 Q80 80 90 70 Z"/><path fill="%234CAF50" opacity="0.1" d="M40 30 Q50 20 60 30 Q70 40 60 50 Q50 60 40 50 Q30 40 40 30 Z"/></svg>');
+            background-size: 300px 300px;
+            background-position: center;
+            opacity: 0.3;
         }
         
         h1 {
-            color: var(--secondary-color);
-            margin-bottom: 10px;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+        
+        header p {
+            color: #388e3c;
+            font-size: 1.2em;
+            font-weight: 500;
+            position: relative;
+            z-index: 1;
         }
         
         .search-section {
@@ -327,16 +357,34 @@
         }
         
         .pv-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 20px;
+            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
+            color: #2e7d32;
+            padding: 25px;
+            border-bottom: 3px solid #4CAF50;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pv-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path fill="%234CAF50" opacity="0.1" d="M40 15 Q47 8 54 15 Q61 22 54 29 Q47 36 40 29 Q33 22 40 15 Z"/><path fill="%234CAF50" opacity="0.1" d="M15 45 Q22 38 29 45 Q36 52 29 59 Q22 66 15 59 Q8 52 15 45 Z"/><path fill="%234CAF50" opacity="0.1" d="M55 45 Q62 38 69 45 Q76 52 69 59 Q62 66 55 59 Q48 52 55 45 Z"/></svg>');
+            background-size: 200px 200px;
+            opacity: 0.2;
         }
         
         .pv-title {
-            color: var(--accent-color);
+            color: #2e7d32;
             font-weight: bold;
             margin-top: 0;
-            font-size: 1.4em;
+            font-size: 1.6em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
         
         .data-table {
@@ -446,18 +494,44 @@
         
         /* Styles pour les titres spécifiques */
         .title-culte {
-            color: #FF8C00 !important; /* Orange */
+            background-color: #FFE5B4 !important; /* Orange clair */
+            color: #2c3e50 !important;
             font-weight: bold;
         }
         
         .title-fanamarihana {
-            color: #FF0000 !important; /* Rouge */
+            background-color: #FFB6C1 !important; /* Rose clair */
+            color: #2c3e50 !important;
             font-weight: bold;
         }
         
         .title-fanapahan-kevitra {
-            color: #FF1493 !important; /* Rose fushia */
+            background-color: #FFB6C1 !important; /* Rose clair */
+            color: #2c3e50 !important;
             font-weight: bold;
+        }
+        
+        /* Styles pour les titres d'horodateur et informations de réunion */
+        .title-horodateur,
+        .title-daty,
+        .title-ora-fanombohana,
+        .title-ora-firavana,
+        .title-toerana {
+            background-color: #87CEEB !important; /* Bleu ciel */
+            color: #2c3e50 !important;
+            font-weight: bold;
+        }
+        
+        /* Styles pour ORDRE DU JOUR et sections vertes */
+        .title-ordre-jour,
+        .title-fizotra,
+        .title-resaka,
+        .title-vaovao,
+        .title-famaranana {
+            background: linear-gradient(135deg, #d4edda 0%, #c8e6c9 50%, #a5d6a7 100%) !important;
+            color: #1b5e20 !important;
+            font-weight: bold;
+            border-left: 4px solid #4CAF50 !important;
         }
         
         @keyframes spin {
@@ -487,13 +561,17 @@
                 color: white;
                 margin-top: 10px;
             }
+            
+            h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📋 PV Réunion - Calendrier et Recherche</h1>
+            <h1>📋 PV RÉUNION</h1>
             <p>Navigation par date et recherche simple dans tous les procès-verbaux</p>
         </header>
         
@@ -1237,6 +1315,48 @@
             // Vérifier "Fanapahan-kevitra sy Asa ho atao"
             if (headerLower.includes('fanapahan') || headerLower.includes('kevitra') || headerLower.includes('asa') || headerLower.includes('atao')) {
                 return 'title-fanapahan-kevitra';
+            }
+            
+            // Vérifier les titres d'horodateur et informations de réunion
+            if (headerLower.includes('horodateur') || headerLower.includes('timestamp')) {
+                return 'title-horodateur';
+            }
+            
+            if (headerLower.includes('daty') || headerLower.includes('date')) {
+                return 'title-daty';
+            }
+            
+            if (headerLower.includes('ora fanombohana') || headerLower.includes('heure de début') || headerLower.includes('début')) {
+                return 'title-ora-fanombohana';
+            }
+            
+            if (headerLower.includes('ora firavana') || headerLower.includes('heure de fin') || headerLower.includes('fin')) {
+                return 'title-ora-firavana';
+            }
+            
+            if (headerLower.includes('toerana') || headerLower.includes('lieu') || headerLower.includes('endroit')) {
+                return 'title-toerana';
+            }
+            
+            // Vérifier ORDRE DU JOUR et sections vertes
+            if (headerLower.includes('ordre du jour') || headerLower.includes('ordre') || headerLower.includes('agenda')) {
+                return 'title-ordre-jour';
+            }
+            
+            if (headerLower.includes('fizotra') || headerLower.includes('ankapobeny') || headerLower.includes('fivoriana')) {
+                return 'title-fizotra';
+            }
+            
+            if (headerLower.includes('resaka') || headerLower.includes('discussion')) {
+                return 'title-resaka';
+            }
+            
+            if (headerLower.includes('vaovao') || headerLower.includes('nouvelle') || headerLower.includes('news')) {
+                return 'title-vaovao';
+            }
+            
+            if (headerLower.includes('famaranana') || headerLower.includes('fin') || headerLower.includes('conclusion')) {
+                return 'title-famaranana';
             }
             
             return '';
