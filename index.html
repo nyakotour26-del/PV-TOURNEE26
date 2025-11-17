@@ -266,6 +266,34 @@
             background-color: #6c7a7d;
         }
         
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            background-color: #FFD700;
+            color: #2c3e50;
+            font-weight: bold;
+            min-width: auto;
+            flex: 1;
+        }
+        
+        .filter-btn.fanamarihana {
+            background-color: #FFD700;
+        }
+        
+        .filter-btn.fanapahan-kevitra {
+            background-color: #FFB6C1;
+        }
+        
+        .filter-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
         .suggestions-container {
             position: absolute;
             top: 100%;
@@ -620,6 +648,10 @@
             h1 {
                 font-size: 2em;
             }
+            
+            .filter-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -644,6 +676,15 @@
                     <button type="submit">🔍 Rechercher</button>
                 </div>
             </form>
+            
+            <div class="filter-buttons">
+                <button id="showFanamarihanaButton" class="filter-btn fanamarihana">
+                    📝 Afficher les Fanamarihana Famerenana
+                </button>
+                <button id="showFanapahanKevitraButton" class="filter-btn fanapahan-kevitra">
+                    📋 Afficher les Fanapahan-kevitra sy Asa ho atao
+                </button>
+            </div>
             
             <div class="calendar-container">
                 <div class="calendar">
@@ -749,6 +790,10 @@
             document.getElementById('submitPassword').addEventListener('click', checkPassword);
             document.getElementById('cancelPassword').addEventListener('click', hidePasswordModal);
             
+            // Nouveaux boutons de filtre
+            document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
+            document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
+            
             searchInput.addEventListener('input', function() {
                 showSuggestions(this.value);
             });
@@ -812,6 +857,60 @@
                 'juillet': 6, 'août': 7, 'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11
             };
             return months[monthName.toLowerCase()] || 0;
+        }
+        
+        // NOUVELLE FONCTION : Afficher uniquement les Fanamarihana Famerenana
+        function showFanamarihanaFamerenana() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map(row => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    // Inclure la date (colonne B) et les Fanamarihana Famerenana
+                    if (colIndex === 1 || header.toLowerCase().includes('fanamarihana famerenana')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanamarihana Famerenana');
+        }
+        
+        // NOUVELLE FONCTION : Afficher uniquement les Fanapahan-kevitra sy Asa ho atao
+        function showFanapahanKevitra() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map(row => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    // Inclure la date (colonne B) et les Fanapahan-kevitra
+                    if (colIndex === 1 || 
+                        header.toLowerCase().includes('fanapahan') || 
+                        header.toLowerCase().includes('kevitra') || 
+                        header.toLowerCase().includes('asa ho atao') ||
+                        header.toLowerCase().includes('asa ata')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
         }
         
         async function loadDataFromGoogleSheets() {
@@ -1500,6 +1599,12 @@
                         let value = row[colIndex] || '';
                         
                         if (!showProtectedColumns && isProtectedColumn(header)) {
+                            continue;
+                        }
+                        
+                        // Pour les vues filtrées, n'afficher que les colonnes avec du contenu
+                        if ((searchTerm === 'Fanamarihana Famerenana' || searchTerm === 'Fanapahan-kevitra sy Asa ho atao') && 
+                            value === '') {
                             continue;
                         }
                         
