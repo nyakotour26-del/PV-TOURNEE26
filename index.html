@@ -537,7 +537,7 @@
         }
 
         .title-fanamarihana-famerenana {
-            background-color: #FFD700 !important; /* Jaune */
+            background-color: #FFD700 !important; /* JAUNE VIF */
             color: #2c3e50 !important;
             font-weight: bold;
         }
@@ -702,8 +702,9 @@
     </div>
 
     <script>
-        // URL de la feuille "PV Réunion"
-        const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?gid=98891965&single=true&output=csv';
+        // ✅ URL CORRECTE pour votre Google Sheet en format CSV
+        const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?output=csv';
+        
         const PASSWORD = "admin";
         let showProtectedColumns = false;
         const PROTECTED_COLUMNS = ['Rohy fiche'];
@@ -865,21 +866,38 @@
                 console.log('❌ Échec accès direct:', error1.message);
                 
                 try {
-                    console.log('🔄 Essai 2: AllOrigins...');
-                    const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                    let response = await fetch(proxyUrl + encodeURIComponent(GOOGLE_SHEETS_URL));
+                    console.log('🔄 Essai 2: Proxy CORS...');
+                    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+                    let response = await fetch(proxyUrl + GOOGLE_SHEETS_URL);
                     
                     if (response.ok) {
                         const csvText = await response.text();
-                        console.log('✅ Succès avec AllOrigins');
+                        console.log('✅ Succès avec proxy CORS');
                         processCSVData(csvText);
                         return;
                     }
-                    throw new Error(`AllOrigins failed: ${response.status}`);
+                    throw new Error(`CORS proxy failed: ${response.status}`);
                     
                 } catch (error2) {
-                    console.log('❌ Échec AllOrigins:', error2.message);
-                    showError('Impossible de charger les données. Vérifiez votre connexion internet.');
+                    console.log('❌ Échec proxy CORS:', error2.message);
+                    
+                    try {
+                        console.log('🔄 Essai 3: AllOrigins...');
+                        const allOriginsUrl = 'https://api.allorigins.win/raw?url=';
+                        let response = await fetch(allOriginsUrl + encodeURIComponent(GOOGLE_SHEETS_URL));
+                        
+                        if (response.ok) {
+                            const csvText = await response.text();
+                            console.log('✅ Succès avec AllOrigins');
+                            processCSVData(csvText);
+                            return;
+                        }
+                        throw new Error(`AllOrigins failed: ${response.status}`);
+                        
+                    } catch (error3) {
+                        console.log('❌ Tous les essais ont échoué:', error3.message);
+                        showError('Impossible de charger les données. Vérifiez votre connexion internet et que le Google Sheet est bien publié.');
+                    }
                 }
             }
         }
@@ -1402,16 +1420,17 @@
             
             const headerLower = header.toLowerCase();
             
+            // FOND JAUNE POUR "Fanamarihana Famerenana" - EN PREMIER
+            if (headerLower.includes('fanamarihana famerenana')) {
+                return 'title-fanamarihana-famerenana';
+            }
+            
             if (headerLower.includes('culte')) {
                 return 'title-culte';
             }
             
             if (headerLower.includes('fanamarihana') || headerLower.includes('manokana')) {
                 return 'title-fanamarihana';
-            }
-
-            if (headerLower.includes('fanamarihana') && headerLower.includes('famerenana')) {
-                return 'title-fanamarihana-famerenana';
             }
             
             if (headerLower.includes('fanapahan') || headerLower.includes('kevitra') || headerLower.includes('asa') || headerLower.includes('atao')) {
