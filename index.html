@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PV Réunion - Calendrier et Recherche</title>
+    <title>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</title>
     <style>
         :root {
             --primary-color: #2980b9;
@@ -227,24 +227,6 @@
         .date-item.selected {
             background-color: var(--primary-color);
             color: white;
-        }
-        
-        .search-examples {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: var(--border-radius);
-            margin-top: 15px;
-            font-size: 14px;
-        }
-        
-        .search-examples h4 {
-            margin-bottom: 10px;
-            color: var(--secondary-color);
-        }
-        
-        .example-item {
-            margin-bottom: 5px;
-            color: #666;
         }
         
         label {
@@ -491,6 +473,55 @@
             margin-bottom: 20px;
             font-size: 14px;
         }
+
+        .password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .password-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .password-input-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .password-input-group input {
+            flex: 1;
+        }
+
+        .show-links-btn {
+            background-color: #f39c12;
+            margin: 10px 0;
+        }
+
+        .show-links-btn:hover {
+            background-color: #e67e22;
+        }
+
+        .protected-columns-info {
+            background: #fff3cd;
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            margin: 10px 0;
+            border-left: 4px solid #ffc107;
+        }
         
         /* Styles pour les titres spécifiques */
         .title-culte {
@@ -501,6 +532,12 @@
         
         .title-fanamarihana {
             background-color: #FFB6C1 !important; /* Rose clair */
+            color: #2c3e50 !important;
+            font-weight: bold;
+        }
+
+        .title-fanamarihana-famerenana {
+            background-color: #FFD700 !important; /* Jaune */
             color: #2c3e50 !important;
             font-weight: bold;
         }
@@ -571,7 +608,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>📋 PV RÉUNION</h1>
+            <h1>📋 PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
             <p>Navigation par date et recherche simple dans tous les procès-verbaux</p>
         </header>
         
@@ -579,7 +616,7 @@
             <form id="searchForm" class="search-form" autocomplete="off">
                 <div class="form-group">
                     <label for="searchText">Rechercher un mot ou une phrase :</label>
-                    <input type="text" id="searchText" placeholder="Ex: budget, réunion, projet..." autocomplete="off">
+                    <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
                     <div class="suggestions-container" id="suggestionsContainer">
                         <!-- Les suggestions dynamiques apparaîtront ici -->
                     </div>
@@ -617,16 +654,12 @@
                 </div>
             </div>
             
-            <div class="search-examples">
-                <h4>💡 Recherche simple :</h4>
-                <div class="example-item">• <strong>budget</strong> - Recherche le mot "budget"</div>
-                <div class="example-item">• <strong>réunion projet</strong> - Recherche les deux mots</div>
-                <div class="example-item">• <strong>financement-2024</strong> - Recherche avec tiret</div>
-                <div class="example-item">• La recherche est insensible aux majuscules/minuscules et accents</div>
-            </div>
-            
             <button id="showAllButton" style="background-color: #27ae60; margin-top: 15px;">
                 📋 Afficher tous les PV
+            </button>
+
+            <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
+                🔗 Afficher les colonnes protégées
             </button>
             
             <button id="retryButton" style="background-color: #f39c12; margin-top: 10px; display: none;">
@@ -650,11 +683,30 @@
                 <!-- Les résultats seront affichés ici -->
             </div>
         </section>
+
+        <!-- Modal pour le mot de passe -->
+        <div class="password-modal" id="passwordModal">
+            <div class="password-modal-content">
+                <h3>Accès aux colonnes protégées</h3>
+                <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
+                <div class="password-input-group">
+                    <input type="password" id="passwordInput" placeholder="Mot de passe">
+                    <button id="submitPassword">Valider</button>
+                </div>
+                <button id="cancelPassword" class="secondary">Annuler</button>
+                <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
+                    Mot de passe incorrect
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // URL de la feuille "PV Réunion" - CORRIGÉE pour le format CSV
+        // URL de la feuille "PV Réunion"
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?gid=98891965&single=true&output=csv';
+        const PASSWORD = "admin";
+        let showProtectedColumns = false;
+        const PROTECTED_COLUMNS = ['Rohy fiche'];
         
         let sheetData = [];
         let headers = [];
@@ -674,6 +726,9 @@
             document.getElementById('showAllButton').addEventListener('click', showAllData);
             document.getElementById('closeResults').addEventListener('click', closeResults);
             document.getElementById('retryButton').addEventListener('click', loadDataFromGoogleSheets);
+            document.getElementById('showLinksButton').addEventListener('click', showPasswordModal);
+            document.getElementById('submitPassword').addEventListener('click', checkPassword);
+            document.getElementById('cancelPassword').addEventListener('click', hidePasswordModal);
             
             searchInput.setAttribute('autocomplete', 'off');
             searchInput.setAttribute('autocorrect', 'off');
@@ -710,6 +765,51 @@
             
             loadDataFromGoogleSheets();
         });
+
+        function showPasswordModal() {
+            document.getElementById('passwordModal').style.display = 'flex';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        function hidePasswordModal() {
+            document.getElementById('passwordModal').style.display = 'none';
+        }
+
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput').value;
+            if (passwordInput === PASSWORD) {
+                showProtectedColumns = true;
+                hidePasswordModal();
+                if (document.getElementById('resultsSection').style.display === 'block') {
+                    const currentSearch = document.getElementById('resultTitle').textContent.replace('Résultats pour "', '').replace('"', '');
+                    if (currentSearch.includes('PV du')) {
+                        const dateText = currentSearch.replace('PV du ', '');
+                        const dateParts = dateText.split(' ');
+                        const day = parseInt(dateParts[0]);
+                        const month = getMonthNumber(dateParts[1]);
+                        const year = parseInt(dateParts[3]);
+                        const date = new Date(year, month, day);
+                        const matchingRows = findPVByDate(date);
+                        displayResults(matchingRows, `PV du ${formatDateForDisplay(date)}`);
+                    } else if (currentSearch === 'Tous les PV') {
+                        showAllData();
+                    } else {
+                        handleSearch(new Event('submit'));
+                    }
+                }
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+            }
+        }
+
+        function getMonthNumber(monthName) {
+            const months = {
+                'janvier': 0, 'février': 1, 'mars': 2, 'avril': 3, 'mai': 4, 'juin': 5,
+                'juillet': 6, 'août': 7, 'septembre': 8, 'octobre': 9, 'novembre': 10, 'décembre': 11
+            };
+            return months[monthName.toLowerCase()] || 0;
+        }
         
         function navigateSuggestions(key) {
             const suggestions = document.querySelectorAll('.suggestion-item');
@@ -1302,22 +1402,22 @@
             
             const headerLower = header.toLowerCase();
             
-            // Vérifier "titre culte" (insensible à la casse)
             if (headerLower.includes('culte')) {
                 return 'title-culte';
             }
             
-            // Vérifier "Fanamarihana manokana"
             if (headerLower.includes('fanamarihana') || headerLower.includes('manokana')) {
                 return 'title-fanamarihana';
             }
+
+            if (headerLower.includes('fanamarihana') && headerLower.includes('famerenana')) {
+                return 'title-fanamarihana-famerenana';
+            }
             
-            // Vérifier "Fanapahan-kevitra sy Asa ho atao"
             if (headerLower.includes('fanapahan') || headerLower.includes('kevitra') || headerLower.includes('asa') || headerLower.includes('atao')) {
                 return 'title-fanapahan-kevitra';
             }
             
-            // Vérifier les titres d'horodateur et informations de réunion
             if (headerLower.includes('horodateur') || headerLower.includes('timestamp')) {
                 return 'title-horodateur';
             }
@@ -1338,7 +1438,6 @@
                 return 'title-toerana';
             }
             
-            // Vérifier ORDRE DU JOUR et sections vertes
             if (headerLower.includes('ordre du jour') || headerLower.includes('ordre') || headerLower.includes('agenda')) {
                 return 'title-ordre-jour';
             }
@@ -1361,6 +1460,12 @@
             
             return '';
         }
+
+        function isProtectedColumn(header) {
+            return PROTECTED_COLUMNS.some(protectedCol => 
+                header.toLowerCase().includes(protectedCol.toLowerCase())
+            );
+        }
         
         function displayResults(results, searchTerm) {
             const resultsSection = document.getElementById('resultsSection');
@@ -1381,6 +1486,15 @@
                         <strong>${results.length} PV trouvé(s)</strong> pour la recherche : "${searchTerm}"
                     </div>
                 `;
+
+                if (!showProtectedColumns && headers.some(header => isProtectedColumn(header))) {
+                    html += `
+                        <div class="protected-columns-info">
+                            <strong>ℹ️ Information :</strong> La colonne "Rohy fiche" est masquée pour des raisons de sécurité.
+                            <br>Utilisez le bouton "🔗 Afficher les colonnes protégées" pour y accéder.
+                        </div>
+                    `;
+                }
                 
                 results.forEach((row, index) => {
                     const dateStr = row[1] || 'Date non spécifiée';
@@ -1402,6 +1516,10 @@
                         const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                         let value = row[colIndex] || '';
                         
+                        if (!showProtectedColumns && isProtectedColumn(header)) {
+                            continue;
+                        }
+                        
                         if (value !== undefined && value !== null && value !== '' && value.trim() !== '') {
                             const highlightedValue = highlightText(value, searchTerm);
                             const titleClass = getTitleClass(header);
@@ -1409,7 +1527,7 @@
                             html += `
                                 <tr>
                                     <th class="${titleClass}">${header}</th>
-                                    <td>${formatCellValue(highlightedValue)}</td>
+                                    <td>${formatCellValue(highlightedValue, header)}</td>
                                 </tr>
                             `;
                         }
@@ -1430,7 +1548,7 @@
             resultsSection.scrollIntoView({ behavior: 'smooth' });
         }
         
-        function formatCellValue(value) {
+        function formatCellValue(value, header) {
             const strValue = String(value);
             
             if (strValue.startsWith('http') && strValue.match(/\.(jpeg|jpg|png|gif|webp|bmp)/i)) {
