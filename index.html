@@ -413,10 +413,20 @@
             color: var(--primary-color);
             text-decoration: none;
             font-weight: bold;
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+            display: inline-block;
+            transition: all 0.3s ease;
         }
         
         .data-table a:hover {
-            text-decoration: underline;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
         .highlight {
@@ -1418,6 +1428,27 @@
                 header.toLowerCase().includes(protectedCol.toLowerCase())
             );
         }
+
+        function formatCellValue(value, header) {
+            const strValue = String(value);
+            
+            // Vérifier si c'est une URL (commence par http ou https)
+            if (strValue.startsWith('http://') || strValue.startsWith('https://')) {
+                // Vérifier si c'est une image
+                if (strValue.match(/\.(jpeg|jpg|png|gif|webp|bmp|svg)$/i)) {
+                    return `<img src="${strValue}" alt="Image" onerror="this.style.display='none'" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2);">`;
+                }
+                // Sinon, c'est un lien normal
+                else {
+                    return `<a href="${strValue}" target="_blank" style="color: #2980b9; text-decoration: none; font-weight: bold; padding: 8px 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef; display: inline-block; transition: all 0.3s ease;">
+                        🔗 Ouvrir le lien
+                    </a>`;
+                }
+            }
+            
+            // Pour les autres contenus, appliquer le surlignage si nécessaire
+            return `<div style="font-size:15px; font-weight:500; white-space:pre-wrap; line-height:1.8; font-family: inherit;">${strValue}</div>`;
+        }
         
         function displayResults(results, searchTerm) {
             const resultsSection = document.getElementById('resultsSection');
@@ -1479,7 +1510,7 @@
                             html += `
                                 <tr>
                                     <th class="${titleClass}">${header}</th>
-                                    <td>${highlightedValue}</td>
+                                    <td>${formatCellValue(highlightedValue, header)}</td>
                                 </tr>
                             `;
                         }
