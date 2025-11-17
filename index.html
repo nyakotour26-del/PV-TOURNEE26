@@ -289,6 +289,10 @@
             background-color: #FFB6C1;
         }
         
+        .filter-btn.vaovao {
+            background-color: #87CEEB;
+        }
+        
         .filter-btn:hover {
             opacity: 0.9;
             transform: translateY(-2px);
@@ -594,6 +598,12 @@
             font-weight: bold;
         }
         
+        .title-vaovao {
+            background-color: #87CEEB !important; /* Bleu ciel */
+            color: #2c3e50 !important;
+            font-weight: bold;
+        }
+        
         /* Styles pour les titres d'horodateur et informations de réunion */
         .title-horodateur,
         .title-daty,
@@ -683,6 +693,9 @@
                 </button>
                 <button id="showFanapahanKevitraButton" class="filter-btn fanapahan-kevitra">
                     📋 Afficher les Fanapahan-kevitra sy Asa ho atao
+                </button>
+                <button id="showVaovaoButton" class="filter-btn vaovao">
+                    📢 Afficher les Vaovao
                 </button>
             </div>
             
@@ -793,6 +806,7 @@
             // Nouveaux boutons de filtre
             document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
             document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
+            document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
             
             searchInput.addEventListener('input', function() {
                 showSuggestions(this.value);
@@ -867,17 +881,19 @@
             }
             
             currentSearchTerm = '';
-            const filteredData = sheetData.map(row => {
+            const filteredData = sheetData.map((row, originalIndex) => {
                 const filteredRow = [];
                 for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                     const header = headers[colIndex] || '';
-                    // Inclure la date (colonne B) et les Fanamarihana Famerenana
-                    if (colIndex === 1 || header.toLowerCase().includes('fanamarihana famerenana')) {
+                    // Inclure uniquement les Fanamarihana Famerenana (pas la date)
+                    if (header.toLowerCase().includes('fanamarihana famerenana')) {
                         filteredRow[colIndex] = row[colIndex] || '';
                     } else {
                         filteredRow[colIndex] = '';
                     }
                 }
+                // Stocker l'index original pour récupérer la date
+                filteredRow.originalIndex = originalIndex;
                 return filteredRow;
             }).filter(row => row.some(cell => cell && cell.trim() !== ''));
             
@@ -892,13 +908,12 @@
             }
             
             currentSearchTerm = '';
-            const filteredData = sheetData.map(row => {
+            const filteredData = sheetData.map((row, originalIndex) => {
                 const filteredRow = [];
                 for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                     const header = headers[colIndex] || '';
-                    // Inclure la date (colonne B) et les Fanapahan-kevitra
-                    if (colIndex === 1 || 
-                        header.toLowerCase().includes('fanapahan') || 
+                    // Inclure uniquement les Fanapahan-kevitra (pas la date)
+                    if (header.toLowerCase().includes('fanapahan') || 
                         header.toLowerCase().includes('kevitra') || 
                         header.toLowerCase().includes('asa ho atao') ||
                         header.toLowerCase().includes('asa ata')) {
@@ -907,10 +922,41 @@
                         filteredRow[colIndex] = '';
                     }
                 }
+                // Stocker l'index original pour récupérer la date
+                filteredRow.originalIndex = originalIndex;
                 return filteredRow;
             }).filter(row => row.some(cell => cell && cell.trim() !== ''));
             
             displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
+        }
+        
+        // NOUVELLE FONCTION : Afficher uniquement les Vaovao
+        function showVaovao() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    // Inclure uniquement les Vaovao (pas la date)
+                    if (header.toLowerCase().includes('vaovao') || 
+                        header.toLowerCase().includes('nouvelle') || 
+                        header.toLowerCase().includes('news')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                // Stocker l'index original pour récupérer la date
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Vaovao');
         }
         
         async function loadDataFromGoogleSheets() {
@@ -1479,6 +1525,10 @@
                 return 'title-fanapahan-kevitra';
             }
             
+            if (headerLower.includes('vaovao') || headerLower.includes('nouvelle') || headerLower.includes('news')) {
+                return 'title-vaovao';
+            }
+            
             if (headerLower.includes('horodateur') || headerLower.includes('timestamp')) {
                 return 'title-horodateur';
             }
@@ -1579,8 +1629,20 @@
                 }
                 
                 results.forEach((row, index) => {
-                    const dateStr = row[1] || 'Date non spécifiée';
-                    const titre = row[2] || `PV ${index + 1}`;
+                    // Récupérer la date réelle de la ligne originale
+                    let dateStr = 'Date non spécifiée';
+                    let titre = `PV ${index + 1}`;
+                    
+                    // Si c'est une vue filtrée, utiliser l'index original pour récupérer les données complètes
+                    if (row.originalIndex !== undefined) {
+                        const originalRow = sheetData[row.originalIndex];
+                        dateStr = originalRow[1] || 'Date non spécifiée';
+                        titre = originalRow[2] || `PV ${index + 1}`;
+                    } else {
+                        // Vue normale
+                        dateStr = row[1] || 'Date non spécifiée';
+                        titre = row[2] || `PV ${index + 1}`;
+                    }
                     
                     html += `
                         <div class="pv-item">
@@ -1603,7 +1665,9 @@
                         }
                         
                         // Pour les vues filtrées, n'afficher que les colonnes avec du contenu
-                        if ((searchTerm === 'Fanamarihana Famerenana' || searchTerm === 'Fanapahan-kevitra sy Asa ho atao') && 
+                        if ((searchTerm === 'Fanamarihana Famerenana' || 
+                             searchTerm === 'Fanapahan-kevitra sy Asa ho atao' || 
+                             searchTerm === 'Vaovao') && 
                             value === '') {
                             continue;
                         }
