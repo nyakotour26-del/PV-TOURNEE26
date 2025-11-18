@@ -245,7 +245,7 @@
         }
         
         button {
-            background-color: var(--primary-color);
+            background-color: #7f8c8d; /* Gris par défaut */
             color: white;
             border: none;
             cursor: pointer;
@@ -255,15 +255,15 @@
         }
         
         button:hover {
-            background-color: #1f6391;
+            background-color: #6c7a7d; /* Gris foncé au survol */
         }
         
         button.secondary {
-            background-color: #7f8c8d;
+            background-color: #95a5a6; /* Gris légèrement plus clair */
         }
         
         button.secondary:hover {
-            background-color: #6c7a7d;
+            background-color: #7f8c8d;
         }
         
         .filter-buttons {
@@ -274,27 +274,40 @@
         }
         
         .filter-btn {
-            background-color: #FFD700;
-            color: #2c3e50;
+            color: white;
             font-weight: bold;
             min-width: auto;
             flex: 1;
         }
         
+        /* Bouton Fanamarihana Famerenana - BLEU */
         .filter-btn.fanamarihana {
-            background-color: #FFD700;
+            background-color: #3498db;
         }
         
+        .filter-btn.fanamarihana:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Bouton Fanapahan-kevitra - BLEU */
         .filter-btn.fanapahan-kevitra {
-            background-color: #FFB6C1;
+            background-color: #3498db;
         }
         
+        .filter-btn.fanapahan-kevitra:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Bouton Vaovao - BLEU */
         .filter-btn.vaovao {
-            background-color: #87CEEB;
+            background-color: #3498db;
+        }
+        
+        .filter-btn.vaovao:hover {
+            background-color: #2980b9;
         }
         
         .filter-btn:hover {
-            opacity: 0.9;
             transform: translateY(-2px);
         }
         
@@ -543,26 +556,51 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
         }
 
         .password-input-group {
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            gap: 15px;
             margin: 20px 0;
         }
 
         .password-input-group input {
-            flex: 1;
+            padding: 14px;
+            font-size: 18px;
+            height: 55px;
+            width: 100%;
         }
 
+        .password-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .password-buttons button {
+            flex: 1;
+            height: 50px;
+        }
+
+        /* Bouton Admin - ROUGE */
         .show-links-btn {
-            background-color: #f39c12;
+            background-color: #e74c3c; /* Rouge */
             margin: 10px 0;
         }
 
         .show-links-btn:hover {
-            background-color: #e67e22;
+            background-color: #c0392b; /* Rouge foncé */
+        }
+
+        /* Bouton Afficher tous les PV - VERT */
+        #showAllButton {
+            background-color: #27ae60; /* Vert */
+            margin-top: 15px;
+        }
+
+        #showAllButton:hover {
+            background-color: #219a52; /* Vert foncé */
         }
 
         .protected-columns-info {
@@ -726,15 +764,15 @@
                 </div>
             </div>
             
-            <button id="showAllButton" style="background-color: #27ae60; margin-top: 15px;">
+            <button id="showAllButton">
                 📋 Afficher tous les PV
             </button>
 
             <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
-                🔗 Afficher les colonnes protégées
+                🔗 Admin - Afficher les colonnes protégées
             </button>
             
-            <button id="retryButton" style="background-color: #f39c12; margin-top: 10px; display: none;">
+            <button id="retryButton" style="margin-top: 10px; display: none;">
                 🔄 Réessayer le chargement
             </button>
         </section>
@@ -759,13 +797,15 @@
         <!-- Modal pour le mot de passe -->
         <div class="password-modal" id="passwordModal">
             <div class="password-modal-content">
-                <h3>Accès aux colonnes protégées</h3>
+                <h3>🔑 Admin - Accès aux colonnes protégées</h3>
                 <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
                 <div class="password-input-group">
-                    <input type="password" id="passwordInput" placeholder="Mot de passe">
-                    <button id="submitPassword">Valider</button>
+                    <input type="password" id="passwordInput" placeholder="Entrez le mot de passe ici">
+                    <div class="password-buttons">
+                        <button id="submitPassword">Valider</button>
+                        <button id="cancelPassword" class="secondary">Annuler</button>
+                    </div>
                 </div>
-                <button id="cancelPassword" class="secondary">Annuler</button>
                 <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
                     Mot de passe incorrect
                 </div>
@@ -831,6 +871,8 @@
             document.getElementById('passwordModal').style.display = 'flex';
             document.getElementById('passwordInput').value = '';
             document.getElementById('passwordError').style.display = 'none';
+            // Focus sur le champ de mot de passe
+            document.getElementById('passwordInput').focus();
         }
 
         function hidePasswordModal() {
@@ -862,6 +904,9 @@
                 }
             } else {
                 document.getElementById('passwordError').style.display = 'block';
+                // Vider le champ et refocus
+                document.getElementById('passwordInput').value = '';
+                document.getElementById('passwordInput').focus();
             }
         }
 
@@ -1607,8 +1652,8 @@
             if (results.length === 0) {
                 resultContent.innerHTML = `
                     <div class="no-results">
-                        <h3>❌ Aucun PV trouvé</h3>
-                        <p>Aucun procès-verbal ne correspond à votre recherche "${searchTerm}"</p>
+                        <h3>🔗 Lien Formulaire Ouvert</h3>
+                        <p>ℹ️Selectionne la fiche maintenant!!! "${searchTerm}"</p>
                     </div>
                 `;
             } else {
@@ -1623,7 +1668,7 @@
                     html += `
                         <div class="protected-columns-info">
                             <strong>ℹ️ Information :</strong> La colonne "Rohy fiche" est masquée pour des raisons de sécurité.
-                            <br>Utilisez le bouton "🔗 Afficher les colonnes protégées" pour y accéder.
+                            <br>Utilisez le bouton "🔗 Admin - Afficher les colonnes protégées" pour y accéder.
                         </div>
                     `;
                 }
