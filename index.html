@@ -817,7 +817,7 @@
         // ✅ URL CORRECTE pour votre Google Sheet en format CSV
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?gid=1509861479&single=true&output=csv';
         
-        const PASSWORD = "admin26";
+        const PASSWORD = "admin";
         let showProtectedColumns = false;
         const PROTECTED_COLUMNS = ['Rohy fiche'];
         
@@ -1652,8 +1652,8 @@
             if (results.length === 0) {
                 resultContent.innerHTML = `
                     <div class="no-results">
-                        <h3>🔗 Lien Formulaire Ouvert</h3>
-                        <p>ℹ️Selectionne la fiche maintenant!!! "${searchTerm}"</p>
+                        <h3>❌ Aucun PV trouvé ou selectionné </h3>
+                        <p>Aucun procès-verbal ne correspond à votre recherche "${searchTerm}"</p>
                     </div>
                 `;
             } else {
