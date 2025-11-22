@@ -664,6 +664,114 @@
             font-weight: bold;
             border-left: 4px solid #4CAF50 !important;
         }
+
+        /* Styles pour la section FAHATONGAVANA */
+        .title-fahatongavana {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%) !important;
+            color: #0d47a1 !important;
+            font-weight: bold;
+            border-left: 4px solid #2196F3 !important;
+        }
+
+        .fahatongavana-section {
+            background: #f8fdff;
+            border: 1px solid #e1f5fe;
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin: 5px 0;
+        }
+
+        .fahatongavana-row {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1px;
+            padding-bottom: 1px;
+            line-height: 1.1;
+            min-height: auto;
+        }
+
+        .fahatongavana-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .fahatongavana-label {
+            font-weight: bold;
+            min-width: 180px;
+            color: #0277bd;
+            padding-right: 15px;
+            font-size: 13px;
+        }
+
+        .fahatongavana-value {
+            flex: 1;
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 1.1;
+        }
+
+        .date-time-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .date-time-item {
+            flex: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 10px;
+            background: #f8fdff;
+            border-radius: 6px;
+            border: 1px solid #e1f5fe;
+            min-width: 200px;
+        }
+
+        .date-time-item i {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .date-time-label {
+            font-weight: bold;
+            color: #0277bd;
+            font-size: 13px;
+            margin-bottom: 2px;
+        }
+
+        .date-time-value {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.3;
+        }
+
+        .ordre-du-jour-section {
+            margin: 5px 0;
+            line-height: 1.1;
+        }
+
+        .ordre-du-jour-item {
+            margin-bottom: 1px;
+            padding-left: 15px;
+            font-size: 13px;
+            line-height: 1.1;
+        }
+
+        .ordre-du-jour-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+            color: #0d47a1;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin: 10px 0 5px 0;
+            border-left: 4px solid #2196F3;
+        }
         
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -699,6 +807,25 @@
             
             .filter-buttons {
                 flex-direction: column;
+            }
+
+            .date-time-row {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .date-time-item {
+                min-width: auto;
+            }
+
+            .fahatongavana-row {
+                flex-direction: column;
+            }
+
+            .fahatongavana-label {
+                min-width: auto;
+                margin-bottom: 1px;
+                padding-right: 0;
             }
         }
     </style>
@@ -1614,6 +1741,10 @@
                 return 'title-famaranana';
             }
             
+            if (headerLower.includes('fahatongavana') || headerLower.includes('présence') || headerLower.includes('présent')) {
+                return 'title-fahatongavana';
+            }
+            
             return '';
         }
 
@@ -1642,6 +1773,196 @@
             
             // Pour les autres contenus, appliquer le surlignage si nécessaire
             return `<div style="font-size:15px; font-weight:500; white-space:pre-wrap; line-height:1.8; font-family: inherit;">${strValue}</div>`;
+        }
+
+        function extractFahatongavanaData(row) {
+            const fahatongavanaData = {
+                araPotoana: [],
+                taraLatsaky30min: [],
+                taraLatsaky1h: [],
+                taraMihoatra1h: [],
+                tapakAndro: [],
+                nodyAloha: [],
+                tsyTonga: [],
+                nialaTsinyTara: [],
+                nialaTsinyTsyHoAvy: []
+            };
+
+            headers.forEach((header, index) => {
+                const value = row[index] || '';
+                if (!value || value.trim() === '') return;
+
+                const headerLower = header.toLowerCase();
+                
+                if (headerLower.includes('ara-potoana')) {
+                    fahatongavanaData.araPotoana.push(value);
+                } else if (headerLower.includes('tara latsaky ny 30min')) {
+                    fahatongavanaData.taraLatsaky30min.push(value);
+                } else if (headerLower.includes('tara latsaky ny 1h')) {
+                    fahatongavanaData.taraLatsaky1h.push(value);
+                } else if (headerLower.includes('tara mihoatra ny 1h')) {
+                    fahatongavanaData.taraMihoatra1h.push(value);
+                } else if (headerLower.includes('tapak\'andro')) {
+                    fahatongavanaData.tapakAndro.push(value);
+                } else if (headerLower.includes('nody aloha')) {
+                    fahatongavanaData.nodyAloha.push(value);
+                } else if (headerLower.includes('tsy tonga')) {
+                    fahatongavanaData.tsyTonga.push(value);
+                } else if (headerLower.includes('niala-tsiny tara')) {
+                    fahatongavanaData.nialaTsinyTara.push(value);
+                } else if (headerLower.includes('niala-tsiny tsy ho avy')) {
+                    fahatongavanaData.nialaTsinyTsyHoAvy.push(value);
+                }
+            });
+
+            return fahatongavanaData;
+        }
+
+        function extractOrdreDuJourData(row) {
+            const ordreDuJourData = [];
+            
+            headers.forEach((header, index) => {
+                const value = row[index] || '';
+                if (!value || value.trim() === '') return;
+
+                const headerLower = header.toLowerCase();
+                
+                if (headerLower.includes('ordre du jour')) {
+                    ordreDuJourData.push({
+                        header: header,
+                        value: value
+                    });
+                }
+            });
+
+            // Trier par numéro d'ordre
+            ordreDuJourData.sort((a, b) => {
+                const numA = extractNumber(a.header);
+                const numB = extractNumber(b.header);
+                return numA - numB;
+            });
+
+            return ordreDuJourData;
+        }
+
+        function extractNumber(text) {
+            const match = text.match(/\[(\d+)\]/);
+            return match ? parseInt(match[1]) : 0;
+        }
+
+        function formatFahatongavanaSection(fahatongavanaData) {
+            let html = '<div class="fahatongavana-section">';
+            
+            // Ara-potoana
+            if (fahatongavanaData.araPotoana.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Ara-potoana</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.araPotoana.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Tara latsaky ny 30min
+            if (fahatongavanaData.taraLatsaky30min.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara latsaky ny 30min</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky30min.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Tara latsaky ny 1h
+            if (fahatongavanaData.taraLatsaky1h.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara latsaky ny 1h</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky1h.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Tara mihoatra ny 1h
+            if (fahatongavanaData.taraMihoatra1h.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara mihoatra ny 1h</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraMihoatra1h.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Tapak'andro
+            if (fahatongavanaData.tapakAndro.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tapak'andro</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.tapakAndro.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Nody aloha
+            if (fahatongavanaData.nodyAloha.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Nody aloha</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nodyAloha.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Tsy tonga
+            if (fahatongavanaData.tsyTonga.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tsy tonga</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.tsyTonga.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Niala-tsiny tara
+            if (fahatongavanaData.nialaTsinyTara.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Niala-tsiny tara</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTara.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            // Niala-tsiny tsy ho avy
+            if (fahatongavanaData.nialaTsinyTsyHoAvy.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTsyHoAvy.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        function formatOrdreDuJourSection(ordreDuJourData) {
+            if (ordreDuJourData.length === 0) return '';
+            
+            let html = '<div class="ordre-du-jour-section">';
+            
+            ordreDuJourData.forEach((item, index) => {
+                const num = extractNumber(item.header) || (index + 1);
+                html += `
+                    <div class="ordre-du-jour-item">
+                        <strong>${num}.</strong> ${item.value}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
         }
         
         function displayResults(results, searchTerm) {
@@ -1697,15 +2018,111 @@
                                     ${currentSearchTerm ? highlightSearchText(titre, currentSearchTerm) : titre} — ${dateStr}
                                 </h3>
                             </div>
-                            <div style="padding: 0;">
-                                <table class="data-table">
+                            <div style="padding: 20px;">
                     `;
+                    
+                    // Section Date, Heures et Toerana côte à côte
+                    let datyValue = '';
+                    let oraFanombohanaValue = '';
+                    let oraFiravanaValue = '';
+                    let toeranaValue = '';
+                    
+                    for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                        const header = headers[colIndex] || '';
+                        const value = row[colIndex] || '';
+                        
+                        if (header.toLowerCase().includes('daty')) {
+                            datyValue = value;
+                        } else if (header.toLowerCase().includes('ora fanombohana')) {
+                            oraFanombohanaValue = value;
+                        } else if (header.toLowerCase().includes('ora firavana')) {
+                            oraFiravanaValue = value;
+                        } else if (header.toLowerCase().includes('toerana')) {
+                            toeranaValue = value;
+                        }
+                    }
+                    
+                    if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
+                        html += `
+                            <div class="date-time-row">
+                                ${datyValue ? `
+                                    <div class="date-time-item">
+                                        <div>📅</div>
+                                        <div>
+                                            <div class="date-time-label">Daty</div>
+                                            <div class="date-time-value">${currentSearchTerm ? highlightSearchText(datyValue, currentSearchTerm) : datyValue}</div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                ${oraFanombohanaValue ? `
+                                    <div class="date-time-item">
+                                        <div>⏰</div>
+                                        <div>
+                                            <div class="date-time-label">Ora fanombohana</div>
+                                            <div class="date-time-value">${currentSearchTerm ? highlightSearchText(oraFanombohanaValue, currentSearchTerm) : oraFanombohanaValue}</div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                ${oraFiravanaValue ? `
+                                    <div class="date-time-item">
+                                        <div>⏰</div>
+                                        <div>
+                                            <div class="date-time-label">Ora firavana</div>
+                                            <div class="date-time-value">${currentSearchTerm ? highlightSearchText(oraFiravanaValue, currentSearchTerm) : oraFiravanaValue}</div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                ${toeranaValue ? `
+                                    <div class="date-time-item">
+                                        <div>📍</div>
+                                        <div>
+                                            <div class="date-time-label">Toerana</div>
+                                            <div class="date-time-value">${currentSearchTerm ? highlightSearchText(toeranaValue, currentSearchTerm) : toeranaValue}</div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    }
+                    
+                    // Section FAHATONGAVANA avec titre au-dessus
+                    const fahatongavanaData = extractFahatongavanaData(row);
+                    const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
+                    
+                    if (hasFahatongavana) {
+                        html += `
+                            <div class="section-title">FAHATONGAVANA</div>
+                            ${formatFahatongavanaSection(fahatongavanaData)}
+                        `;
+                    }
+                    
+                    // Section ORDRE DU JOUR avec titre au-dessus
+                    const ordreDuJourData = extractOrdreDuJourData(row);
+                    if (ordreDuJourData.length > 0) {
+                        html += `
+                            <div class="section-title">ORDRE DU JOUR</div>
+                            ${formatOrdreDuJourSection(ordreDuJourData)}
+                        `;
+                    }
+                    
+                    // Autres colonnes (sauf Horodateur et celles déjà traitées)
+                    const excludedHeaders = [
+                        'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                    ];
+                    
+                    const processedHeaders = new Set();
                     
                     for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                         const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                         let value = row[colIndex] || '';
                         
                         if (!showProtectedColumns && isProtectedColumn(header)) {
+                            continue;
+                        }
+                        
+                        // Exclure Horodateur et les colonnes déjà traitées
+                        if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
+                            processedHeaders.has(header)) {
                             continue;
                         }
                         
@@ -1717,21 +2134,36 @@
                             continue;
                         }
                         
+                        // Exclure les colonnes de Fahatongavana et Ordre du Jour déjà traitées
+                        if (header.toLowerCase().includes('ara-potoana') ||
+                            header.toLowerCase().includes('tara latsaky') ||
+                            header.toLowerCase().includes('tara mihoatra') ||
+                            header.toLowerCase().includes('tapak') ||
+                            header.toLowerCase().includes('nody') ||
+                            header.toLowerCase().includes('tsy tonga') ||
+                            header.toLowerCase().includes('niala-tsiny') ||
+                            header.toLowerCase().includes('ordre du jour')) {
+                            continue;
+                        }
+                        
                         if (value !== undefined && value !== null && value !== '' && value.trim() !== '') {
                             const highlightedValue = currentSearchTerm ? highlightSearchText(value, currentSearchTerm) : value;
                             const titleClass = getTitleClass(header);
                             
                             html += `
-                                <tr>
-                                    <th class="${titleClass}">${header}</th>
-                                    <td>${formatCellValue(highlightedValue, header)}</td>
-                                </tr>
+                                <table class="data-table" style="margin-bottom: 15px;">
+                                    <tr>
+                                        <th class="${titleClass}">${header}</th>
+                                        <td>${formatCellValue(highlightedValue, header)}</td>
+                                    </tr>
+                                </table>
                             `;
+                            
+                            processedHeaders.add(header);
                         }
                     }
                     
                     html += `
-                                </table>
                             </div>
                         </div>
                     `;
