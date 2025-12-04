@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</title>
+    <title>📋 PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</title>
     <style>
-        /* Styles existants conservés... */
         :root {
             --primary-color: #2980b9;
             --secondary-color: #2c3e50;
@@ -14,6 +13,10 @@
             --text-color: #2c3e50;
             --border-radius: 8px;
             --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --orange-color: #FF8C00;
+            --orange-dark: #FF7A00;
+            --apple-green: #4CAF50;
+            --apple-green-dark: #45a049;
         }
         
         * {
@@ -37,16 +40,17 @@
             margin: 0 auto;
         }
         
+        /* HEADER MODERNE ET ATTRACTIF */
         header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 40px 20px;
-            background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             position: relative;
             overflow: hidden;
-            border: 2px solid #4CAF50;
+            border: none;
         }
         
         header::before {
@@ -56,28 +60,283 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path fill="%234CAF50" opacity="0.1" d="M60 20 Q70 10 80 20 Q90 30 80 40 Q70 50 60 40 Q50 30 60 20 Z"/><path fill="%234CAF50" opacity="0.1" d="M20 70 Q30 60 40 70 Q50 80 40 90 Q30 100 20 90 Q10 80 20 70 Z"/><path fill="%234CAF50" opacity="0.1" d="M90 70 Q100 60 110 70 Q120 80 110 90 Q100 100 90 90 Q80 80 90 70 Z"/><path fill="%234CAF50" opacity="0.1" d="M40 30 Q50 20 60 30 Q70 40 60 50 Q50 60 40 50 Q30 40 40 30 Z"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path fill="%23ffffff" opacity="0.1" d="M30,20 Q50,5 70,20 Q85,40 70,60 Q50,75 30,60 Q15,40 30,20 Z" /><path fill="%23ffffff" opacity="0.1" d="M90,80 Q105,65 110,85 Q115,100 100,110 Q80,115 70,100 Q65,85 90,80 Z" /><circle cx="50" cy="90" r="15" fill="%23ffffff" opacity="0.1"/></svg>');
             background-size: 300px 300px;
             background-position: center;
             opacity: 0.3;
         }
         
-        h1 {
-            color: #2e7d32;
-            margin-bottom: 15px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        .header-content {
             position: relative;
-            z-index: 1;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
         
-        header p {
-            color: #388e3c;
-            font-size: 1.2em;
-            font-weight: 500;
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 2em;
+        }
+        
+        .header-icons span {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .header-icons span:nth-child(1) { animation-delay: 0s; }
+        .header-icons span:nth-child(2) { animation-delay: 0.5s; }
+        .header-icons span:nth-child(3) { animation-delay: 1s; }
+        .header-icons span:nth-child(4) { animation-delay: 1.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.8em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
+        
+        .header-tagline {
+            color: #ecf0f1;
+            font-size: 1em;
+            font-weight: 400;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+            font-style: italic;
+        }
+        
+        /* STATISTIQUES EN LIGNE SUR MOBILE */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        @media (max-width: 768px) {
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+                padding: 10px;
+            }
+            
+            .stat-card {
+                padding: 10px;
+            }
+            
+            .stat-value {
+                font-size: 1.5em;
+            }
+            
+            .stat-label {
+                font-size: 0.8em;
+            }
+        }
+        
+        /* BOUTONS DE FILTRE ORANGE */
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            color: white;
+            font-weight: bold;
+            min-width: auto;
+            flex: 1;
+            background-color: var(--orange-color);
+            border: none;
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-size: 0.9em;
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .filter-buttons {
+                flex-direction: row;
+                gap: 8px;
+            }
+            
+            .filter-btn {
+                flex: 1;
+                min-width: 120px;
+                padding: 10px 8px;
+                font-size: 0.85em;
+            }
+        }
+        
+        /* NOUVEAU : LISTE DES DATES DISPONIBLES EN ORANGE */
+        .dates-list-container {
+            margin: 20px 0;
+            display: none; /* Caché par défaut */
+        }
+        
+        .dates-list-title {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dates-list-title i {
+            color: var(--orange-color);
+        }
+        
+        .dates-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .date-tag {
+            background: linear-gradient(135deg, var(--orange-color) 0%, var(--orange-dark) 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            min-width: 140px;
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .date-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, var(--orange-dark) 0%, #e67e00 100%);
+        }
+        
+        .date-tag:active {
+            transform: translateY(-1px);
+        }
+        
+        .date-tag i {
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .dates-list {
+                gap: 8px;
+                justify-content: center;
+            }
+            
+            .date-tag {
+                min-width: 120px;
+                padding: 8px 12px;
+                font-size: 0.85em;
+                flex: 1;
+            }
+        }
+        
+        /* DATES DISPONIBLES EN BOUTONS VERT POMME */
+        .available-dates-container {
+            margin: 20px 0;
+        }
+        
+        .dates-title {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dates-title i {
+            color: var(--apple-green);
+        }
+        
+        .dates-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .date-button {
+            background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9em;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 140px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .date-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, var(--apple-green-dark) 0%, #3d8b40 100%);
+        }
+        
+        .date-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .date-button i {
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .dates-buttons {
+                gap: 8px;
+                justify-content: center;
+            }
+            
+            .date-button {
+                min-width: 120px;
+                padding: 8px 12px;
+                font-size: 0.85em;
+                flex: 1;
+            }
+        }
+        
+        /* RESTE DU CSS RESTE IDENTIQUE AU CODE ORIGINAL */
+        /* ... (tout le reste du CSS reste inchangé) ... */
         
         .search-section {
             background-color: white;
@@ -265,48 +524,6 @@
         
         button.secondary:hover {
             background-color: #7f8c8d;
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            margin: 15px 0;
-            flex-wrap: wrap;
-        }
-        
-        .filter-btn {
-            color: white;
-            font-weight: bold;
-            min-width: auto;
-            flex: 1;
-        }
-        
-        .filter-btn.fanamarihana {
-            background-color: #3498db;
-        }
-        
-        .filter-btn.fanamarihana:hover {
-            background-color: #2980b9;
-        }
-        
-        .filter-btn.fanapahan-kevitra {
-            background-color: #3498db;
-        }
-        
-        .filter-btn.fanapahan-kevitra:hover {
-            background-color: #2980b9;
-        }
-        
-        .filter-btn.vaovao {
-            background-color: #3498db;
-        }
-        
-        .filter-btn.vaovao:hover {
-            background-color: #2980b9;
-        }
-        
-        .filter-btn:hover {
-            transform: translateY(-2px);
         }
         
         .suggestions-container {
@@ -839,21 +1056,163 @@
             font-size: 16px;
         }
         
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        .names-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+        
+        .name-tag {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .name-tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .stats-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .stats-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .floating-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .floating-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .floating-button.home {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+        }
+        
+        .floating-button.search {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+        }
+        
+        .floating-button.list {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            border: none;
+        }
+        
+        .floating-button.lock {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+        }
+        
+        .floating-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         
         @media (max-width: 768px) {
             .search-form {
-                flex-direction: column;
+                flex-direction: row;
+                align-items: center;
             }
             
-            .form-group {
-                width: 100%;
+            .search-form .form-group {
+                flex: 1;
+                min-width: auto;
+            }
+            
+            .search-form button {
+                min-width: 50px;
+                width: 50px;
+                padding: 12px;
+                background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffffff" width="24px" height="24px"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>');
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: 24px;
+            }
+            
+            .search-form button span {
+                display: none;
             }
             
             .calendar-container {
                 flex-direction: column;
+            }
+            
+            .date-list {
+                order: -1;
+                margin-bottom: 20px;
             }
             
             .data-table th, .data-table td {
@@ -868,13 +1227,9 @@
             }
             
             h1 {
-                font-size: 2em;
+                font-size: 1.5em;
             }
             
-            .filter-buttons {
-                flex-direction: column;
-            }
-
             .date-time-row {
                 flex-direction: column;
                 gap: 8px;
@@ -902,14 +1257,35 @@
                 padding: 12px;
                 font-size: 14px;
             }
+            
+            .floating-buttons {
+                right: 10px;
+                bottom: 10px;
+            }
+            
+            .floating-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📋 PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
-            <p>Navigation par date et recherche simple dans tous les procès-verbaux</p>
+            <div class="header-content">
+                <div class="header-icons">
+                    <span>📋</span>
+                    <span>🎵</span>
+                    <span>📅</span>
+                    <span>🎤</span>
+                </div>
+                <div>
+                    <h1>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
+                    <div class="header-tagline">Agenda musical • Calendrier des réunions • Gestion des PV</div>
+                </div>
+            </div>
         </header>
         
         <section class="search-section">
@@ -923,23 +1299,63 @@
                 </div>
                 
                 <div class="form-group">
-                    <button type="submit">🔍 Rechercher</button>
+                    <button type="submit"><span>🔍 Rechercher</span></button>
                 </div>
             </form>
             
+            <!-- Section Statistiques -->
+            <div class="stats-section" id="statsSection">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalPV">0</div>
+                    <div class="stat-label">Total PV</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="toeranaStats">0</div>
+                    <div class="stat-label">Lieux différents</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalParticipants">0</div>
+                    <div class="stat-label">Participants uniques</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="toeranaCount">0</div>
+                    <div class="stat-label">Réunions totales</div>
+                </div>
+            </div>
+            
+            <!-- Liste des noms -->
+            <div id="namesListContainer" style="display: none;">
+                <h3>👤 Liste des participants</h3>
+                <div class="names-list" id="namesList"></div>
+            </div>
+            
+            <!-- NOUVELLE LISTE DES DATES DISPONIBLES EN ORANGE -->
+            <div class="dates-list-container" id="datesListContainer">
+                <h3 class="dates-list-title">📅 Liste des dates avec PV disponibles</h3>
+                <div class="dates-list" id="datesList"></div>
+            </div>
+            
+            <!-- Liste des lieux -->
+            <div id="toeranaListContainer" style="display: none;">
+                <h3>📍 Réunions par lieu</h3>
+                <div id="toeranaList"></div>
+            </div>
+            
+            <!-- Boutons de filtre orange -->
             <div class="filter-buttons">
-                <button id="showFanamarihanaButton" class="filter-btn fanamarihana">
-                    📝 Afficher les Fanamarihana Famerenana
+                <button id="showFanamarihanaButton" class="filter-btn">
+                    📝 Fanamarihana Famerenana
                 </button>
-                <button id="showFanapahanKevitraButton" class="filter-btn fanapahan-kevitra">
-                    📋 Afficher les Fanapahan-kevitra sy Asa ho atao
+                <button id="showFanapahanKevitraButton" class="filter-btn">
+                    📋 Fanapahan-kevitra & Asa
                 </button>
-                <button id="showVaovaoButton" class="filter-btn vaovao">
-                    📢 Afficher les Vaovao
+                <button id="showVaovaoButton" class="filter-btn">
+                    📢 Vaovao
                 </button>
             </div>
             
             <div class="calendar-container">
+                <!-- Calendrier uniquement -->
                 <div class="calendar">
                     <div class="calendar-header">
                         <button id="prevMonth" class="secondary">◀</button>
@@ -951,17 +1367,12 @@
                     </div>
                 </div>
                 
+                <!-- Sélection directe par date -->
                 <div class="date-picker">
                     <h3>Sélection directe par date</h3>
                     <div class="date-input-group">
                         <input type="date" id="dateInput">
                         <button id="goToDate">Aller</button>
-                    </div>
-                    <div class="form-group">
-                        <label for="dateList">Dates disponibles :</label>
-                        <div class="date-list" id="dateList">
-                            <!-- Les dates disponibles seront listées ici -->
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1023,12 +1434,27 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal pour les statistiques des noms -->
+        <div class="stats-modal" id="statsModal">
+            <div class="stats-modal-content">
+                <h3 id="statsModalTitle">Statistiques</h3>
+                <div id="statsModalContent"></div>
+                <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Boutons flottants -->
+    <div class="floating-buttons">
+        <a href="#" class="floating-button home" id="floatingHome" title="Accueil">🏠</a>
+        <a href="#" class="floating-button search" id="floatingSearch" title="Recherche">🔍</a>
+        <a href="#" class="floating-button list" id="floatingList" title="Tous les PV">📋</a>
+        <a href="#" class="floating-button lock" id="floatingLock" title="Admin">🔓</a>
     </div>
 
     <script>
-        // ✅ URL CORRECTE pour votre Google Sheet en format CSV
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?gid=1509861479&single=true&output=csv';
-        
         const PASSWORD = "admin";
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdFwjo69WNzQlrGSI8GQUTP-M8_wXsEVc6T7JogUzoj1V-JlA/viewform?usp=header";
         
@@ -1042,6 +1468,12 @@
         let selectedDate = null;
         let currentSearchTerm = '';
         let isAdminAuthenticated = false;
+        
+        // Variables pour les statistiques
+        let allNames = new Set();
+        let nameStatistics = {};
+        let toeranaStats = {};
+        let totalPV = 0;
         
         document.addEventListener('DOMContentLoaded', function() {
             const searchInput = document.getElementById('searchText');
@@ -1063,6 +1495,27 @@
             document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
             document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
             
+            // Boutons flottants
+            document.getElementById('floatingHome').addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollToTop();
+            });
+            document.getElementById('floatingSearch').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('searchText').focus();
+            });
+            document.getElementById('floatingList').addEventListener('click', function(e) {
+                e.preventDefault();
+                showAllData();
+            });
+            document.getElementById('floatingLock').addEventListener('click', function(e) {
+                e.preventDefault();
+                showPasswordModal();
+            });
+            
+            // Statistiques
+            document.getElementById('closeStatsModal').addEventListener('click', hideStatsModal);
+            
             searchInput.addEventListener('input', function() {
                 showSuggestions(this.value);
             });
@@ -1081,6 +1534,100 @@
             
             loadDataFromGoogleSheets();
         });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function extractDatesWithData() {
+            datesWithData = [];
+            
+            const dateColumnIndex = 1;
+            
+            sheetData.forEach((row, index) => {
+                const dateStr = row[dateColumnIndex] || '';
+                if (dateStr && dateStr.trim() !== '') {
+                    const date = parseDate(dateStr);
+                    if (date) {
+                        datesWithData.push({
+                            date: date,
+                            dateStr: dateStr,
+                            rowIndex: index
+                        });
+                    }
+                }
+            });
+            
+            datesWithData.sort((a, b) => a.date - b.date);
+            
+            console.log(`📅 ${datesWithData.length} dates avec données trouvées`);
+            
+            // Afficher la liste des dates
+            displayDatesList();
+        }
+
+        // NOUVELLE FONCTION : Afficher la liste des dates disponibles
+        function displayDatesList() {
+            const datesListContainer = document.getElementById('datesListContainer');
+            const datesList = document.getElementById('datesList');
+            
+            if (datesWithData.length === 0) {
+                datesListContainer.style.display = 'none';
+                return;
+            }
+            
+            datesListContainer.style.display = 'block';
+            datesList.innerHTML = '';
+            
+            // Limiter à 20 dates maximum pour éviter une liste trop longue
+            const maxDatesToShow = 20;
+            const datesToShow = datesWithData.slice(0, maxDatesToShow);
+            
+            datesToShow.forEach(item => {
+                const dateTag = document.createElement('div');
+                dateTag.className = 'date-tag';
+                
+                // Formater la date pour l'affichage
+                const formattedDate = formatDateForDisplay(item.date);
+                const shortDate = item.date.toLocaleDateString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                
+                dateTag.innerHTML = `
+                    <i>📅</i>
+                    <span>${shortDate}</span>
+                `;
+                
+                dateTag.title = `Voir le PV du ${formattedDate}`;
+                
+                dateTag.addEventListener('click', () => {
+                    // Afficher directement les données du PV pour cette date
+                    const matchingRows = findPVByDate(item.date);
+                    if (matchingRows.length > 0) {
+                        displayResults(matchingRows, `PV du ${formattedDate}`);
+                    }
+                });
+                
+                datesList.appendChild(dateTag);
+            });
+            
+            // Afficher un message si plus de dates que le maximum
+            if (datesWithData.length > maxDatesToShow) {
+                const moreDatesMsg = document.createElement('div');
+                moreDatesMsg.style.cssText = `
+                    width: 100%;
+                    text-align: center;
+                    margin-top: 10px;
+                    color: var(--orange-color);
+                    font-weight: bold;
+                    font-size: 0.9em;
+                `;
+                moreDatesMsg.textContent = `... et ${datesWithData.length - maxDatesToShow} dates supplémentaires`;
+                datesList.appendChild(moreDatesMsg);
+            }
+        }
 
         function showDateOptions(date) {
             const modal = document.getElementById('dateOptionsModal');
@@ -1139,6 +1686,9 @@
                         // Ouvrir le lien "Rohy fiche" correspondant
                         openEditLinkForDate(date);
                         hideDateOptionsModal();
+                    } else {
+                        // Si pas authentifié, afficher le bouton pour s'authentifier
+                        showPasswordModalForAction('edit');
                     }
                 });
                 
@@ -1149,6 +1699,7 @@
                     authButton.textContent = '🔑 Authentifier pour modifier';
                     authButton.addEventListener('click', function() {
                         showPasswordModalForAction('edit');
+                        hideDateOptionsModal();
                     });
                     buttonsContainer.appendChild(authButton);
                 }
@@ -1240,6 +1791,13 @@
                 showProtectedColumns = true;
                 hidePasswordModal();
                 
+                // Mettre à jour le bouton modifier dans la modal si elle est ouverte
+                const editButton = document.getElementById('editPVButton');
+                if (editButton) {
+                    editButton.disabled = false;
+                    editButton.textContent = '✏️ Modifier le PV';
+                }
+                
                 // Si une action était en attente, l'exécuter
                 if (action === 'create') {
                     window.open(GOOGLE_FORM_URL, '_blank');
@@ -1280,40 +1838,6 @@
             return months[monthName.toLowerCase()] || 0;
         }
         
-        // MODIFICATION : Les dates de la liste vont directement aux données
-        function renderDateList() {
-            const dateList = document.getElementById('dateList');
-            dateList.innerHTML = '';
-            
-            if (datesWithData.length === 0) {
-                dateList.innerHTML = '<div class="date-item">Aucune date avec données</div>';
-                return;
-            }
-            
-            datesWithData.forEach(item => {
-                const dateItem = document.createElement('div');
-                dateItem.className = 'date-item';
-                dateItem.textContent = formatDateForDisplay(item.date);
-                
-                if (selectedDate && 
-                    selectedDate.getDate() === item.date.getDate() &&
-                    selectedDate.getMonth() === item.date.getMonth() &&
-                    selectedDate.getFullYear() === item.date.getFullYear()) {
-                    dateItem.classList.add('selected');
-                }
-                
-                dateItem.addEventListener('click', () => {
-                    // ALLER DIRECTEMENT AUX DONNÉES (pas d'options)
-                    displayDataForDate(item.date);
-                    currentDate = new Date(item.date);
-                    renderCalendar();
-                });
-                
-                dateList.appendChild(dateItem);
-            });
-        }
-
-        // MODIFICATION : Le calendrier montre les options
         function renderCalendar() {
             const calendarGrid = document.getElementById('calendarGrid');
             const currentMonthElement = document.getElementById('currentMonth');
@@ -1409,227 +1933,266 @@
             showDateOptions(selectedDate);
         }
 
-        // Les autres fonctions restent inchangées...
-        function showFanamarihanaFamerenana() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
+        // FONCTION CORRIGÉE POUR CALCULER LES STATISTIQUES
+        function calculateStatistics() {
+            // Réinitialiser les statistiques
+            allNames.clear();
+            nameStatistics = {};
+            toeranaStats = {};
+            totalPV = sheetData.length;
             
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    if (header.toLowerCase().includes('fanamarihana famerenana')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
+            sheetData.forEach(row => {
+                // Extraire les données de présence
+                const fahatongavanaData = extractFahatongavanaData(row);
+                
+                // Combiner tous les noms de toutes les catégories
+                const allCategories = [
+                    ...fahatongavanaData.araPotoana,
+                    ...fahatongavanaData.taraLatsaky30min,
+                    ...fahatongavanaData.taraLatsaky1h,
+                    ...fahatongavanaData.taraMihoatra1h,
+                    ...fahatongavanaData.tapakAndro,
+                    ...fahatongavanaData.nodyAloha,
+                    ...fahatongavanaData.tsyTonga,
+                    ...fahatongavanaData.nialaTsinyTara,
+                    ...fahatongavanaData.nialaTsinyTsyHoAvy
+                ];
+                
+                // Traiter chaque nom
+                allCategories.forEach(fullName => {
+                    if (fullName && fullName.trim()) {
+                        // Séparer les noms par virgule ou slash
+                        const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
+                        
+                        names.forEach(name => {
+                            if (name) {
+                                allNames.add(name);
+                                
+                                // Initialiser les statistiques pour ce nom si nécessaire
+                                if (!nameStatistics[name]) {
+                                    nameStatistics[name] = {
+                                        araPotoana: 0,
+                                        taraLatsaky30min: 0,
+                                        taraLatsaky1h: 0,
+                                        taraMihoatra1h: 0,
+                                        tapakAndro: 0,
+                                        nodyAloha: 0,
+                                        tsyTonga: 0,
+                                        nialaTsinyTara: 0,
+                                        nialaTsinyTsyHoAvy: 0,
+                                        total: 0
+                                    };
+                                }
+                                
+                                // Compter les présences par catégorie
+                                if (fahatongavanaData.araPotoana.some(n => n.includes(name))) {
+                                    nameStatistics[name].araPotoana++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.taraLatsaky30min.some(n => n.includes(name))) {
+                                    nameStatistics[name].taraLatsaky30min++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.taraLatsaky1h.some(n => n.includes(name))) {
+                                    nameStatistics[name].taraLatsaky1h++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.taraMihoatra1h.some(n => n.includes(name))) {
+                                    nameStatistics[name].taraMihoatra1h++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.tapakAndro.some(n => n.includes(name))) {
+                                    nameStatistics[name].tapakAndro++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.nodyAloha.some(n => n.includes(name))) {
+                                    nameStatistics[name].nodyAloha++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.tsyTonga.some(n => n.includes(name))) {
+                                    nameStatistics[name].tsyTonga++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.nialaTsinyTara.some(n => n.includes(name))) {
+                                    nameStatistics[name].nialaTsinyTara++;
+                                    nameStatistics[name].total++;
+                                }
+                                if (fahatongavanaData.nialaTsinyTsyHoAvy.some(n => n.includes(name))) {
+                                    nameStatistics[name].nialaTsinyTsyHoAvy++;
+                                    nameStatistics[name].total++;
+                                }
+                            }
+                        });
                     }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Fanamarihana Famerenana');
-        }
-        
-        function showFanapahanKevitra() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    if (header.toLowerCase().includes('fanapahan') || 
-                        header.toLowerCase().includes('kevitra') || 
-                        header.toLowerCase().includes('asa ho atao') ||
-                        header.toLowerCase().includes('asa ata')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
-                    }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
-        }
-        
-        function showVaovao() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    if (header.toLowerCase().includes('vaovao') || 
-                        header.toLowerCase().includes('nouvelle') || 
-                        header.toLowerCase().includes('news')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
-                    }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Vaovao');
-        }
-        
-        async function loadDataFromGoogleSheets() {
-            console.log('🔍 Début du chargement des données PV...');
-            document.getElementById('loadingIndicator').style.display = 'block';
-            document.getElementById('retryButton').style.display = 'none';
-            clearErrorMessages();
-            
-            try {
-                console.log('🔄 Essai 1: Accès direct...');
-                let response = await fetch(GOOGLE_SHEETS_URL);
+                });
                 
-                if (response.ok) {
-                    const csvText = await response.text();
-                    console.log('✅ Succès avec accès direct');
-                    processCSVData(csvText);
-                    return;
-                }
-                throw new Error(`Direct failed: ${response.status}`);
-                
-            } catch (error1) {
-                console.log('❌ Échec accès direct:', error1.message);
-                
-                try {
-                    console.log('🔄 Essai 2: AllOrigins...');
-                    const allOriginsUrl = 'https://api.allorigins.win/raw?url=';
-                    let response = await fetch(allOriginsUrl + encodeURIComponent(GOOGLE_SHEETS_URL));
-                    
-                    if (response.ok) {
-                        const csvText = await response.text();
-                        console.log('✅ Succès avec AllOrigins');
-                        processCSVData(csvText);
-                        return;
-                    }
-                    throw new Error(`AllOrigins failed: ${response.status}`);
-                    
-                } catch (error2) {
-                    console.log('❌ Échec AllOrigins:', error2.message);
-                    showError('Impossible de charger les données. Vérifiez votre connexion internet et que le Google Sheet est bien publié.');
-                }
-            }
-        }
-
-        function parseCSV(csvText) {
-            const lines = [];
-            let currentLine = [];
-            let currentField = '';
-            let inQuotes = false;
-            
-            for (let i = 0; i < csvText.length; i++) {
-                const char = csvText[i];
-                const nextChar = csvText[i + 1];
-                
-                if (char === '"') {
-                    if (inQuotes && nextChar === '"') {
-                        currentField += '"';
-                        i++;
-                    } else {
-                        inQuotes = !inQuotes;
-                    }
-                } else if (char === ',' && !inQuotes) {
-                    currentLine.push(currentField);
-                    currentField = '';
-                } else if (char === '\n' && !inQuotes) {
-                    currentLine.push(currentField);
-                    lines.push(currentLine);
-                    currentLine = [];
-                    currentField = '';
-                } else if (char === '\r') {
-                    continue;
-                } else {
-                    currentField += char;
-                }
-            }
-            
-            if (currentField !== '' || currentLine.length > 0) {
-                currentLine.push(currentField);
-                lines.push(currentLine);
-            }
-            
-            return lines;
-        }
-        
-        function processCSVData(csvText) {
-            try {
-                console.log('📄 Traitement des données CSV...');
-                
-                if (!csvText || csvText.trim().length === 0) {
-                    throw new Error('Le fichier CSV est vide');
-                }
-                
-                const lines = parseCSV(csvText);
-                
-                if (!lines || lines.length === 0) {
-                    throw new Error('Aucune donnée parsée');
-                }
-                
-                headers = lines[0] || [];
-                console.log('🏷️ En-têtes détectés:', headers);
-                
-                sheetData = lines.slice(1).filter(row => 
-                    row && row.some(cell => cell && cell.trim() !== '')
+                // Statistiques des lieux (Toerana)
+                const toeranaIndex = headers.findIndex(h => 
+                    h && h.toLowerCase().includes('toerana')
                 );
                 
-                console.log('📈 Données extraites:', sheetData.length, 'PV trouvés');
-                
-                if (sheetData.length === 0) {
-                    throw new Error('Aucun PV avec des données trouvé');
-                }
-                
-                extractDatesWithData();
-                showDataInfo();
-                renderCalendar();
-                renderDateList();
-                
-            } catch (error) {
-                console.error('❌ Erreur de traitement:', error);
-                showError(error.message);
-            } finally {
-                document.getElementById('loadingIndicator').style.display = 'none';
-            }
-        }
-        
-        function extractDatesWithData() {
-            datesWithData = [];
-            
-            const dateColumnIndex = 1;
-            
-            sheetData.forEach((row, index) => {
-                const dateStr = row[dateColumnIndex] || '';
-                if (dateStr && dateStr.trim() !== '') {
-                    const date = parseDate(dateStr);
-                    if (date) {
-                        datesWithData.push({
-                            date: date,
-                            dateStr: dateStr,
-                            rowIndex: index
-                        });
+                if (toeranaIndex !== -1) {
+                    const toerana = row[toeranaIndex] || '';
+                    if (toerana && toerana.trim() !== '') {
+                        if (!toeranaStats[toerana]) {
+                            toeranaStats[toerana] = 0;
+                        }
+                        toeranaStats[toerana]++;
                     }
                 }
             });
             
-            datesWithData.sort((a, b) => a.date - b.date);
+            // Mettre à jour l'affichage des statistiques
+            updateStatsDisplay();
             
-            console.log(`📅 ${datesWithData.length} dates avec données trouvées`);
+            // Afficher la liste des noms
+            displayNamesList();
+            
+            // Afficher la liste des lieux
+            displayToeranaList();
+        }
+        
+        function updateStatsDisplay() {
+            document.getElementById('totalPV').textContent = totalPV;
+            document.getElementById('toeranaStats').textContent = Object.keys(toeranaStats).length;
+            document.getElementById('totalParticipants').textContent = allNames.size;
+            
+            // Calculer le nombre total de réunions par lieu
+            let totalMeetings = 0;
+            Object.values(toeranaStats).forEach(count => {
+                totalMeetings += count;
+            });
+            document.getElementById('toeranaCount').textContent = totalMeetings;
+        }
+        
+        function displayNamesList() {
+            const namesListContainer = document.getElementById('namesListContainer');
+            const namesList = document.getElementById('namesList');
+            
+            if (allNames.size === 0) {
+                namesListContainer.style.display = 'none';
+                return;
+            }
+            
+            namesListContainer.style.display = 'block';
+            namesList.innerHTML = '';
+            
+            Array.from(allNames).sort().forEach(name => {
+                const nameTag = document.createElement('div');
+                nameTag.className = 'name-tag';
+                nameTag.textContent = name;
+                nameTag.addEventListener('click', () => {
+                    showNameStatistics(name);
+                });
+                namesList.appendChild(nameTag);
+            });
+        }
+        
+        function displayToeranaList() {
+            const toeranaListContainer = document.getElementById('toeranaListContainer');
+            const toeranaList = document.getElementById('toeranaList');
+            
+            if (Object.keys(toeranaStats).length === 0) {
+                toeranaListContainer.style.display = 'none';
+                return;
+            }
+            
+            toeranaListContainer.style.display = 'block';
+            toeranaList.innerHTML = '';
+            
+            // Trier les lieux par nombre de réunions (décroissant)
+            const sortedToerana = Object.entries(toeranaStats).sort((a, b) => b[1] - a[1]);
+            
+            sortedToerana.forEach(([toerana, count]) => {
+                const toeranaItem = document.createElement('div');
+                toeranaItem.className = 'date-item';
+                toeranaItem.innerHTML = `
+                    <strong>${toerana}</strong>
+                    <span style="float: right; background: #3498db; color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.8em;">
+                        ${count} réunion${count > 1 ? 's' : ''}
+                    </span>
+                `;
+                toeranaItem.addEventListener('click', () => {
+                    // Filtrer les PV pour ce lieu
+                    const filteredData = sheetData.filter(row => {
+                        const toeranaIndex = headers.findIndex(h => 
+                            h && h.toLowerCase().includes('toerana')
+                        );
+                        return toeranaIndex !== -1 && row[toeranaIndex] === toerana;
+                    });
+                    displayResults(filteredData, `PV au lieu: ${toerana}`);
+                });
+                toeranaList.appendChild(toeranaItem);
+            });
+        }
+        
+        function showNameStatistics(name) {
+            const stats = nameStatistics[name];
+            if (!stats) return;
+            
+            const modal = document.getElementById('statsModal');
+            const title = document.getElementById('statsModalTitle');
+            const content = document.getElementById('statsModalContent');
+            
+            title.textContent = `Statistiques pour ${name}`;
+            
+            // Calculer le pourcentage de présence (ara-potoana)
+            const presencePercentage = totalPV > 0 ? ((stats.araPotoana / totalPV) * 100).toFixed(1) : 0;
+            
+            let html = `
+                <div style="margin-bottom: 20px;">
+                    <p><strong>Total des présences enregistrées:</strong> ${stats.total}</p>
+                    <p><strong>Nombre total de PV:</strong> ${totalPV}</p>
+                    <p><strong>Taux de présence (Ara-potoana):</strong> ${presencePercentage}%</p>
+                </div>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Catégorie</th>
+                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Nombre</th>
+                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Pourcentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            // Liste des catégories à afficher
+            const categories = [
+                { key: 'araPotoana', label: 'Ara-potoana' },
+                { key: 'taraLatsaky30min', label: 'Tara latsaky ny 30min' },
+                { key: 'taraLatsaky1h', label: 'Tara latsaky ny 1h' },
+                { key: 'taraMihoatra1h', label: 'Tara mihoatra ny 1h' },
+                { key: 'tapakAndro', label: 'Tapak\'andro' },
+                { key: 'nodyAloha', label: 'Nody aloha' },
+                { key: 'tsyTonga', label: 'Tsy tonga' },
+                { key: 'nialaTsinyTara', label: 'Niala-tsiny tara' },
+                { key: 'nialaTsinyTsyHoAvy', label: 'Niala-tsiny tsy ho avy' }
+            ];
+            
+            categories.forEach(cat => {
+                const count = stats[cat.key] || 0;
+                const percentage = totalPV > 0 ? ((count / totalPV) * 100).toFixed(1) : '0.0';
+                
+                html += `
+                    <tr>
+                        <td style="padding: 8px; border-bottom: 1px solid #eee;">${cat.label}</td>
+                        <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">${count}</td>
+                        <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">${percentage}%</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                    </tbody>
+                </table>
+            `;
+            
+            content.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        function hideStatsModal() {
+            document.getElementById('statsModal').style.display = 'none';
         }
         
         function parseDate(dateStr) {
@@ -1773,6 +2336,7 @@
             dataInfo.innerHTML = `
                 <div class="success-message">
                     ✅ Données chargées avec succès : ${sheetData.length} PV trouvé(s)
+                    <br><small>${allNames.size} participants uniques • ${Object.keys(toeranaStats).length} lieux de réunion</small>
                 </div>
             `;
             dataInfo.style.display = 'block';
@@ -2366,6 +2930,204 @@
         function closeResults() {
             document.getElementById('resultsSection').style.display = 'none';
             currentSearchTerm = '';
+        }
+
+        async function loadDataFromGoogleSheets() {
+            console.log('🔍 Début du chargement des données PV...');
+            document.getElementById('loadingIndicator').style.display = 'block';
+            document.getElementById('retryButton').style.display = 'none';
+            clearErrorMessages();
+            
+            try {
+                console.log('🔄 Essai 1: Accès direct...');
+                let response = await fetch(GOOGLE_SHEETS_URL);
+                
+                if (response.ok) {
+                    const csvText = await response.text();
+                    console.log('✅ Succès avec accès direct');
+                    processCSVData(csvText);
+                    return;
+                }
+                throw new Error(`Direct failed: ${response.status}`);
+                
+            } catch (error1) {
+                console.log('❌ Échec accès direct:', error1.message);
+                
+                try {
+                    console.log('🔄 Essai 2: AllOrigins...');
+                    const allOriginsUrl = 'https://api.allorigins.win/raw?url=';
+                    let response = await fetch(allOriginsUrl + encodeURIComponent(GOOGLE_SHEETS_URL));
+                    
+                    if (response.ok) {
+                        const csvText = await response.text();
+                        console.log('✅ Succès avec AllOrigins');
+                        processCSVData(csvText);
+                        return;
+                    }
+                    throw new Error(`AllOrigins failed: ${response.status}`);
+                    
+                } catch (error2) {
+                    console.log('❌ Échec AllOrigins:', error2.message);
+                    showError('Impossible de charger les données. Vérifiez votre connexion internet et que le Google Sheet est bien publié.');
+                }
+            }
+        }
+
+        function parseCSV(csvText) {
+            const lines = [];
+            let currentLine = [];
+            let currentField = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < csvText.length; i++) {
+                const char = csvText[i];
+                const nextChar = csvText[i + 1];
+                
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        currentField += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    currentLine.push(currentField);
+                    currentField = '';
+                } else if (char === '\n' && !inQuotes) {
+                    currentLine.push(currentField);
+                    lines.push(currentLine);
+                    currentLine = [];
+                    currentField = '';
+                } else if (char === '\r') {
+                    continue;
+                } else {
+                    currentField += char;
+                }
+            }
+            
+            if (currentField !== '' || currentLine.length > 0) {
+                currentLine.push(currentField);
+                lines.push(currentLine);
+            }
+            
+            return lines;
+        }
+        
+        function processCSVData(csvText) {
+            try {
+                console.log('📄 Traitement des données CSV...');
+                
+                if (!csvText || csvText.trim().length === 0) {
+                    throw new Error('Le fichier CSV est vide');
+                }
+                
+                const lines = parseCSV(csvText);
+                
+                if (!lines || lines.length === 0) {
+                    throw new Error('Aucune donnée parsée');
+                }
+                
+                headers = lines[0] || [];
+                console.log('🏷️ En-têtes détectés:', headers);
+                
+                sheetData = lines.slice(1).filter(row => 
+                    row && row.some(cell => cell && cell.trim() !== '')
+                );
+                
+                console.log('📈 Données extraites:', sheetData.length, 'PV trouvés');
+                
+                if (sheetData.length === 0) {
+                    throw new Error('Aucun PV avec des données trouvé');
+                }
+                
+                extractDatesWithData();
+                calculateStatistics();
+                showDataInfo();
+                renderCalendar();
+                
+            } catch (error) {
+                console.error('❌ Erreur de traitement:', error);
+                showError(error.message);
+            } finally {
+                document.getElementById('loadingIndicator').style.display = 'none';
+            }
+        }
+
+        function showFanamarihanaFamerenana() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    if (header.toLowerCase().includes('fanamarihana famerenana')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanamarihana Famerenana');
+        }
+        
+        function showFanapahanKevitra() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    if (header.toLowerCase().includes('fanapahan') || 
+                        header.toLowerCase().includes('kevitra') || 
+                        header.toLowerCase().includes('asa ho atao') ||
+                        header.toLowerCase().includes('asa ata')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
+        }
+        
+        function showVaovao() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    if (header.toLowerCase().includes('vaovao') || 
+                        header.toLowerCase().includes('nouvelle') || 
+                        header.toLowerCase().includes('news')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Vaovao');
         }
     </script>
 </body>
