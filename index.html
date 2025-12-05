@@ -118,6 +118,118 @@
             font-style: italic;
         }
         
+        /* Section export améliorée - MODIFIÉ */
+        .export-section {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .export-btn {
+            background: var(--apple-green);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.95em;
+        }
+        
+        .export-btn:hover {
+            background: var(--apple-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .export-btn.email {
+            background: var(--accent-color);
+        }
+        
+        .export-btn.email:hover {
+            background: #c0392b;
+        }
+        
+        .export-btn.all {
+            background: var(--primary-color);
+        }
+        
+        .export-btn.all:hover {
+            background: #1a5276;
+        }
+        
+        /* Modal pour l'export de dates sélectionnées */
+        .export-dates-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .export-dates-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .export-dates-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            padding: 10px;
+        }
+        
+        .export-date-item {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .export-date-item:last-child {
+            border-bottom: none;
+        }
+        
+        .export-date-checkbox {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .export-date-label {
+            flex: 1;
+            cursor: pointer;
+        }
+        
         /* STATISTIQUES EN LIGNE SUR MOBILE */
         .stats-section {
             display: grid;
@@ -147,6 +259,15 @@
             
             .stat-label {
                 font-size: 0.8em;
+            }
+            
+            .export-buttons {
+                flex-direction: column;
+            }
+            
+            .export-btn {
+                min-width: auto;
+                width: 100%;
             }
         }
         
@@ -190,77 +311,6 @@
                 min-width: 120px;
                 padding: 10px 8px;
                 font-size: 0.85em;
-            }
-        }
-        
-        /* NOUVEAU : LISTE DES DATES DISPONIBLES EN ORANGE */
-        .dates-list-container {
-            margin: 20px 0;
-            display: none; /* Caché par défaut */
-        }
-        
-        .dates-list-title {
-            color: var(--text-color);
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .dates-list-title i {
-            color: var(--orange-color);
-        }
-        
-        .dates-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .date-tag {
-            background: linear-gradient(135deg, var(--orange-color) 0%, var(--orange-dark) 100%);
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.9em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            min-width: 140px;
-            text-align: center;
-            justify-content: center;
-        }
-        
-        .date-tag:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, var(--orange-dark) 0%, #e67e00 100%);
-        }
-        
-        .date-tag:active {
-            transform: translateY(-1px);
-        }
-        
-        .date-tag i {
-            font-size: 0.9em;
-        }
-        
-        @media (max-width: 768px) {
-            .dates-list {
-                gap: 8px;
-                justify-content: center;
-            }
-            
-            .date-tag {
-                min-width: 120px;
-                padding: 8px 12px;
-                font-size: 0.85em;
-                flex: 1;
             }
         }
         
@@ -335,9 +385,7 @@
             }
         }
         
-        /* RESTE DU CSS RESTE IDENTIQUE AU CODE ORIGINAL */
-        /* ... (tout le reste du CSS reste inchangé) ... */
-        
+        /* RESTE DU CSS RESTE IDENTIQUE */
         .search-section {
             background-color: white;
             padding: 25px;
@@ -466,29 +514,6 @@
             flex: 1;
         }
         
-        .date-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-        }
-        
-        .date-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-bottom: 1px solid #f0f0f0;
-            transition: background-color 0.2s;
-        }
-        
-        .date-item:hover {
-            background-color: var(--light-color);
-        }
-        
-        .date-item.selected {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
         label {
             display: block;
             margin-bottom: 8px;
@@ -496,7 +521,7 @@
             color: var(--secondary-color);
         }
         
-        input, select, button {
+        input, select, button, textarea {
             padding: 12px;
             font-size: 16px;
             border: 1px solid #ddd;
@@ -1172,6 +1197,12 @@
             border: none;
         }
         
+        .floating-button.export {
+            background: linear-gradient(135deg, var(--apple-green), var(--apple-green-dark));
+            color: white;
+            border: none;
+        }
+        
         .floating-button:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 12px rgba(0,0,0,0.3);
@@ -1208,11 +1239,6 @@
             
             .calendar-container {
                 flex-direction: column;
-            }
-            
-            .date-list {
-                order: -1;
-                margin-bottom: 20px;
             }
             
             .data-table th, .data-table td {
@@ -1288,6 +1314,22 @@
             </div>
         </header>
         
+        <!-- Section export améliorée - MODIFIÉ -->
+        <section class="export-section" id="exportSection">
+            <h3>📤 Export des données</h3>
+            <div class="export-buttons">
+                <button class="export-btn" id="exportSelected">
+                    <span>📅</span> Exporter par sélection de dates
+                </button>
+                <button class="export-btn all" id="exportAll">
+                    <span>📊</span> Exporter toutes les données
+                </button>
+                <button class="export-btn email" id="sendEmail">
+                    <span>📧</span> Envoyer rapport par email
+                </button>
+            </div>
+        </section>
+        
         <section class="search-section">
             <form id="searchForm" class="search-form" autocomplete="off">
                 <div class="form-group">
@@ -1323,16 +1365,18 @@
                 </div>
             </div>
             
+            <!-- Section Dates disponibles en boutons -->
+            <div class="available-dates-container" id="availableDatesContainer" style="display: none;">
+                <h3 class="dates-title"><i>📅</i> Dates disponibles</h3>
+                <div class="dates-buttons" id="datesButtons">
+                    <!-- Les boutons de dates seront générés ici -->
+                </div>
+            </div>
+            
             <!-- Liste des noms -->
             <div id="namesListContainer" style="display: none;">
                 <h3>👤 Liste des participants</h3>
                 <div class="names-list" id="namesList"></div>
-            </div>
-            
-            <!-- NOUVELLE LISTE DES DATES DISPONIBLES EN ORANGE -->
-            <div class="dates-list-container" id="datesListContainer">
-                <h3 class="dates-list-title">📅 Liste des dates avec PV disponibles</h3>
-                <div class="dates-list" id="datesList"></div>
             </div>
             
             <!-- Liste des lieux -->
@@ -1354,8 +1398,8 @@
                 </button>
             </div>
             
+            <!-- Section calendrier uniquement -->
             <div class="calendar-container">
-                <!-- Calendrier uniquement -->
                 <div class="calendar">
                     <div class="calendar-header">
                         <button id="prevMonth" class="secondary">◀</button>
@@ -1367,8 +1411,7 @@
                     </div>
                 </div>
                 
-                <!-- Sélection directe par date -->
-                <div class="date-picker">
+                <div class="date-picker" id="desktopDateList">
                     <h3>Sélection directe par date</h3>
                     <div class="date-input-group">
                         <input type="date" id="dateInput">
@@ -1443,6 +1486,83 @@
                 <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
             </div>
         </div>
+
+        <!-- Modal pour l'export de dates sélectionnées -->
+        <div class="export-dates-modal" id="exportDatesModal">
+            <div class="export-dates-content">
+                <h3>📅 Sélection des dates à exporter</h3>
+                <p>Sélectionnez les dates que vous souhaitez exporter :</p>
+                
+                <div class="export-dates-list" id="exportDatesList">
+                    <!-- Les dates seront ajoutées ici dynamiquement -->
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <label>
+                        <input type="checkbox" id="selectAllDates">
+                        Sélectionner toutes les dates
+                    </label>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exportFormatSelect">Format d'export :</label>
+                    <select id="exportFormatSelect">
+                        <option value="csv">CSV (Tableur)</option>
+                        <option value="excel">Excel (XLSX)</option>
+                        <option value="pdf">PDF (Rapport)</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="cancelExportDates" class="secondary" style="flex: 1;">Annuler</button>
+                    <button id="confirmExportDates" class="primary" style="flex: 1; background: var(--apple-green);">Exporter</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pour l'envoi par email -->
+        <div class="export-dates-modal" id="emailExportModal">
+            <div class="export-dates-content">
+                <h3>📧 Envoyer le rapport par email</h3>
+                <p>Entrez les adresses email des destinataires (séparées par des virgules) :</p>
+                
+                <div class="form-group">
+                    <label for="emailRecipients">Destinataires :</label>
+                    <textarea id="emailRecipients" placeholder="exemple1@gmail.com, exemple2@hotmail.com, exemple3@yahoo.com" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailSubject">Sujet :</label>
+                    <input type="text" id="emailSubject" value="Rapport PV - Tournée NY AKO 2026">
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailMessage">Message :</label>
+                    <textarea id="emailMessage" rows="4" placeholder="Message accompagnant le rapport..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="emailFormatSelect">Format du rapport :</label>
+                    <select id="emailFormatSelect">
+                        <option value="pdf">PDF (Rapport complet)</option>
+                        <option value="csv">CSV (Données brutes)</option>
+                        <option value="excel">Excel (Tableur)</option>
+                    </select>
+                </div>
+                
+                <div style="margin: 15px 0;">
+                    <label>
+                        <input type="checkbox" id="includeStats" checked>
+                        Inclure les statistiques générales
+                    </label>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button id="cancelEmailExport" class="secondary" style="flex: 1;">Annuler</button>
+                    <button id="confirmEmailExport" class="primary" style="flex: 1; background: var(--accent-color);">Envoyer</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Boutons flottants -->
@@ -1451,6 +1571,7 @@
         <a href="#" class="floating-button search" id="floatingSearch" title="Recherche">🔍</a>
         <a href="#" class="floating-button list" id="floatingList" title="Tous les PV">📋</a>
         <a href="#" class="floating-button lock" id="floatingLock" title="Admin">🔓</a>
+        <a href="#" class="floating-button export" id="floatingExport" title="Export">📤</a>
     </div>
 
     <script>
@@ -1490,10 +1611,24 @@
             document.getElementById('submitPassword').addEventListener('click', checkPassword);
             document.getElementById('cancelPassword').addEventListener('click', hidePasswordModal);
             
-            // Nouveaux boutons de filtre
+            // Boutons de filtre
             document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
             document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
             document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
+            
+            // Boutons d'export
+            document.getElementById('exportSelected').addEventListener('click', showExportDatesModal);
+            document.getElementById('exportAll').addEventListener('click', exportAllData);
+            document.getElementById('sendEmail').addEventListener('click', showEmailExportModal);
+            
+            // Modal d'export de dates
+            document.getElementById('cancelExportDates').addEventListener('click', hideExportDatesModal);
+            document.getElementById('confirmExportDates').addEventListener('click', confirmExportDates);
+            document.getElementById('selectAllDates').addEventListener('change', selectAllExportDates);
+            
+            // Modal d'email
+            document.getElementById('cancelEmailExport').addEventListener('click', hideEmailExportModal);
+            document.getElementById('confirmEmailExport').addEventListener('click', confirmEmailExport);
             
             // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
@@ -1511,6 +1646,10 @@
             document.getElementById('floatingLock').addEventListener('click', function(e) {
                 e.preventDefault();
                 showPasswordModal();
+            });
+            document.getElementById('floatingExport').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
             });
             
             // Statistiques
@@ -1532,101 +1671,402 @@
                 }
             });
             
+            // Ajuster l'affichage des dates sur mobile
+            adjustDateDisplay();
+            window.addEventListener('resize', adjustDateDisplay);
+            
             loadDataFromGoogleSheets();
         });
+
+        function adjustDateDisplay() {
+            const desktopDateList = document.getElementById('desktopDateList');
+            
+            if (window.innerWidth <= 768) {
+                desktopDateList.style.display = 'none';
+            } else {
+                desktopDateList.style.display = 'block';
+            }
+        }
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function extractDatesWithData() {
-            datesWithData = [];
+        // MODAL D'EXPORT DE DATES SELECTIONNEES
+        function showExportDatesModal() {
+            const modal = document.getElementById('exportDatesModal');
+            const datesList = document.getElementById('exportDatesList');
             
-            const dateColumnIndex = 1;
-            
-            sheetData.forEach((row, index) => {
-                const dateStr = row[dateColumnIndex] || '';
-                if (dateStr && dateStr.trim() !== '') {
-                    const date = parseDate(dateStr);
-                    if (date) {
-                        datesWithData.push({
-                            date: date,
-                            dateStr: dateStr,
-                            rowIndex: index
-                        });
-                    }
-                }
-            });
-            
-            datesWithData.sort((a, b) => a.date - b.date);
-            
-            console.log(`📅 ${datesWithData.length} dates avec données trouvées`);
-            
-            // Afficher la liste des dates
-            displayDatesList();
-        }
-
-        // NOUVELLE FONCTION : Afficher la liste des dates disponibles
-        function displayDatesList() {
-            const datesListContainer = document.getElementById('datesListContainer');
-            const datesList = document.getElementById('datesList');
+            datesList.innerHTML = '';
             
             if (datesWithData.length === 0) {
-                datesListContainer.style.display = 'none';
+                datesList.innerHTML = '<div style="color: #7f8c8d; font-style: italic; text-align: center; padding: 20px;">Aucune date avec données</div>';
+            } else {
+                datesWithData.forEach((item, index) => {
+                    const dateItem = document.createElement('div');
+                    dateItem.className = 'export-date-item';
+                    
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.className = 'export-date-checkbox';
+                    checkbox.value = item.dateStr;
+                    checkbox.id = `export-date-${index}`;
+                    
+                    const label = document.createElement('label');
+                    label.className = 'export-date-label';
+                    label.htmlFor = `export-date-${index}`;
+                    label.textContent = formatDateForDisplay(item.date);
+                    
+                    dateItem.appendChild(checkbox);
+                    dateItem.appendChild(label);
+                    datesList.appendChild(dateItem);
+                });
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function hideExportDatesModal() {
+            document.getElementById('exportDatesModal').style.display = 'none';
+        }
+        
+        function selectAllExportDates() {
+            const checkAll = document.getElementById('selectAllDates').checked;
+            const checkboxes = document.querySelectorAll('.export-date-checkbox');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = checkAll;
+            });
+        }
+        
+        function confirmExportDates() {
+            const selectedDates = [];
+            const checkboxes = document.querySelectorAll('.export-date-checkbox:checked');
+            const format = document.getElementById('exportFormatSelect').value;
+            
+            if (checkboxes.length === 0) {
+                alert('Veuillez sélectionner au moins une date.');
                 return;
             }
             
-            datesListContainer.style.display = 'block';
-            datesList.innerHTML = '';
+            checkboxes.forEach(checkbox => {
+                selectedDates.push(checkbox.value);
+            });
             
-            // Limiter à 20 dates maximum pour éviter une liste trop longue
-            const maxDatesToShow = 20;
-            const datesToShow = datesWithData.slice(0, maxDatesToShow);
+            // Filtrer les données selon les dates sélectionnées
+            const rowsToExport = [];
+            selectedDates.forEach(dateStr => {
+                const date = parseDate(dateStr);
+                if (date) {
+                    const matchingRows = findPVByDate(date);
+                    rowsToExport.push(...matchingRows);
+                }
+            });
             
-            datesToShow.forEach(item => {
-                const dateTag = document.createElement('div');
-                dateTag.className = 'date-tag';
+            if (rowsToExport.length > 0) {
+                switch(format) {
+                    case 'csv':
+                        exportToCSV(rowsToExport, `pv_selection_${new Date().toISOString().split('T')[0]}.csv`);
+                        break;
+                    case 'excel':
+                        exportToExcel(rowsToExport, `pv_selection_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        break;
+                    case 'pdf':
+                        exportToPDF(rowsToExport, `Rapport PV sélection`);
+                        break;
+                }
+                hideExportDatesModal();
+            } else {
+                alert('Aucune donnée trouvée pour les dates sélectionnées.');
+            }
+        }
+        
+        // MODAL D'ENVOI PAR EMAIL
+        function showEmailExportModal() {
+            const modal = document.getElementById('emailExportModal');
+            
+            // Pré-remplir le sujet
+            document.getElementById('emailSubject').value = `Rapport PV - Tournée NY AKO 2026 - ${new Date().toLocaleDateString('fr-FR')}`;
+            
+            // Pré-remplir le message
+            const message = `Bonjour,
+
+Veuillez trouver ci-joint le rapport des procès-verbaux de la Tournée NY AKO 2026.
+
+Statistiques générales :
+- Total PV : ${totalPV}
+- Noms uniques : ${allNames.size}
+- Lieux de réunion : ${Object.keys(toeranaStats).length}
+
+Cordialement,
+L'équipe de gestion des PV`;
+            
+            document.getElementById('emailMessage').value = message;
+            
+            modal.style.display = 'flex';
+        }
+        
+        function hideEmailExportModal() {
+            document.getElementById('emailExportModal').style.display = 'none';
+        }
+        
+        function confirmEmailExport() {
+            const recipients = document.getElementById('emailRecipients').value;
+            const subject = document.getElementById('emailSubject').value;
+            const message = document.getElementById('emailMessage').value;
+            const format = document.getElementById('emailFormatSelect').value;
+            const includeStats = document.getElementById('includeStats').checked;
+            
+            if (!recipients || recipients.trim() === '') {
+                alert('Veuillez entrer au moins une adresse email.');
+                return;
+            }
+            
+            // Préparer les données pour l'email
+            let dataToExport = sheetData;
+            let reportContent = '';
+            
+            if (includeStats) {
+                reportContent = generateStatsReport();
+            }
+            
+            // Créer le lien mailto
+            const emailBody = encodeURIComponent(message + '\n\n' + reportContent);
+            const emailSubject = encodeURIComponent(subject);
+            const emailRecipients = recipients.split(',').map(email => email.trim()).join(',');
+            
+            const mailtoLink = `mailto:${emailRecipients}?subject=${emailSubject}&body=${emailBody}`;
+            
+            window.open(mailtoLink);
+            hideEmailExportModal();
+            
+            // Pour l'export réel du fichier
+            setTimeout(() => {
+                switch(format) {
+                    case 'csv':
+                        exportToCSV(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}.csv`);
+                        break;
+                    case 'excel':
+                        exportToExcel(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        break;
+                    case 'pdf':
+                        exportToPDF(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}`);
+                        break;
+                }
+            }, 1000);
+        }
+        
+        function generateStatsReport() {
+            let report = '\n\n--- STATISTIQUES DÉTAILLÉES ---\n\n';
+            
+            report += `STATISTIQUES GÉNÉRALES:\n`;
+            report += `Total PV: ${totalPV}\n`;
+            report += `Noms uniques: ${allNames.size}\n`;
+            report += `Lieux de réunion: ${Object.keys(toeranaStats).length}\n\n`;
+            
+            report += `STATISTIQUES PAR LIEU:\n`;
+            Object.entries(toeranaStats).forEach(([toerana, count]) => {
+                report += `- ${toerana}: ${count} réunion${count > 1 ? 's' : ''}\n`;
+            });
+            
+            report += `\nSTATISTIQUES DE PRÉSENCE (Top 10):\n`;
+            const sortedNames = Array.from(allNames).sort((a, b) => {
+                const statsA = nameStatistics[a] || { araPotoana: 0, totalPVs: 0 };
+                const statsB = nameStatistics[b] || { araPotoana: 0, totalPVs: 0 };
+                const percentA = statsA.totalPVs > 0 ? (statsA.araPotoana / statsA.totalPVs) * 100 : 0;
+                const percentB = statsB.totalPVs > 0 ? (statsB.araPotoana / statsB.totalPVs) * 100 : 0;
+                return percentB - percentA;
+            }).slice(0, 10);
+            
+            sortedNames.forEach(name => {
+                const stats = nameStatistics[name];
+                if (stats) {
+                    const presencePercent = stats.totalPVs > 0 ? Math.round((stats.araPotoana / stats.totalPVs) * 100) : 0;
+                    report += `- ${name}: ${presencePercent}% (${stats.araPotoana}/${stats.totalPVs})\n`;
+                }
+            });
+            
+            return report;
+        }
+        
+        // FONCTIONS D'EXPORT
+        function exportAllData() {
+            if (sheetData.length > 0) {
+                // Demander le format
+                const format = prompt('Choisissez le format d\'export :\n1. CSV (Tableur)\n2. Excel (XLSX)\n3. PDF (Rapport)\n\nEntrez 1, 2 ou 3 :', '1');
                 
-                // Formater la date pour l'affichage
-                const formattedDate = formatDateForDisplay(item.date);
-                const shortDate = item.date.toLocaleDateString('fr-FR', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
+                switch(format) {
+                    case '1':
+                        exportToCSV(sheetData, `pv_complet_${new Date().toISOString().split('T')[0]}.csv`);
+                        break;
+                    case '2':
+                        exportToExcel(sheetData, `pv_complet_${new Date().toISOString().split('T')[0]}.xlsx`);
+                        break;
+                    case '3':
+                        exportToPDF(sheetData, `Rapport PV complet`);
+                        break;
+                    default:
+                        exportToCSV(sheetData, `pv_complet_${new Date().toISOString().split('T')[0]}.csv`);
+                        break;
+                }
+            } else {
+                alert('Aucune donnée à exporter.');
+            }
+        }
+        
+        function exportToCSV(data, filename) {
+            let csvContent = 'data:text/csv;charset=utf-8,';
+            
+            // Ajouter les en-têtes
+            csvContent += headers.map(header => `"${header}"`).join(',') + '\n';
+            
+            // Ajouter les données
+            data.forEach(row => {
+                const rowData = headers.map((header, index) => {
+                    const value = row[index] || '';
+                    return `"${value.replace(/"/g, '""')}"`;
                 });
+                csvContent += rowData.join(',') + '\n';
+            });
+            
+            // Télécharger le fichier
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement('a');
+            link.setAttribute('href', encodedUri);
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+        
+        function exportToExcel(data, filename) {
+            // Pour Excel, nous utilisons CSV pour l'instant
+            exportToCSV(data, filename.replace('.xlsx', '.csv'));
+        }
+        
+        function exportToPDF(data, title) {
+            // Ouvrir une nouvelle fenêtre avec le contenu HTML pour impression
+            const printWindow = window.open('', '_blank');
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${title}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+                        h2 { color: #3498db; margin-top: 20px; }
+                        .pv-item { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
+                        .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
+                        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+                        .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+                        .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                        .stats-summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        @media print { 
+                            body { margin: 0; font-size: 12px; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${title}</h1>
+                    <p>Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
+                    
+                    <div class="stats-summary">
+                        <h2>Résumé des statistiques</h2>
+                        <p><strong>Total PV exportés:</strong> ${data.length}</p>
+                        <p><strong>Noms uniques:</strong> ${allNames.size}</p>
+                        <p><strong>Lieux de réunion:</strong> ${Object.keys(toeranaStats).length}</p>
+                    </div>
+            `;
+            
+            data.forEach((row, index) => {
+                const dateStr = row[1] || 'Date non spécifiée';
+                const titre = row[2] || `PV ${index + 1}`;
                 
-                dateTag.innerHTML = `
-                    <i>📅</i>
-                    <span>${shortDate}</span>
+                html += `
+                    <div class="pv-item">
+                        <div class="pv-header">
+                            <h2>${titre}</h2>
+                            <p><strong>Date:</strong> ${dateStr}</p>
+                        </div>
+                        <table class="data-table">
                 `;
                 
-                dateTag.title = `Voir le PV du ${formattedDate}`;
-                
-                dateTag.addEventListener('click', () => {
-                    // Afficher directement les données du PV pour cette date
-                    const matchingRows = findPVByDate(item.date);
-                    if (matchingRows.length > 0) {
-                        displayResults(matchingRows, `PV du ${formattedDate}`);
+                headers.forEach((header, colIndex) => {
+                    const value = row[colIndex] || '';
+                    if (value && value.trim() !== '') {
+                        html += `
+                            <tr>
+                                <th>${header}</th>
+                                <td>${value.replace(/\n/g, '<br>')}</td>
+                            </tr>
+                        `;
                     }
                 });
                 
-                datesList.appendChild(dateTag);
+                html += `</table></div>`;
             });
             
-            // Afficher un message si plus de dates que le maximum
-            if (datesWithData.length > maxDatesToShow) {
-                const moreDatesMsg = document.createElement('div');
-                moreDatesMsg.style.cssText = `
-                    width: 100%;
-                    text-align: center;
-                    margin-top: 10px;
-                    color: var(--orange-color);
-                    font-weight: bold;
-                    font-size: 0.9em;
-                `;
-                moreDatesMsg.textContent = `... et ${datesWithData.length - maxDatesToShow} dates supplémentaires`;
-                datesList.appendChild(moreDatesMsg);
+            html += `
+                    <div class="no-print" style="margin-top: 30px; text-align: center;">
+                        <button onclick="window.print()" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            🖨️ Imprimer ce rapport
+                        </button>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+        }
+        
+        // NOUVELLE FONCTION : Générer les boutons de dates
+        function renderDatesButtons() {
+            const datesButtons = document.getElementById('datesButtons');
+            const availableDatesContainer = document.getElementById('availableDatesContainer');
+            
+            if (datesWithData.length === 0) {
+                availableDatesContainer.style.display = 'none';
+                return;
             }
+            
+            availableDatesContainer.style.display = 'block';
+            datesButtons.innerHTML = '';
+            
+            datesWithData.forEach(item => {
+                const dateButton = document.createElement('button');
+                dateButton.className = 'date-button';
+                
+                // Formater la date : jjj jj-mm-aa
+                const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
+                const day = item.date.getDate().toString().padStart(2, '0');
+                const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
+                const year = item.date.getFullYear().toString().slice(-2);
+                
+                dateButton.innerHTML = `
+                    <i>📅</i>
+                    ${dayName} ${day}-${month}-${year}
+                `;
+                
+                dateButton.addEventListener('click', () => {
+                    // Afficher directement les données de cette date
+                    displayDataForDate(item.date);
+                    currentDate = new Date(item.date);
+                    renderCalendar();
+                    
+                    // Mettre en évidence la date sélectionnée
+                    document.querySelectorAll('.date-button').forEach(btn => {
+                        btn.style.opacity = '0.8';
+                    });
+                    dateButton.style.opacity = '1';
+                    dateButton.style.boxShadow = '0 0 0 2px var(--apple-green)';
+                });
+                
+                datesButtons.appendChild(dateButton);
+            });
         }
 
         function showDateOptions(date) {
@@ -1838,6 +2278,35 @@
             return months[monthName.toLowerCase()] || 0;
         }
         
+        // MODIFICATION : Ajouter l'appel à renderDatesButtons
+        function extractDatesWithData() {
+            datesWithData = [];
+            
+            const dateColumnIndex = 1;
+            
+            sheetData.forEach((row, index) => {
+                const dateStr = row[dateColumnIndex] || '';
+                if (dateStr && dateStr.trim() !== '') {
+                    const date = parseDate(dateStr);
+                    if (date) {
+                        datesWithData.push({
+                            date: date,
+                            dateStr: dateStr,
+                            rowIndex: index
+                        });
+                    }
+                }
+            });
+            
+            datesWithData.sort((a, b) => a.date - b.date);
+            
+            console.log(`📅 ${datesWithData.length} dates avec données trouvées`);
+            
+            // Générer les boutons de dates
+            renderDatesButtons();
+        }
+
+        // MODIFICATION : Le calendrier montre les options
         function renderCalendar() {
             const calendarGrid = document.getElementById('calendarGrid');
             const currentMonthElement = document.getElementById('currentMonth');
