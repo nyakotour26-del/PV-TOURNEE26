@@ -118,7 +118,7 @@
             font-style: italic;
         }
         
-        /* Section export améliorée - MODIFIÉ */
+        /* Section export améliorée - TOUS LES BOUTONS SUR UNE LIGNE */
         .export-section {
             background: white;
             padding: 20px;
@@ -127,35 +127,119 @@
             margin-bottom: 30px;
         }
         
+        .export-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .export-buttons {
             display: flex;
+            flex-direction: row;
             gap: 10px;
-            flex-wrap: wrap;
             margin-top: 15px;
+            align-items: stretch;
+        }
+        
+        @media (max-width: 768px) {
+            .export-buttons {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .export-btn {
+                flex: 1;
+                min-width: calc(33.333% - 8px);
+                min-height: 90px;
+                padding: 10px 5px;
+            }
+            
+            .export-btn .icon {
+                font-size: 1.5em;
+                margin-bottom: 5px;
+            }
+            
+            .export-btn .label {
+                font-size: 0.8em;
+                line-height: 1.2;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .export-buttons {
+                gap: 6px;
+            }
+            
+            .export-btn {
+                min-width: calc(33.333% - 6px);
+                min-height: 85px;
+                padding: 8px 4px;
+            }
+            
+            .export-btn .icon {
+                font-size: 1.3em;
+            }
+            
+            .export-btn .label {
+                font-size: 0.75em;
+            }
         }
         
         .export-btn {
             background: var(--apple-green);
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 12px 8px;
             border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            flex: 1;
-            min-width: 200px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 0.95em;
+            gap: 5px;
+            text-align: center;
+            min-height: 100px;
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .export-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" opacity="0.1"><path d="M30 15 Q35 10 40 15 Q45 20 40 25 Q35 30 30 25 Q25 20 30 15 Z" fill="white"/><path d="M15 35 Q20 30 25 35 Q30 40 25 45 Q20 50 15 45 Q10 40 15 35 Z" fill="white"/><path d="M45 35 Q50 30 55 35 Q60 40 55 45 Q50 50 45 45 Q40 40 45 35 Z" fill="white"/></svg>');
+            background-size: 60px 60px;
+            background-position: center;
+            opacity: 0.2;
         }
         
         .export-btn:hover {
             background: var(--apple-green-dark);
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .export-btn .icon {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .export-btn .label {
+            font-size: 0.85em;
+            line-height: 1.2;
+            position: relative;
+            z-index: 2;
         }
         
         .export-btn.email {
@@ -174,69 +258,13 @@
             background: #1a5276;
         }
         
-        /* Modal pour l'export de dates sélectionnées */
-        .export-dates-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .export-dates-content {
-            background: white;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .export-dates-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            margin: 15px 0;
-            padding: 10px;
-        }
-        
-        .export-date-item {
-            padding: 10px;
-            border-bottom: 1px solid #f0f0f0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .export-date-item:last-child {
-            border-bottom: none;
-        }
-        
-        .export-date-checkbox {
-            width: 20px;
-            height: 20px;
-        }
-        
-        .export-date-label {
-            flex: 1;
-            cursor: pointer;
-        }
-        
-        /* STATISTIQUES EN LIGNE SUR MOBILE */
+        /* STATISTIQUES EN LIGNE SUR MOBILE - PLUS PETITES ET SUR UNE LIGNE */
         .stats-section {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-            padding: 15px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 15px 0;
+            padding: 12px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -244,30 +272,45 @@
         
         @media (max-width: 768px) {
             .stats-section {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 6px;
                 padding: 10px;
+                margin: 12px 0;
             }
             
             .stat-card {
-                padding: 10px;
+                padding: 8px 4px;
+                min-height: 60px;
             }
             
             .stat-value {
-                font-size: 1.5em;
+                font-size: 1.1em !important;
+                margin-bottom: 2px;
             }
             
             .stat-label {
-                font-size: 0.8em;
+                font-size: 0.7em !important;
+                line-height: 1.1;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-section {
+                gap: 4px;
+                padding: 8px;
             }
             
-            .export-buttons {
-                flex-direction: column;
+            .stat-card {
+                padding: 6px 3px;
+                min-height: 55px;
             }
             
-            .export-btn {
-                min-width: auto;
-                width: 100%;
+            .stat-value {
+                font-size: 1em !important;
+            }
+            
+            .stat-label {
+                font-size: 0.65em !important;
             }
         }
         
@@ -333,15 +376,22 @@
         }
         
         .dates-buttons {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .dates-buttons {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 8px;
+            }
         }
         
         .date-button {
             background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
             color: white;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border-radius: 25px;
             border: none;
             cursor: pointer;
@@ -349,12 +399,11 @@
             font-weight: 600;
             font-size: 0.9em;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            min-width: 140px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 8px;
         }
         
         .date-button:hover {
@@ -371,21 +420,63 @@
             font-size: 0.9em;
         }
         
-        @media (max-width: 768px) {
-            .dates-buttons {
-                gap: 8px;
-                justify-content: center;
-            }
-            
-            .date-button {
-                min-width: 120px;
-                padding: 8px 12px;
-                font-size: 0.85em;
-                flex: 1;
-            }
+        /* Modal pour l'export de dates sélectionnées */
+        .export-dates-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
         
-        /* RESTE DU CSS RESTE IDENTIQUE */
+        .export-dates-content {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .export-dates-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            margin: 15px 0;
+            padding: 10px;
+        }
+        
+        .export-date-item {
+            padding: 10px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .export-date-item:last-child {
+            border-bottom: none;
+        }
+        
+        .export-date-checkbox {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .export-date-label {
+            flex: 1;
+            cursor: pointer;
+        }
+        
+        /* RESTE DU CSS */
         .search-section {
             background-color: white;
             padding: 25px;
@@ -1083,14 +1174,18 @@
         
         .stat-card {
             background: #f8f9fa;
-            padding: 15px;
+            padding: 12px 8px;
             border-radius: var(--border-radius);
             text-align: center;
             border-left: 4px solid var(--primary-color);
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .stat-value {
-            font-size: 2em;
+            font-size: 1.5em;
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 5px;
@@ -1098,7 +1193,7 @@
         
         .stat-label {
             color: #7f8c8d;
-            font-size: 0.9em;
+            font-size: 0.8em;
         }
         
         .names-list {
@@ -1314,18 +1409,21 @@
             </div>
         </header>
         
-        <!-- Section export améliorée - MODIFIÉ -->
+        <!-- Section export améliorée - TOUS SUR UNE LIGNE -->
         <section class="export-section" id="exportSection">
-            <h3>📤 Export des données</h3>
+            <h3><span>📤</span> Export des données</h3>
             <div class="export-buttons">
                 <button class="export-btn" id="exportSelected">
-                    <span>📅</span> Exporter par sélection de dates
+                    <div class="icon">📅</div>
+                    <div class="label">Exporter par sélection de dates</div>
                 </button>
                 <button class="export-btn all" id="exportAll">
-                    <span>📊</span> Exporter toutes les données
+                    <div class="icon">📊</div>
+                    <div class="label">Exporter toutes les données</div>
                 </button>
                 <button class="export-btn email" id="sendEmail">
-                    <span>📧</span> Envoyer rapport par email
+                    <div class="icon">📧</div>
+                    <div class="label">Envoyer rapport par email</div>
                 </button>
             </div>
         </section>
@@ -1345,7 +1443,7 @@
                 </div>
             </form>
             
-            <!-- Section Statistiques -->
+            <!-- Section Statistiques - TOUTES SUR UNE LIGNE EN MOBILE -->
             <div class="stats-section" id="statsSection">
                 <div class="stat-card">
                     <div class="stat-value" id="totalPV">0</div>
@@ -1353,15 +1451,15 @@
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="toeranaStats">0</div>
-                    <div class="stat-label">Lieux différents</div>
+                    <div class="stat-label">Lieux</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="totalParticipants">0</div>
-                    <div class="stat-label">Participants uniques</div>
+                    <div class="stat-label">Participants</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-value" id="toeranaCount">0</div>
-                    <div class="stat-label">Réunions totales</div>
+                    <div class="stat-label">Réunions</div>
                 </div>
             </div>
             
@@ -1869,23 +1967,6 @@ L'équipe de gestion des PV`;
                 report += `- ${toerana}: ${count} réunion${count > 1 ? 's' : ''}\n`;
             });
             
-            report += `\nSTATISTIQUES DE PRÉSENCE (Top 10):\n`;
-            const sortedNames = Array.from(allNames).sort((a, b) => {
-                const statsA = nameStatistics[a] || { araPotoana: 0, totalPVs: 0 };
-                const statsB = nameStatistics[b] || { araPotoana: 0, totalPVs: 0 };
-                const percentA = statsA.totalPVs > 0 ? (statsA.araPotoana / statsA.totalPVs) * 100 : 0;
-                const percentB = statsB.totalPVs > 0 ? (statsB.araPotoana / statsB.totalPVs) * 100 : 0;
-                return percentB - percentA;
-            }).slice(0, 10);
-            
-            sortedNames.forEach(name => {
-                const stats = nameStatistics[name];
-                if (stats) {
-                    const presencePercent = stats.totalPVs > 0 ? Math.round((stats.araPotoana / stats.totalPVs) * 100) : 0;
-                    report += `- ${name}: ${presencePercent}% (${stats.araPotoana}/${stats.totalPVs})\n`;
-                }
-            });
-            
             return report;
         }
         
@@ -2023,7 +2104,7 @@ L'équipe de gestion des PV`;
             printWindow.focus();
         }
         
-        // NOUVELLE FONCTION : Générer les boutons de dates
+        // FONCTION : Générer les boutons de dates
         function renderDatesButtons() {
             const datesButtons = document.getElementById('datesButtons');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
@@ -2155,7 +2236,7 @@ L'équipe de gestion des PV`;
             modal.style.display = 'flex';
         }
 
-        // NOUVELLE FONCTION : Afficher directement les données pour une date
+        // FONCTION : Afficher directement les données pour une date
         function displayDataForDate(date) {
             const matchingRows = findPVByDate(date);
             if (matchingRows.length > 0) {
@@ -2278,7 +2359,7 @@ L'équipe de gestion des PV`;
             return months[monthName.toLowerCase()] || 0;
         }
         
-        // MODIFICATION : Ajouter l'appel à renderDatesButtons
+        // EXTRACTION DES DATES AVEC DONNÉES
         function extractDatesWithData() {
             datesWithData = [];
             
@@ -2306,7 +2387,7 @@ L'équipe de gestion des PV`;
             renderDatesButtons();
         }
 
-        // MODIFICATION : Le calendrier montre les options
+        // CALENDRIER
         function renderCalendar() {
             const calendarGrid = document.getElementById('calendarGrid');
             const currentMonthElement = document.getElementById('currentMonth');
@@ -2384,7 +2465,7 @@ L'équipe de gestion des PV`;
             }
         }
 
-        // MODIFICATION : La sélection de date via le champ de date va directement aux options
+        // SÉLECTION DE DATE VIA LE CHAMP DE DATE
         function goToSelectedDate() {
             const dateInput = document.getElementById('dateInput');
             const dateValue = dateInput.value;
@@ -2402,7 +2483,7 @@ L'équipe de gestion des PV`;
             showDateOptions(selectedDate);
         }
 
-        // FONCTION CORRIGÉE POUR CALCULER LES STATISTIQUES
+        // FONCTION RÉVISÉE POUR CALCULER LES STATISTIQUES DE PRÉSENCE
         function calculateStatistics() {
             // Réinitialiser les statistiques
             allNames.clear();
@@ -2414,7 +2495,17 @@ L'équipe de gestion des PV`;
                 // Extraire les données de présence
                 const fahatongavanaData = extractFahatongavanaData(row);
                 
-                // Combiner tous les noms de toutes les catégories
+                // Liste des catégories qui comptent pour la présence totale
+                // MODIFICATION : Ajout de "tara latsaky ny 30min" à la présence totale
+                const presenceCategories = [
+                    ...fahatongavanaData.araPotoana,
+                    ...fahatongavanaData.taraLatsaky30min, // AJOUTÉ
+                    ...fahatongavanaData.taraLatsaky1h,
+                    ...fahatongavanaData.taraMihoatra1h,
+                    ...fahatongavanaData.tapakAndro
+                ];
+                
+                // Toutes les catégories pour les statistiques détaillées
                 const allCategories = [
                     ...fahatongavanaData.araPotoana,
                     ...fahatongavanaData.taraLatsaky30min,
@@ -2427,8 +2518,8 @@ L'équipe de gestion des PV`;
                     ...fahatongavanaData.nialaTsinyTsyHoAvy
                 ];
                 
-                // Traiter chaque nom
-                allCategories.forEach(fullName => {
+                // Traiter chaque nom pour la présence totale
+                presenceCategories.forEach(fullName => {
                     if (fullName && fullName.trim()) {
                         // Séparer les noms par virgule ou slash
                         const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
@@ -2440,6 +2531,9 @@ L'équipe de gestion des PV`;
                                 // Initialiser les statistiques pour ce nom si nécessaire
                                 if (!nameStatistics[name]) {
                                     nameStatistics[name] = {
+                                        // Présence totale (compte le nombre de PV où le nom apparaît)
+                                        presenceTotal: 0,
+                                        // Statistiques détaillées par catégorie
                                         araPotoana: 0,
                                         taraLatsaky30min: 0,
                                         taraLatsaky1h: 0,
@@ -2448,47 +2542,51 @@ L'équipe de gestion des PV`;
                                         nodyAloha: 0,
                                         tsyTonga: 0,
                                         nialaTsinyTara: 0,
-                                        nialaTsinyTsyHoAvy: 0,
-                                        total: 0
+                                        nialaTsinyTsyHoAvy: 0
                                     };
                                 }
                                 
+                                // Compter la présence totale (le nom apparaît dans ce PV)
+                                nameStatistics[name].presenceTotal++;
+                            }
+                        });
+                    }
+                });
+                
+                // Compter les statistiques détaillées par catégorie
+                allCategories.forEach(fullName => {
+                    if (fullName && fullName.trim()) {
+                        const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
+                        
+                        names.forEach(name => {
+                            if (name && nameStatistics[name]) {
                                 // Compter les présences par catégorie
                                 if (fahatongavanaData.araPotoana.some(n => n.includes(name))) {
                                     nameStatistics[name].araPotoana++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.taraLatsaky30min.some(n => n.includes(name))) {
                                     nameStatistics[name].taraLatsaky30min++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.taraLatsaky1h.some(n => n.includes(name))) {
                                     nameStatistics[name].taraLatsaky1h++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.taraMihoatra1h.some(n => n.includes(name))) {
                                     nameStatistics[name].taraMihoatra1h++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.tapakAndro.some(n => n.includes(name))) {
                                     nameStatistics[name].tapakAndro++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.nodyAloha.some(n => n.includes(name))) {
                                     nameStatistics[name].nodyAloha++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.tsyTonga.some(n => n.includes(name))) {
                                     nameStatistics[name].tsyTonga++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.nialaTsinyTara.some(n => n.includes(name))) {
                                     nameStatistics[name].nialaTsinyTara++;
-                                    nameStatistics[name].total++;
                                 }
                                 if (fahatongavanaData.nialaTsinyTsyHoAvy.some(n => n.includes(name))) {
                                     nameStatistics[name].nialaTsinyTsyHoAvy++;
-                                    nameStatistics[name].total++;
                                 }
                             }
                         });
@@ -2605,27 +2703,29 @@ L'équipe de gestion des PV`;
             
             title.textContent = `Statistiques pour ${name}`;
             
-            // Calculer le pourcentage de présence (ara-potoana)
-            const presencePercentage = totalPV > 0 ? ((stats.araPotoana / totalPV) * 100).toFixed(1) : 0;
+            // Calculer le pourcentage de présence totale
+            const presencePercentage = totalPV > 0 ? ((stats.presenceTotal / totalPV) * 100).toFixed(1) : 0;
             
             let html = `
-                <div style="margin-bottom: 20px;">
-                    <p><strong>Total des présences enregistrées:</strong> ${stats.total}</p>
-                    <p><strong>Nombre total de PV:</strong> ${totalPV}</p>
-                    <p><strong>Taux de présence (Ara-potoana):</strong> ${presencePercentage}%</p>
+                <div style="margin-bottom: 20px; background: #f8f9fa; padding: 15px; border-radius: 8px;">
+                    <p style="margin: 5px 0;"><strong>Nombre total de PV :</strong> ${totalPV}</p>
+                    <p style="margin: 5px 0;"><strong>Présence totale :</strong> ${stats.presenceTotal} fois</p>
+                    <p style="margin: 5px 0; font-size: 1.2em; color: #27ae60;">
+                        <strong>Taux de présence :</strong> ${presencePercentage}%
+                    </p>
+                    <p style="margin: 5px 0; font-size: 0.9em; color: #7f8c8d;">
+                        <em>Calcul: Présence totale / Nombre total de PV × 100</em>
+                    </p>
+                    <p style="margin: 5px 0; font-size: 0.85em; color: #5d6d7e;">
+                        <strong>Note :</strong> La présence totale compte lorsque le nom apparaît dans :<br>
+                        Ara-potoana, Tara latsaky ny 30min, Tara latsaky ny 1h, Tara mihoatra ny 1h, Tapak'andro
+                    </p>
                 </div>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr style="background: #f8f9fa;">
-                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Catégorie</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Nombre</th>
-                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Pourcentage</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <div style="margin-bottom: 15px;">
+                    <h4 style="color: #2c3e50; margin-bottom: 10px;">Détail par catégorie (pourcentage par rapport au nombre total de PV):</h4>
             `;
             
-            // Liste des catégories à afficher
+            // Liste des catégories à afficher avec leurs pourcentages
             const categories = [
                 { key: 'araPotoana', label: 'Ara-potoana' },
                 { key: 'taraLatsaky30min', label: 'Tara latsaky ny 30min' },
@@ -2638,12 +2738,30 @@ L'équipe de gestion des PV`;
                 { key: 'nialaTsinyTsyHoAvy', label: 'Niala-tsiny tsy ho avy' }
             ];
             
+            html += `
+                <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+                    <thead>
+                        <tr style="background: #f8f9fa;">
+                            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Catégorie</th>
+                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Nombre</th>
+                            <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Pourcentage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
             categories.forEach(cat => {
                 const count = stats[cat.key] || 0;
                 const percentage = totalPV > 0 ? ((count / totalPV) * 100).toFixed(1) : '0.0';
                 
+                // Colorer différemment les catégories de présence totale
+                let rowColor = '';
+                if (['araPotoana', 'taraLatsaky30min', 'taraLatsaky1h', 'taraMihoatra1h', 'tapakAndro'].includes(cat.key)) {
+                    rowColor = 'background: #e8f5e9;';
+                }
+                
                 html += `
-                    <tr>
+                    <tr style="${rowColor}">
                         <td style="padding: 8px; border-bottom: 1px solid #eee;">${cat.label}</td>
                         <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">${count}</td>
                         <td style="padding: 8px; text-align: center; border-bottom: 1px solid #eee;">${percentage}%</td>
@@ -2654,6 +2772,9 @@ L'équipe de gestion des PV`;
             html += `
                     </tbody>
                 </table>
+                <div style="margin-top: 15px; padding: 10px; background: #e3f2fd; border-radius: 6px; font-size: 0.9em;">
+                    <strong>Note :</strong> Les pourcentages sont calculés par rapport au nombre total de PV (${totalPV}).
+                </div>
             `;
             
             content.innerHTML = html;
@@ -3202,7 +3323,7 @@ L'équipe de gestion des PV`;
             if (results.length === 0) {
                 resultContent.innerHTML = `
                     <div class="no-results">
-                        <h3>❌ Aucun PV trouvé ou selectionné </h3>
+                        <h3>❌ Aucun PV trouvé ou selectionné</h3>
                         <p>Aucun procès-verbal ne correspond à votre recherche "${searchTerm}"</p>
                     </div>
                 `;
@@ -3586,7 +3707,7 @@ L'équipe de gestion des PV`;
                     const header = headers[colIndex] || '';
                     if (header.toLowerCase().includes('vaovao') || 
                         header.toLowerCase().includes('nouvelle') || 
-                        header.toLowerCase().includes('news')) {
+                        headerLowerCase().includes('news')) {
                         filteredRow[colIndex] = row[colIndex] || '';
                     } else {
                         filteredRow[colIndex] = '';
