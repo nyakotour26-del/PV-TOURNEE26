@@ -1293,7 +1293,7 @@
             overflow-y: auto;
         }
         
-        /* BOUTONS FLOTTANTS - SANS BOUTON CALENDRIER */
+        /* BOUTONS FLOTTANTS - AVEC BOUTON CALENDRIER AJOUTE */
         .floating-buttons {
             position: fixed;
             right: 20px;
@@ -1329,6 +1329,12 @@
         
         .floating-button.search {
             background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+        }
+        
+        .floating-button.calendar {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
             color: white;
             border: none;
         }
@@ -1912,7 +1918,7 @@
         </div>
     </div>
 
-    <!-- Boutons flottants SANS bouton calendrier -->
+    <!-- Boutons flottants AVEC bouton calendrier AJOUTE -->
     <div class="floating-buttons">
         <a href="#" class="floating-button home" id="floatingHome" title="Accueil">
             🏠
@@ -1921,6 +1927,10 @@
         <a href="#" class="floating-button search" id="floatingSearch" title="Recherche">
             🔍
             <span class="floating-button-tooltip">Recherche</span>
+        </a>
+        <a href="#" class="floating-button calendar" id="floatingCalendar" title="Calendrier">
+            📅
+            <span class="floating-button-tooltip">Calendrier</span>
         </a>
         <a href="#" class="floating-button list" id="floatingList" title="Tous les PV">
             📋
@@ -2005,6 +2015,10 @@
                 e.preventDefault();
                 document.getElementById('searchText').focus();
             });
+            document.getElementById('floatingCalendar').addEventListener('click', function(e) {
+                e.preventDefault();
+                scrollToCalendar();
+            });
             document.getElementById('floatingList').addEventListener('click', function(e) {
                 e.preventDefault();
                 showAllData();
@@ -2047,6 +2061,13 @@
             
             loadDataFromGoogleSheets();
         });
+
+        function scrollToCalendar() {
+            const calendarElement = document.querySelector('.calendar-container');
+            if (calendarElement) {
+                calendarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
 
         function adjustDateDisplay() {
             const desktopDateList = document.getElementById('desktopDateList');
