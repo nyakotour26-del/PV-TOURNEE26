@@ -37,8 +37,10 @@
         }
         
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+            display: flex;
+            gap: 20px;
         }
         
         /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME */
@@ -112,6 +114,69 @@
             font-style: italic;
         }
         
+        /* PANEL LATÉRAL GAUCHE - VUE ORDINATEUR */
+        .left-panel {
+            width: 350px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        /* CONTENU PRINCIPAL */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Section principale droite pour ordinateur */
+        .right-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        /* Pour ordinateur - mettre calendrier et dates à droite */
+        @media (min-width: 1025px) {
+            .main-content {
+                flex-direction: row;
+                gap: 30px;
+            }
+            
+            .right-panel {
+                width: 400px;
+                flex-shrink: 0;
+            }
+        }
+        
+        /* SECTION MOBILE POUR LES STATISTIQUES ET DATES */
+        .mobile-top-section {
+            display: none;
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                width: 100%;
+                order: 2;
+            }
+            
+            .main-content {
+                order: 1;
+                flex-direction: column;
+            }
+            
+            .right-panel {
+                width: 100%;
+            }
+        }
+        
         @media (max-width: 768px) {
             header {
                 padding: 10px 15px;
@@ -128,6 +193,42 @@
             
             .header-icons {
                 font-size: 1.2em;
+            }
+            
+            .left-panel {
+                display: block;
+            }
+            
+            /* SECTION MOBILE VISIBLE */
+            .mobile-top-section {
+                display: block;
+                margin-bottom: 20px;
+            }
+            
+            /* CACHER LES STATISTIQUES ET DATES DU PANEL GAUCHE EN MOBILE */
+            .left-panel .stats-section,
+            .left-panel .available-dates-container {
+                display: none !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-section {
+                gap: 4px;
+                padding: 6px;
+            }
+            
+            .stat-card {
+                padding: 4px 5px;
+                height: 45px;
+            }
+            
+            .stat-value {
+                font-size: 1em;
+            }
+            
+            .stat-label {
+                font-size: 0.6em;
             }
         }
         
@@ -332,26 +433,6 @@
                 width: 100%;
                 padding: 10px 15px;
                 font-size: 0.9em;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .stats-section {
-                gap: 4px;
-                padding: 6px;
-            }
-            
-            .stat-card {
-                padding: 4px 5px;
-                height: 45px;
-            }
-            
-            .stat-value {
-                font-size: 1em;
-            }
-            
-            .stat-label {
-                font-size: 0.6em;
             }
         }
         
@@ -621,7 +702,7 @@
         
         .calendar-container {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 15px;
             margin-bottom: 15px;
         }
@@ -709,8 +790,6 @@
         }
         
         .date-picker {
-            flex: 1;
-            min-width: 300px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -1753,38 +1832,25 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="header-icons">
-                    <span>📋</span>
-                    <span>🎵</span>
-                    <span>📅</span>
-                    <span>🎤</span>
-                </div>
-                <div>
-                    <h1>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
-                    <div class="header-tagline">Agenda musical • Calendrier des réunions • Gestion des PV</div>
-                </div>
+    <header>
+        <div class="header-content">
+            <div class="header-icons">
+                <span>📋</span>
+                <span>🎵</span>
+                <span>📅</span>
+                <span>🎤</span>
             </div>
-        </header>
-        
-        <section class="search-section">
-            <form id="searchForm" class="search-form" autocomplete="off">
-                <div class="form-group">
-                    <label for="searchText">Rechercher un mot ou une phrase :</label>
-                    <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
-                    <div class="suggestions-container" id="suggestionsContainer">
-                        <!-- Les suggestions dynamiques apparaîtront ici -->
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <button type="submit"><span>🔍 Rechercher</span></button>
-                </div>
-            </form>
-            
-            <!-- Section Statistiques - TAILLE REDUITE -->
+            <div>
+                <h1>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
+                <div class="header-tagline">Agenda musical • Calendrier des réunions • Gestion des PV</div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- PANEL LATÉRAL GAUCHE - SEULEMENT SUR ORDINATEUR -->
+        <div class="left-panel">
+            <!-- Section Statistiques - TAILLE REDUITE (CACHÉE EN MOBILE) -->
             <div class="stats-section" id="statsSection">
                 <div class="stat-card">
                     <div class="stat-value" id="totalPV">0</div>
@@ -1800,34 +1866,6 @@
                 </div>
             </div>
             
-            <!-- Section Dates disponibles en boutons - Position mobile -->
-            <div class="available-dates-container mobile-dates-above" id="availableDatesContainer" style="display: none;">
-                <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
-                    <i>📅</i> Dates disponibles
-                    <span style="font-size: 0.75em; color: #666; margin-left: 8px;" id="datesCount"></span>
-                </h3>
-                <div class="dates-buttons" id="datesButtons">
-                    <!-- Les boutons de dates seront générés ici -->
-                </div>
-            </div>
-            
-            <!-- Section Dates disponibles en mode ordinateur -->
-            <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
-                <!-- Les boutons de dates seront générés ici -->
-            </div>
-            
-            <!-- Liste des noms -->
-            <div id="namesListContainer" style="display: none;">
-                <h3>👤 Liste des participants</h3>
-                <div class="names-list" id="namesList"></div>
-            </div>
-            
-            <!-- Liste des lieux -->
-            <div id="toeranaListContainer" style="display: none;">
-                <h3>📍 Réunions par lieu</h3>
-                <div id="toeranaList"></div>
-            </div>
-            
             <!-- Boutons de filtre orange -->
             <div class="filter-buttons">
                 <button id="showFanamarihanaButton" class="filter-btn">
@@ -1841,19 +1879,81 @@
                 </button>
             </div>
             
-            <!-- Section calendrier uniquement -->
-            <div class="calendar-container">
-                <div class="calendar">
-                    <div class="calendar-header">
-                        <button id="prevMonth" class="secondary">◀</button>
-                        <h3 id="currentMonth"></h3>
-                        <button id="nextMonth" class="secondary">▶</button>
+            <!-- Section Dates disponibles en boutons - Position gauche (pour ordinateur) -->
+            <div class="available-dates-container" id="availableDatesContainer">
+                <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
+                    <i>📅</i> Dates disponibles
+                    <span style="font-size: 0.75em; color: #666; margin-left: 8px;" id="datesCount"></span>
+                </h3>
+                <div class="dates-buttons" id="datesButtons">
+                    <!-- Les boutons de dates seront générés ici -->
+                </div>
+            </div>
+            
+            <!-- Liste des noms -->
+            <div id="namesListContainer" style="display: none;">
+                <h3>👤 Liste des participants</h3>
+                <div class="names-list" id="namesList"></div>
+            </div>
+            
+            <section class="search-section">
+                <form id="searchForm" class="search-form" autocomplete="off">
+                    <div class="form-group">
+                        <label for="searchText">Rechercher un mot ou une phrase :</label>
+                        <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
+                        <div class="suggestions-container" id="suggestionsContainer">
+                            <!-- Les suggestions dynamiques apparaîtront ici -->
+                        </div>
                     </div>
-                    <div class="calendar-grid" id="calendarGrid">
-                        <!-- Le calendrier sera généré ici -->
+                    
+                    <div class="form-group">
+                        <button type="submit"><span>🔍 Rechercher</span></button>
+                    </div>
+                </form>
+                
+                <button id="showAllButton">
+                    📋 Afficher tous les PV
+                </button>
+
+                <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
+                    🔗 Admin - Afficher les colonnes protégées
+                </button>
+                
+                <button id="retryButton" style="margin-top: 10px; display: none;">
+                    🔄 Réessayer le chargement
+                </button>
+            </section>
+        </div>
+        
+        <!-- CONTENU PRINCIPAL AVEC CALENDRIER -->
+        <div class="main-content">
+            <!-- SECTION MOBILE POUR STATISTIQUES ET DATES -->
+            <div class="mobile-top-section" id="mobileTopSection">
+                <!-- Les statistiques et dates seront insérées ici dynamiquement -->
+            </div>
+            
+            <!-- Section principale droite pour ordinateur -->
+            <div class="right-panel">
+                <!-- Section calendrier uniquement -->
+                <div class="calendar-container">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button id="prevMonth" class="secondary">◀</button>
+                            <h3 id="currentMonth"></h3>
+                            <button id="nextMonth" class="secondary">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Le calendrier sera généré ici -->
+                        </div>
+                    </div>
+                    
+                    <!-- Section Dates disponibles en mode ordinateur - À DROITE DU CALENDRIER -->
+                    <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
+                        <!-- Les boutons de dates seront générés ici -->
                     </div>
                 </div>
                 
+                <!-- Sélection directe par date -->
                 <div class="date-picker" id="desktopDateList">
                     <h3>Sélection directe par date</h3>
                     <div class="date-input-group">
@@ -1862,175 +1962,163 @@
                     </div>
                 </div>
             </div>
+
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>Chargement des données depuis Google Sheets...</p>
+            </div>
+
+            <div id="dataInfo" style="display: none;"></div>
             
-            <button id="showAllButton">
-                📋 Afficher tous les PV
-            </button>
+            <section class="results-section" id="resultsSection">
+                <div class="result-header">
+                    <h2 id="resultTitle">Résultats de la recherche</h2>
+                    <button id="closeResults">✕ Fermer</button>
+                </div>
+                <div class="result-content" id="resultContent">
+                    <!-- Les résultats seront affichés ici -->
+                </div>
+            </section>
 
-            <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
-                🔗 Admin - Afficher les colonnes protégées
-            </button>
+            <!-- Section export en fin de page -->
+            <section class="export-section locked" id="exportSection">
+                <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
+                <div class="export-buttons">
+                    <button class="export-btn" id="exportSelected" disabled>
+                        <span>📅</span> Exporter par sélection de dates
+                    </button>
+                    <button class="export-btn all" id="exportAll" disabled>
+                        <span>📊</span> Exporter toutes les données
+                    </button>
+                    <button class="export-btn email" id="sendEmail" disabled>
+                        <span>📧</span> Envoyer rapport par email
+                    </button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Modal pour les options de date -->
+    <div class="date-options-modal" id="dateOptionsModal">
+        <div class="date-options-content">
+            <h3 class="date-options-title" id="dateOptionsTitle">Options pour la date sélectionnée</h3>
+            <div class="date-options-buttons" id="dateOptionsButtons">
+                <!-- Les boutons d'options seront générés dynamiquement ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pour le mot de passe -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-modal-content">
+            <h3>🔑 Admin - Accès aux colonnes protégées</h3>
+            <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
+            <div class="password-input-group">
+                <input type="password" id="passwordInput" placeholder="Entrez le mot de passe ici">
+                <div class="password-buttons">
+                    <button id="submitPassword">Valider</button>
+                    <button id="cancelPassword" class="secondary">Annuler</button>
+                </div>
+            </div>
+            <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
+                Mot de passe incorrect
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal pour les statistiques des noms -->
+    <div class="stats-modal" id="statsModal">
+        <div class="stats-modal-content">
+            <h3 id="statsModalTitle">Statistiques</h3>
+            <div id="statsModalContent"></div>
+            <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Modal pour l'export de dates sélectionnées -->
+    <div class="export-dates-modal" id="exportDatesModal">
+        <div class="export-dates-content">
+            <h3>📅 Sélection des dates à exporter</h3>
+            <p>Sélectionnez les dates que vous souhaitez exporter :</p>
             
-            <button id="retryButton" style="margin-top: 10px; display: none;">
-                🔄 Réessayer le chargement
-            </button>
-        </section>
-        
-        <div class="loading" id="loadingIndicator">
-            <div class="spinner"></div>
-            <p>Chargement des données depuis Google Sheets...</p>
-        </div>
-
-        <div id="dataInfo" style="display: none;"></div>
-        
-        <section class="results-section" id="resultsSection">
-            <div class="result-header">
-                <h2 id="resultTitle">Résultats de la recherche</h2>
-                <button id="closeResults">✕ Fermer</button>
+            <div class="export-dates-list" id="exportDatesList">
+                <!-- Les dates seront ajoutées ici dynamiquement -->
             </div>
-            <div class="result-content" id="resultContent">
-                <!-- Les résultats seront affichés ici -->
+            
+            <div style="margin: 15px 0;">
+                <label>
+                    <input type="checkbox" id="selectAllDates">
+                    Sélectionner toutes les dates
+                </label>
             </div>
-        </section>
-
-        <!-- Section export en fin de page -->
-        <section class="export-section locked" id="exportSection">
-            <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
-            <div class="export-buttons">
-                <button class="export-btn" id="exportSelected" disabled>
-                    <span>📅</span> Exporter par sélection de dates
-                </button>
-                <button class="export-btn all" id="exportAll" disabled>
-                    <span>📊</span> Exporter toutes les données
-                </button>
-                <button class="export-btn email" id="sendEmail" disabled>
-                    <span>📧</span> Envoyer rapport par email
-                </button>
+            
+            <div class="form-group">
+                <label for="exportFormatSelect">Format d'export :</label>
+                <select id="exportFormatSelect">
+                    <option value="csv">CSV (Tableur)</option>
+                    <option value="excel">Excel (XLSX)</option>
+                    <option value="pdf">PDF (Rapport)</option>
+                </select>
             </div>
-        </section>
-
-        <!-- Modal pour les options de date -->
-        <div class="date-options-modal" id="dateOptionsModal">
-            <div class="date-options-content">
-                <h3 class="date-options-title" id="dateOptionsTitle">Options pour la date sélectionnée</h3>
-                <div class="date-options-buttons" id="dateOptionsButtons">
-                    <!-- Les boutons d'options seront générés dynamiquement ici -->
-                </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="cancelExportDates" class="secondary" style="flex: 1;">Annuler</button>
+                <button id="confirmExportDates" class="primary" style="flex: 1; background: var(--apple-green);">Exporter</button>
             </div>
         </div>
+    </div>
 
-        <!-- Modal pour le mot de passe -->
-        <div class="password-modal" id="passwordModal">
-            <div class="password-modal-content">
-                <h3>🔑 Admin - Accès aux colonnes protégées</h3>
-                <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
-                <div class="password-input-group">
-                    <input type="password" id="passwordInput" placeholder="Entrez le mot de passe ici">
-                    <div class="password-buttons">
-                        <button id="submitPassword">Valider</button>
-                        <button id="cancelPassword" class="secondary">Annuler</button>
-                    </div>
-                </div>
-                <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
-                    Mot de passe incorrect
-                </div>
+    <!-- Modal pour l'envoi par email avec sélection de PV -->
+    <div class="export-dates-modal" id="emailExportModal">
+        <div class="export-dates-content">
+            <h3>📧 Envoyer le rapport par email</h3>
+            <p>Sélectionnez les PV que vous souhaitez envoyer :</p>
+            
+            <div class="export-dates-list" id="emailPVList">
+                <!-- Les PV seront ajoutés ici dynamiquement -->
             </div>
-        </div>
-        
-        <!-- Modal pour les statistiques des noms -->
-        <div class="stats-modal" id="statsModal">
-            <div class="stats-modal-content">
-                <h3 id="statsModalTitle">Statistiques</h3>
-                <div id="statsModalContent"></div>
-                <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
+            
+            <div style="margin: 15px 0;">
+                <label>
+                    <input type="checkbox" id="selectAllPVs">
+                    Sélectionner tous les PV
+                </label>
             </div>
-        </div>
-
-        <!-- Modal pour l'export de dates sélectionnées -->
-        <div class="export-dates-modal" id="exportDatesModal">
-            <div class="export-dates-content">
-                <h3>📅 Sélection des dates à exporter</h3>
-                <p>Sélectionnez les dates que vous souhaitez exporter :</p>
-                
-                <div class="export-dates-list" id="exportDatesList">
-                    <!-- Les dates seront ajoutées ici dynamiquement -->
-                </div>
-                
-                <div style="margin: 15px 0;">
-                    <label>
-                        <input type="checkbox" id="selectAllDates">
-                        Sélectionner toutes les dates
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label for="exportFormatSelect">Format d'export :</label>
-                    <select id="exportFormatSelect">
-                        <option value="csv">CSV (Tableur)</option>
-                        <option value="excel">Excel (XLSX)</option>
-                        <option value="pdf">PDF (Rapport)</option>
-                    </select>
-                </div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button id="cancelExportDates" class="secondary" style="flex: 1;">Annuler</button>
-                    <button id="confirmExportDates" class="primary" style="flex: 1; background: var(--apple-green);">Exporter</button>
-                </div>
+            
+            <div class="form-group">
+                <label for="emailRecipients">Destinataires :</label>
+                <textarea id="emailRecipients" placeholder="exemple1@gmail.com, exemple2@hotmail.com, exemple3@yahoo.com" rows="3"></textarea>
             </div>
-        </div>
-
-        <!-- Modal pour l'envoi par email avec sélection de PV -->
-        <div class="export-dates-modal" id="emailExportModal">
-            <div class="export-dates-content">
-                <h3>📧 Envoyer le rapport par email</h3>
-                <p>Sélectionnez les PV que vous souhaitez envoyer :</p>
-                
-                <div class="export-dates-list" id="emailPVList">
-                    <!-- Les PV seront ajoutés ici dynamiquement -->
-                </div>
-                
-                <div style="margin: 15px 0;">
-                    <label>
-                        <input type="checkbox" id="selectAllPVs">
-                        Sélectionner tous les PV
-                    </label>
-                </div>
-                
-                <div class="form-group">
-                    <label for="emailRecipients">Destinataires :</label>
-                    <textarea id="emailRecipients" placeholder="exemple1@gmail.com, exemple2@hotmail.com, exemple3@yahoo.com" rows="3"></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="emailSubject">Sujet :</label>
-                    <input type="text" id="emailSubject" value="Rapport PV - Tournée NY AKO 2026">
-                </div>
-                
-                <div class="form-group">
-                    <label for="emailMessage">Message :</label>
-                    <textarea id="emailMessage" rows="4" placeholder="Message accompagnant le rapport..."></textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="emailFormatSelect">Format du rapport :</label>
-                    <select id="emailFormatSelect">
-                        <option value="pdf">PDF (Rapport complet)</option>
-                        <option value="csv">CSV (Données brutes)</option>
-                        <option value="excel">Excel (Tableur)</option>
-                    </select>
-                </div>
-                
-                <div style="margin: 15px 0;">
-                    <label>
-                        <input type="checkbox" id="includePVContent" checked>
-                        Inclure le contenu des PV dans le message
-                    </label>
-                </div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button id="cancelEmailExport" class="secondary" style="flex: 1;">Annuler</button>
-                    <button id="confirmEmailExport" class="primary" style="flex: 1; background: var(--accent-color);">Envoyer</button>
-                </div>
+            
+            <div class="form-group">
+                <label for="emailSubject">Sujet :</label>
+                <input type="text" id="emailSubject" value="Rapport PV - Tournée NY AKO 2026">
+            </div>
+            
+            <div class="form-group">
+                <label for="emailMessage">Message :</label>
+                <textarea id="emailMessage" rows="4" placeholder="Message accompagnant le rapport..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="emailFormatSelect">Format du rapport :</label>
+                <select id="emailFormatSelect">
+                    <option value="pdf">PDF (Rapport complet)</option>
+                    <option value="csv">CSV (Données brutes)</option>
+                    <option value="excel">Excel (Tableur)</option>
+                </select>
+            </div>
+            
+            <div style="margin: 15px 0;">
+                <label>
+                    <input type="checkbox" id="includePVContent" checked>
+                    Inclure le contenu des PV dans le message
+                </label>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button id="cancelEmailExport" class="secondary" style="flex: 1;">Annuler</button>
+                <button id="confirmEmailExport" class="primary" style="flex: 1; background: var(--accent-color);">Envoyer</button>
             </div>
         </div>
     </div>
@@ -2190,23 +2278,121 @@
             const desktopDateList = document.getElementById('desktopDateList');
             const availableDatesDesktop = document.getElementById('availableDatesDesktop');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
+            const mobileTopSection = document.getElementById('mobileTopSection');
             
             if (window.innerWidth <= 768) {
+                // En mobile, on cache le panneau latéral et on affiche tout verticalement
+                document.querySelector('.left-panel').style.display = 'block';
+                document.querySelector('.container').style.flexDirection = 'column';
                 desktopDateList.style.display = 'none';
                 if (availableDatesDesktop) availableDatesDesktop.style.display = 'none';
-                // En mobile, les dates disponibles sont déjà au-dessus du calendrier
-                if (availableDatesContainer && datesWithData.length > 0) {
-                    availableDatesContainer.style.display = 'block';
-                    document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
-                }
+                
+                // En mobile, déplacer les statistiques et dates dans la section mobile
+                updateMobileTopSection();
+                
             } else {
+                // En ordinateur, on affiche le panneau latéral
+                document.querySelector('.left-panel').style.display = 'flex';
+                document.querySelector('.container').style.flexDirection = 'row';
                 desktopDateList.style.display = 'block';
                 if (availableDatesDesktop && datesWithData.length > 0) {
                     availableDatesDesktop.style.display = 'flex';
                 }
                 if (availableDatesContainer) {
-                    availableDatesContainer.style.display = 'none';
+                    availableDatesContainer.style.display = 'block';
                 }
+                // Vider la section mobile en desktop
+                if (mobileTopSection) {
+                    mobileTopSection.innerHTML = '';
+                }
+            }
+        }
+
+        // NOUVELLE FONCTION : Mettre à jour la section mobile avec statistiques et dates
+        function updateMobileTopSection() {
+            const mobileTopSection = document.getElementById('mobileTopSection');
+            
+            if (window.innerWidth <= 768 && datesWithData.length > 0) {
+                let html = '';
+                
+                // Ajouter les statistiques
+                if (totalPV > 0) {
+                    html += `
+                        <div class="stats-section">
+                            <div class="stat-card">
+                                <div class="stat-value">${totalPV}</div>
+                                <div class="stat-label">Total PV</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="stat-label">Lieux différents</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${allNames.size}</div>
+                                <div class="stat-label">Participants uniques</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                // Ajouter les dates disponibles
+                html += `
+                    <div class="available-dates-container">
+                        <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
+                            <i>📅</i> Dates disponibles
+                            <span style="font-size: 0.75em; color: #666; margin-left: 8px;">(${datesWithData.length} dates)</span>
+                        </h3>
+                        <div class="dates-buttons" id="mobileDatesButtons">
+                `;
+                
+                datesWithData.forEach(item => {
+                    const dateButton = createDateButton(item);
+                    // Cloner le bouton pour la version mobile
+                    const mobileButton = dateButton.cloneNode(true);
+                    mobileButton.style.minWidth = '120px';
+                    mobileButton.style.padding = '6px 10px';
+                    mobileButton.style.fontSize = '0.8em';
+                    mobileButton.style.margin = '0';
+                    mobileButton.style.flex = '1 1 auto';
+                    mobileButton.style.maxWidth = '140px';
+                    html += mobileButton.outerHTML;
+                });
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+                
+                mobileTopSection.innerHTML = html;
+                
+                // Réattacher les événements aux boutons de dates mobiles
+                document.querySelectorAll('#mobileDatesButtons .date-button').forEach((button, index) => {
+                    button.addEventListener('click', () => {
+                        const item = datesWithData[index];
+                        if (item) {
+                            displayDataForDate(item.date);
+                            currentDate = new Date(item.date);
+                            renderCalendar();
+                            
+                            // Mettre en évidence la date sélectionnée
+                            document.querySelectorAll('#mobileDatesButtons .date-button').forEach(btn => {
+                                btn.style.opacity = '0.8';
+                                btn.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
+                            });
+                            button.style.opacity = '1';
+                            button.style.boxShadow = '0 0 0 2px #ff6b6b, 0 3px 10px rgba(231, 76, 60, 0.4)';
+                            
+                            // Retirer la mise en évidence après 3 secondes
+                            setTimeout(() => {
+                                button.style.opacity = '0.8';
+                                button.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
+                            }, 3000);
+                        }
+                    });
+                });
+                
+            } else {
+                mobileTopSection.innerHTML = '';
             }
         }
 
@@ -2612,7 +2798,7 @@ L'équipe de gestion des PV`;
             // Mettre à jour le compteur de dates
             document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
             
-            // Version mobile (boutons)
+            // Version mobile (boutons) - CACHÉE CAR DÉPLACÉE VERS mobileTopSection
             if (availableDatesContainer) {
                 availableDatesContainer.style.display = 'block';
                 datesButtons.innerHTML = '';
@@ -2641,6 +2827,9 @@ L'équipe de gestion des PV`;
                 // Afficher ou masquer selon la taille de l'écran
                 adjustDateDisplay();
             }
+            
+            // Mettre à jour la section mobile
+            updateMobileTopSection();
         }
         
         // NOUVELLE FONCTION : Créer un bouton de date avec événement
@@ -3225,6 +3414,9 @@ L'équipe de gestion des PV`;
             
             // Afficher la liste des lieux
             displayToeranaList();
+            
+            // Mettre à jour la section mobile
+            updateMobileTopSection();
         }
         
         function updateStatsDisplay() {
