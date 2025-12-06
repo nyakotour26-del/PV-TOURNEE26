@@ -259,41 +259,74 @@
             cursor: pointer;
         }
         
-        /* STATISTIQUES EN LIGNE SUR MOBILE - MODIFIE */
+        /* STATISTIQUES EN LIGNE SUR MOBILE - MODIFIE POUR DISTRIBUTION HORIZONTALE */
         .stats-section {
             display: flex;
-            gap: 8px;
+            gap: 12px;
             margin: 15px 0;
-            padding: 10px;
+            padding: 15px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             overflow-x: auto;
             white-space: nowrap;
+            justify-content: space-between;
+        }
+        
+        @media (min-width: 769px) {
+            .stats-section {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: stretch;
+                gap: 12px;
+            }
+            
+            .stat-card {
+                flex: 1;
+                min-width: 0;
+                padding: 15px;
+                border-left: 4px solid var(--primary-color);
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .stat-value {
+                font-size: 1.8em;
+                margin-bottom: 5px;
+            }
+            
+            .stat-label {
+                font-size: 0.85em;
+            }
         }
         
         @media (max-width: 768px) {
             .stats-section {
-                gap: 6px;
-                padding: 8px;
+                gap: 8px;
+                padding: 10px;
                 margin: 12px 0;
                 display: flex;
+                justify-content: space-between;
             }
             
             .stat-card {
-                padding: 6px 8px;
-                min-width: 90px;
+                padding: 8px 10px;
                 flex: 1;
+                min-width: 90px;
                 border-left: 3px solid var(--primary-color);
+                text-align: center;
             }
             
             .stat-value {
-                font-size: 1em;
+                font-size: 1.1em;
                 margin-bottom: 3px;
             }
             
             .stat-label {
-                font-size: 0.6em;
+                font-size: 0.65em;
             }
             
             .export-buttons {
@@ -1292,12 +1325,18 @@
             font-size: 16px;
         }
         
+        /* MODIFICATION : STATISTIQUES EN DISTRIBUTION HORIZONTALE */
         .stat-card {
             background: #f8f9fa;
             padding: 15px;
             border-radius: var(--border-radius);
             text-align: center;
             border-left: 4px solid var(--primary-color);
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .stat-value {
@@ -1736,7 +1775,7 @@
                 </div>
             </form>
             
-            <!-- Section Statistiques MODIFIEE - retirer une carte -->
+            <!-- Section Statistiques MODIFIEE - distribution horizontale -->
             <div class="stats-section" id="statsSection">
                 <div class="stat-card">
                     <div class="stat-value" id="totalPV">0</div>
@@ -1750,7 +1789,6 @@
                     <div class="stat-value" id="totalParticipants">0</div>
                     <div class="stat-label">Participants uniques</div>
                 </div>
-                <!-- SUPPRIME : Réunions totales car redondant avec Total PV -->
             </div>
             
             <!-- Section Dates disponibles en boutons - Position mobile -->
