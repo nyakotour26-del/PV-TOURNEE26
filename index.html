@@ -36,11 +36,99 @@
             padding-top: 80px;
         }
         
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
+        /* CONTENEUR PRINCIPAL AVEC DISPOSITION FLEX POUR ORDINATEUR */
+        .main-container {
             display: flex;
             gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* PANEL LATÉRAL GAUCHE - 40% - UNIQUEMENT SUR ORDINATEUR */
+        .side-panel {
+            flex: 0 0 40%;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            position: sticky;
+            top: 100px;
+            display: none; /* Masqué par défaut, affiché uniquement sur ordinateur */
+        }
+        
+        /* CONTENU PRINCIPAL - 60% */
+        .main-content {
+            flex: 0 0 60%;
+            min-width: 0; /* Important pour le flex-shrink */
+        }
+        
+        /* Pour les écrans larges (mode ordinateur) */
+        @media (min-width: 1024px) {
+            .side-panel {
+                display: block;
+            }
+            
+            .main-content {
+                flex: 0 0 60%;
+            }
+            
+            /* Cacher les éléments de recherche mobile en vue ordinateur */
+            .mobile-search-section {
+                display: none !important;
+            }
+            
+            /* Section export dans le panneau latéral */
+            .side-panel .export-section {
+                margin-top: 30px;
+                margin-bottom: 10px;
+            }
+            
+            /* Masquer la section export du contenu principal en vue ordi */
+            .main-content .export-section {
+                display: none;
+            }
+        }
+        
+        /* Pour les tablettes et mobiles - cacher le panneau latéral */
+        @media (max-width: 1023px) {
+            .side-panel {
+                display: none;
+            }
+            
+            .main-content {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .main-container {
+                flex-direction: column;
+            }
+            
+            /* Afficher la section de recherche mobile */
+            .mobile-search-section {
+                display: block;
+            }
+            
+            /* Afficher la section export dans le contenu principal en mobile */
+            .main-content .export-section {
+                display: block;
+            }
+        }
+        
+        /* VUE MOBILE - CONTENU ORGANISÉ COMME LE PANEL LATÉRAL */
+        .mobile-search-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 25px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME */
@@ -114,69 +202,6 @@
             font-style: italic;
         }
         
-        /* PANEL LATÉRAL GAUCHE - VUE ORDINATEUR */
-        .left-panel {
-            width: 350px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        /* CONTENU PRINCIPAL */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        /* Section principale droite pour ordinateur */
-        .right-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        
-        /* Pour ordinateur - mettre calendrier et dates à droite */
-        @media (min-width: 1025px) {
-            .main-content {
-                flex-direction: row;
-                gap: 30px;
-            }
-            
-            .right-panel {
-                width: 400px;
-                flex-shrink: 0;
-            }
-        }
-        
-        /* SECTION MOBILE POUR LES STATISTIQUES ET DATES */
-        .mobile-top-section {
-            display: none;
-        }
-        
-        @media (max-width: 1024px) {
-            .container {
-                flex-direction: column;
-            }
-            
-            .left-panel {
-                width: 100%;
-                order: 2;
-            }
-            
-            .main-content {
-                order: 1;
-                flex-direction: column;
-            }
-            
-            .right-panel {
-                width: 100%;
-            }
-        }
-        
         @media (max-width: 768px) {
             header {
                 padding: 10px 15px;
@@ -193,42 +218,6 @@
             
             .header-icons {
                 font-size: 1.2em;
-            }
-            
-            .left-panel {
-                display: block;
-            }
-            
-            /* SECTION MOBILE VISIBLE */
-            .mobile-top-section {
-                display: block;
-                margin-bottom: 20px;
-            }
-            
-            /* CACHER LES STATISTIQUES ET DATES DU PANEL GAUCHE EN MOBILE */
-            .left-panel .stats-section,
-            .left-panel .available-dates-container {
-                display: none !important;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .stats-section {
-                gap: 4px;
-                padding: 6px;
-            }
-            
-            .stat-card {
-                padding: 4px 5px;
-                height: 45px;
-            }
-            
-            .stat-value {
-                font-size: 1em;
-            }
-            
-            .stat-label {
-                font-size: 0.6em;
             }
         }
         
@@ -433,6 +422,26 @@
                 width: 100%;
                 padding: 10px 15px;
                 font-size: 0.9em;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-section {
+                gap: 4px;
+                padding: 6px;
+            }
+            
+            .stat-card {
+                padding: 4px 5px;
+                height: 45px;
+            }
+            
+            .stat-value {
+                font-size: 1em;
+            }
+            
+            .stat-label {
+                font-size: 0.6em;
             }
         }
         
@@ -678,14 +687,6 @@
         }
         
         /* RESTE DU CSS */
-        .search-section {
-            background-color: white;
-            padding: 20px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            margin-bottom: 25px;
-        }
-        
         .search-form {
             display: flex;
             flex-wrap: wrap;
@@ -702,7 +703,7 @@
         
         .calendar-container {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
             gap: 15px;
             margin-bottom: 15px;
         }
@@ -790,6 +791,8 @@
         }
         
         .date-picker {
+            flex: 1;
+            min-width: 300px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -1847,61 +1850,124 @@
         </div>
     </header>
     
-    <div class="container">
-        <!-- PANEL LATÉRAL GAUCHE - SEULEMENT SUR ORDINATEUR -->
-        <div class="left-panel">
-            <!-- Section Statistiques - TAILLE REDUITE (CACHÉE EN MOBILE) -->
-            <div class="stats-section" id="statsSection">
-                <div class="stat-card">
-                    <div class="stat-value" id="totalPV">0</div>
-                    <div class="stat-label">Total PV</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="toeranaStats">0</div>
-                    <div class="stat-label">Lieux différents</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="totalParticipants">0</div>
-                    <div class="stat-label">Participants uniques</div>
+    <!-- VUE MOBILE - ORGANISÉE COMME LE PANEL LATÉRAL GAUCHE -->
+    <div class="mobile-search-section">
+        <form id="searchForm" class="search-form" autocomplete="off">
+            <div class="form-group">
+                <label for="searchText">Rechercher un mot ou une phrase :</label>
+                <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
+                <div class="suggestions-container" id="suggestionsContainer">
+                    <!-- Les suggestions dynamiques apparaîtront ici -->
                 </div>
             </div>
             
-            <!-- Boutons de filtre orange -->
-            <div class="filter-buttons">
-                <button id="showFanamarihanaButton" class="filter-btn">
-                    📝 Fanamarihana Famerenana
-                </button>
-                <button id="showFanapahanKevitraButton" class="filter-btn">
-                    📋 Fanapahan-kevitra & Asa
-                </button>
-                <button id="showVaovaoButton" class="filter-btn">
-                    📢 Vaovao
-                </button>
+            <div class="form-group">
+                <button type="submit"><span>🔍 Rechercher</span></button>
             </div>
-            
-            <!-- Section Dates disponibles en boutons - Position gauche (pour ordinateur) -->
-            <div class="available-dates-container" id="availableDatesContainer">
-                <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
-                    <i>📅</i> Dates disponibles
-                    <span style="font-size: 0.75em; color: #666; margin-left: 8px;" id="datesCount"></span>
-                </h3>
-                <div class="dates-buttons" id="datesButtons">
-                    <!-- Les boutons de dates seront générés ici -->
+        </form>
+        
+        <!-- Section Statistiques - TAILLE REDUITE -->
+        <div class="stats-section" id="statsSection">
+            <div class="stat-card">
+                <div class="stat-value" id="totalPV">0</div>
+                <div class="stat-label">Total PV</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="toeranaStats">0</div>
+                <div class="stat-label">Lieux différents</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="totalParticipants">0</div>
+                <div class="stat-label">Participants uniques</div>
+            </div>
+        </div>
+        
+        <!-- Section Dates disponibles en boutons - Position mobile -->
+        <div class="available-dates-container mobile-dates-above" id="availableDatesContainer" style="display: none;">
+            <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
+                <i>📅</i> Dates disponibles
+                <span style="font-size: 0.75em; color: #666; margin-left: 8px;" id="datesCount"></span>
+            </h3>
+            <div class="dates-buttons" id="datesButtons">
+                <!-- Les boutons de dates seront générés ici -->
+            </div>
+        </div>
+        
+        <!-- Section Dates disponibles en mode ordinateur -->
+        <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
+            <!-- Les boutons de dates seront générés ici -->
+        </div>
+        
+        <!-- Liste des noms -->
+        <div id="namesListContainer" style="display: none;">
+            <h3>👤 Liste des participants</h3>
+            <div class="names-list" id="namesList"></div>
+        </div>
+        
+        <!-- Liste des lieux -->
+        <div id="toeranaListContainer" style="display: none;">
+            <h3>📍 Réunions par lieu</h3>
+            <div id="toeranaList"></div>
+        </div>
+        
+        <!-- Boutons de filtre orange -->
+        <div class="filter-buttons">
+            <button id="showFanamarihanaButton" class="filter-btn">
+                📝 Fanamarihana Famerenana
+            </button>
+            <button id="showFanapahanKevitraButton" class="filter-btn">
+                📋 Fanapahan-kevitra & Asa
+            </button>
+            <button id="showVaovaoButton" class="filter-btn">
+                📢 Vaovao
+            </button>
+        </div>
+        
+        <!-- Section calendrier uniquement -->
+        <div class="calendar-container">
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button id="prevMonth" class="secondary">◀</button>
+                    <h3 id="currentMonth"></h3>
+                    <button id="nextMonth" class="secondary">▶</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Le calendrier sera généré ici -->
                 </div>
             </div>
             
-            <!-- Liste des noms -->
-            <div id="namesListContainer" style="display: none;">
-                <h3>👤 Liste des participants</h3>
-                <div class="names-list" id="namesList"></div>
+            <div class="date-picker" id="desktopDateList">
+                <h3>Sélection directe par date</h3>
+                <div class="date-input-group">
+                    <input type="date" id="dateInput">
+                    <button id="goToDate">Aller</button>
+                </div>
             </div>
-            
+        </div>
+        
+        <button id="showAllButton">
+            📋 Afficher tous les PV
+        </button>
+
+        <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
+            🔗 Admin - Afficher les colonnes protégées
+        </button>
+        
+        <button id="retryButton" style="margin-top: 10px; display: none;">
+            🔄 Réessayer le chargement
+        </button>
+    </div>
+    
+    <!-- CONTENEUR PRINCIPAL AVEC DISPOSITION FLEX -->
+    <div class="main-container">
+        <!-- PANEL LATÉRAL GAUCHE (40%) - UNIQUEMENT SUR ORDINATEUR -->
+        <div class="side-panel">
             <section class="search-section">
-                <form id="searchForm" class="search-form" autocomplete="off">
+                <form id="searchFormDesktop" class="search-form" autocomplete="off">
                     <div class="form-group">
-                        <label for="searchText">Rechercher un mot ou une phrase :</label>
-                        <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
-                        <div class="suggestions-container" id="suggestionsContainer">
+                        <label for="searchTextDesktop">Rechercher un mot ou une phrase :</label>
+                        <input type="text" id="searchTextDesktop" placeholder="Entrez votre recherche..." autocomplete="off">
+                        <div class="suggestions-container" id="suggestionsContainerDesktop">
                             <!-- Les suggestions dynamiques apparaîtront ici -->
                         </div>
                     </div>
@@ -1911,58 +1977,106 @@
                     </div>
                 </form>
                 
-                <button id="showAllButton">
+                <!-- Section Statistiques - TAILLE REDUITE -->
+                <div class="stats-section" id="statsSectionDesktop">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPVDesktop">0</div>
+                        <div class="stat-label">Total PV</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="toeranaStatsDesktop">0</div>
+                        <div class="stat-label">Lieux différents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalParticipantsDesktop">0</div>
+                        <div class="stat-label">Participants uniques</div>
+                    </div>
+                </div>
+                
+                <!-- Section Dates disponibles en mode ordinateur -->
+                <div class="available-dates-desktop" id="availableDatesDesktopSide" style="display: none;">
+                    <!-- Les boutons de dates seront générés ici -->
+                </div>
+                
+                <!-- Liste des noms -->
+                <div id="namesListContainerDesktop" style="display: none;">
+                    <h3>👤 Liste des participants</h3>
+                    <div class="names-list" id="namesListDesktop"></div>
+                </div>
+                
+                <!-- Liste des lieux -->
+                <div id="toeranaListContainerDesktop" style="display: none;">
+                    <h3>📍 Réunions par lieu</h3>
+                    <div id="toeranaListDesktop"></div>
+                </div>
+                
+                <!-- Boutons de filtre orange -->
+                <div class="filter-buttons">
+                    <button id="showFanamarihanaButtonDesktop" class="filter-btn">
+                        📝 Fanamarihana Famerenana
+                    </button>
+                    <button id="showFanapahanKevitraButtonDesktop" class="filter-btn">
+                        📋 Fanapahan-kevitra & Asa
+                    </button>
+                    <button id="showVaovaoButtonDesktop" class="filter-btn">
+                        📢 Vaovao
+                    </button>
+                </div>
+                
+                <!-- Section calendrier uniquement -->
+                <div class="calendar-container">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button id="prevMonthDesktop" class="secondary">◀</button>
+                            <h3 id="currentMonthDesktop"></h3>
+                            <button id="nextMonthDesktop" class="secondary">▶</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGridDesktop">
+                            <!-- Le calendrier sera généré ici -->
+                        </div>
+                    </div>
+                    
+                    <div class="date-picker" id="desktopDateListSide">
+                        <h3>Sélection directe par date</h3>
+                        <div class="date-input-group">
+                            <input type="date" id="dateInputDesktop">
+                            <button id="goToDateDesktop">Aller</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="showAllButtonDesktop">
                     📋 Afficher tous les PV
                 </button>
 
-                <button id="showLinksButton" class="show-links-btn" style="margin-top: 10px;">
+                <button id="showLinksButtonDesktop" class="show-links-btn" style="margin-top: 10px;">
                     🔗 Admin - Afficher les colonnes protégées
                 </button>
                 
-                <button id="retryButton" style="margin-top: 10px; display: none;">
+                <!-- SECTION EXPORT DANS LE PANEL LATÉRAL (EN BAS) -->
+                <section class="export-section locked" id="exportSectionSide">
+                    <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
+                    <div class="export-buttons">
+                        <button class="export-btn" id="exportSelectedSide" disabled>
+                            <span>📅</span> Exporter par sélection de dates
+                        </button>
+                        <button class="export-btn all" id="exportAllSide" disabled>
+                            <span>📊</span> Exporter toutes les données
+                        </button>
+                        <button class="export-btn email" id="sendEmailSide" disabled>
+                            <span>📧</span> Envoyer rapport par email
+                        </button>
+                    </div>
+                </section>
+                
+                <button id="retryButtonDesktop" style="margin-top: 10px; display: none;">
                     🔄 Réessayer le chargement
                 </button>
             </section>
         </div>
         
-        <!-- CONTENU PRINCIPAL AVEC CALENDRIER -->
+        <!-- CONTENU PRINCIPAL (60%) -->
         <div class="main-content">
-            <!-- SECTION MOBILE POUR STATISTIQUES ET DATES -->
-            <div class="mobile-top-section" id="mobileTopSection">
-                <!-- Les statistiques et dates seront insérées ici dynamiquement -->
-            </div>
-            
-            <!-- Section principale droite pour ordinateur -->
-            <div class="right-panel">
-                <!-- Section calendrier uniquement -->
-                <div class="calendar-container">
-                    <div class="calendar">
-                        <div class="calendar-header">
-                            <button id="prevMonth" class="secondary">◀</button>
-                            <h3 id="currentMonth"></h3>
-                            <button id="nextMonth" class="secondary">▶</button>
-                        </div>
-                        <div class="calendar-grid" id="calendarGrid">
-                            <!-- Le calendrier sera généré ici -->
-                        </div>
-                    </div>
-                    
-                    <!-- Section Dates disponibles en mode ordinateur - À DROITE DU CALENDRIER -->
-                    <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
-                        <!-- Les boutons de dates seront générés ici -->
-                    </div>
-                </div>
-                
-                <!-- Sélection directe par date -->
-                <div class="date-picker" id="desktopDateList">
-                    <h3>Sélection directe par date</h3>
-                    <div class="date-input-group">
-                        <input type="date" id="dateInput">
-                        <button id="goToDate">Aller</button>
-                    </div>
-                </div>
-            </div>
-
             <div class="loading" id="loadingIndicator">
                 <div class="spinner"></div>
                 <p>Chargement des données depuis Google Sheets...</p>
@@ -1980,7 +2094,7 @@
                 </div>
             </section>
 
-            <!-- Section export en fin de page -->
+            <!-- Section export en fin de page (VISIBLE UNIQUEMENT EN MOBILE) -->
             <section class="export-section locked" id="exportSection">
                 <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
                 <div class="export-buttons">
@@ -1995,130 +2109,130 @@
                     </button>
                 </div>
             </section>
-        </div>
-    </div>
 
-    <!-- Modal pour les options de date -->
-    <div class="date-options-modal" id="dateOptionsModal">
-        <div class="date-options-content">
-            <h3 class="date-options-title" id="dateOptionsTitle">Options pour la date sélectionnée</h3>
-            <div class="date-options-buttons" id="dateOptionsButtons">
-                <!-- Les boutons d'options seront générés dynamiquement ici -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal pour le mot de passe -->
-    <div class="password-modal" id="passwordModal">
-        <div class="password-modal-content">
-            <h3>🔑 Admin - Accès aux colonnes protégées</h3>
-            <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
-            <div class="password-input-group">
-                <input type="password" id="passwordInput" placeholder="Entrez le mot de passe ici">
-                <div class="password-buttons">
-                    <button id="submitPassword">Valider</button>
-                    <button id="cancelPassword" class="secondary">Annuler</button>
+            <!-- Modal pour les options de date -->
+            <div class="date-options-modal" id="dateOptionsModal">
+                <div class="date-options-content">
+                    <h3 class="date-options-title" id="dateOptionsTitle">Options pour la date sélectionnée</h3>
+                    <div class="date-options-buttons" id="dateOptionsButtons">
+                        <!-- Les boutons d'options seront générés dynamiquement ici -->
+                    </div>
                 </div>
             </div>
-            <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
-                Mot de passe incorrect
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal pour les statistiques des noms -->
-    <div class="stats-modal" id="statsModal">
-        <div class="stats-modal-content">
-            <h3 id="statsModalTitle">Statistiques</h3>
-            <div id="statsModalContent"></div>
-            <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
-        </div>
-    </div>
 
-    <!-- Modal pour l'export de dates sélectionnées -->
-    <div class="export-dates-modal" id="exportDatesModal">
-        <div class="export-dates-content">
-            <h3>📅 Sélection des dates à exporter</h3>
-            <p>Sélectionnez les dates que vous souhaitez exporter :</p>
-            
-            <div class="export-dates-list" id="exportDatesList">
-                <!-- Les dates seront ajoutées ici dynamiquement -->
+            <!-- Modal pour le mot de passe -->
+            <div class="password-modal" id="passwordModal">
+                <div class="password-modal-content">
+                    <h3>🔑 Admin - Accès aux colonnes protégées</h3>
+                    <p>Veuillez entrer le mot de passe pour afficher les colonnes protégées :</p>
+                    <div class="password-input-group">
+                        <input type="password" id="passwordInput" placeholder="Entrez le mot de passe ici">
+                        <div class="password-buttons">
+                            <button id="submitPassword">Valider</button>
+                            <button id="cancelPassword" class="secondary">Annuler</button>
+                        </div>
+                    </div>
+                    <div id="passwordError" style="color: #e74c3c; margin-top: 10px; display: none;">
+                        Mot de passe incorrect
+                    </div>
+                </div>
             </div>
             
-            <div style="margin: 15px 0;">
-                <label>
-                    <input type="checkbox" id="selectAllDates">
-                    Sélectionner toutes les dates
-                </label>
+            <!-- Modal pour les statistiques des noms -->
+            <div class="stats-modal" id="statsModal">
+                <div class="stats-modal-content">
+                    <h3 id="statsModalTitle">Statistiques</h3>
+                    <div id="statsModalContent"></div>
+                    <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
+                </div>
             </div>
-            
-            <div class="form-group">
-                <label for="exportFormatSelect">Format d'export :</label>
-                <select id="exportFormatSelect">
-                    <option value="csv">CSV (Tableur)</option>
-                    <option value="excel">Excel (XLSX)</option>
-                    <option value="pdf">PDF (Rapport)</option>
-                </select>
-            </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button id="cancelExportDates" class="secondary" style="flex: 1;">Annuler</button>
-                <button id="confirmExportDates" class="primary" style="flex: 1; background: var(--apple-green);">Exporter</button>
-            </div>
-        </div>
-    </div>
 
-    <!-- Modal pour l'envoi par email avec sélection de PV -->
-    <div class="export-dates-modal" id="emailExportModal">
-        <div class="export-dates-content">
-            <h3>📧 Envoyer le rapport par email</h3>
-            <p>Sélectionnez les PV que vous souhaitez envoyer :</p>
-            
-            <div class="export-dates-list" id="emailPVList">
-                <!-- Les PV seront ajoutés ici dynamiquement -->
+            <!-- Modal pour l'export de dates sélectionnées -->
+            <div class="export-dates-modal" id="exportDatesModal">
+                <div class="export-dates-content">
+                    <h3>📅 Sélection des dates à exporter</h3>
+                    <p>Sélectionnez les dates que vous souhaitez exporter :</p>
+                    
+                    <div class="export-dates-list" id="exportDatesList">
+                        <!-- Les dates seront ajoutées ici dynamiquement -->
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <label>
+                            <input type="checkbox" id="selectAllDates">
+                            Sélectionner toutes les dates
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exportFormatSelect">Format d'export :</label>
+                        <select id="exportFormatSelect">
+                            <option value="csv">CSV (Tableur)</option>
+                            <option value="excel">Excel (XLSX)</option>
+                            <option value="pdf">PDF (Rapport)</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button id="cancelExportDates" class="secondary" style="flex: 1;">Annuler</button>
+                        <button id="confirmExportDates" class="primary" style="flex: 1; background: var(--apple-green);">Exporter</button>
+                    </div>
+                </div>
             </div>
-            
-            <div style="margin: 15px 0;">
-                <label>
-                    <input type="checkbox" id="selectAllPVs">
-                    Sélectionner tous les PV
-                </label>
-            </div>
-            
-            <div class="form-group">
-                <label for="emailRecipients">Destinataires :</label>
-                <textarea id="emailRecipients" placeholder="exemple1@gmail.com, exemple2@hotmail.com, exemple3@yahoo.com" rows="3"></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="emailSubject">Sujet :</label>
-                <input type="text" id="emailSubject" value="Rapport PV - Tournée NY AKO 2026">
-            </div>
-            
-            <div class="form-group">
-                <label for="emailMessage">Message :</label>
-                <textarea id="emailMessage" rows="4" placeholder="Message accompagnant le rapport..."></textarea>
-            </div>
-            
-            <div class="form-group">
-                <label for="emailFormatSelect">Format du rapport :</label>
-                <select id="emailFormatSelect">
-                    <option value="pdf">PDF (Rapport complet)</option>
-                    <option value="csv">CSV (Données brutes)</option>
-                    <option value="excel">Excel (Tableur)</option>
-                </select>
-            </div>
-            
-            <div style="margin: 15px 0;">
-                <label>
-                    <input type="checkbox" id="includePVContent" checked>
-                    Inclure le contenu des PV dans le message
-                </label>
-            </div>
-            
-            <div style="display: flex; gap: 10px; margin-top: 20px;">
-                <button id="cancelEmailExport" class="secondary" style="flex: 1;">Annuler</button>
-                <button id="confirmEmailExport" class="primary" style="flex: 1; background: var(--accent-color);">Envoyer</button>
+
+            <!-- Modal pour l'envoi par email avec sélection de PV -->
+            <div class="export-dates-modal" id="emailExportModal">
+                <div class="export-dates-content">
+                    <h3>📧 Envoyer le rapport par email</h3>
+                    <p>Sélectionnez les PV que vous souhaitez envoyer :</p>
+                    
+                    <div class="export-dates-list" id="emailPVList">
+                        <!-- Les PV seront ajoutés ici dynamiquement -->
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <label>
+                            <input type="checkbox" id="selectAllPVs">
+                            Sélectionner tous les PV
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailRecipients">Destinataires :</label>
+                        <textarea id="emailRecipients" placeholder="exemple1@gmail.com, exemple2@hotmail.com, exemple3@yahoo.com" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailSubject">Sujet :</label>
+                        <input type="text" id="emailSubject" value="Rapport PV - Tournée NY AKO 2026">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailMessage">Message :</label>
+                        <textarea id="emailMessage" rows="4" placeholder="Message accompagnant le rapport..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emailFormatSelect">Format du rapport :</label>
+                        <select id="emailFormatSelect">
+                            <option value="pdf">PDF (Rapport complet)</option>
+                            <option value="csv">CSV (Données brutes)</option>
+                            <option value="excel">Excel (Tableur)</option>
+                        </select>
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <label>
+                            <input type="checkbox" id="includePVContent" checked>
+                            Inclure le contenu des PV dans le message
+                        </label>
+                    </div>
+                    
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button id="cancelEmailExport" class="secondary" style="flex: 1;">Annuler</button>
+                        <button id="confirmEmailExport" class="primary" style="flex: 1; background: var(--accent-color);">Envoyer</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -2177,29 +2291,17 @@
         let pvCountByPerson = {};
         
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('searchText');
-            const suggestionsContainer = document.getElementById('suggestionsContainer');
+            // Initialisation des événements pour la vue mobile
+            initMobileView();
             
-            document.getElementById('searchForm').addEventListener('submit', handleSearch);
-            document.getElementById('prevMonth').addEventListener('click', prevMonth);
-            document.getElementById('nextMonth').addEventListener('click', nextMonth);
-            document.getElementById('goToDate').addEventListener('click', goToSelectedDate);
-            document.getElementById('showAllButton').addEventListener('click', showAllData);
+            // Initialisation des événements pour la vue desktop
+            initDesktopView();
+            
+            // Événements communs
             document.getElementById('closeResults').addEventListener('click', closeResults);
             document.getElementById('retryButton').addEventListener('click', loadDataFromGoogleSheets);
-            document.getElementById('showLinksButton').addEventListener('click', showPasswordModal);
             document.getElementById('submitPassword').addEventListener('click', checkPassword);
             document.getElementById('cancelPassword').addEventListener('click', hidePasswordModal);
-            
-            // Boutons de filtre
-            document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
-            document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
-            document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
-            
-            // Boutons d'export (désactivés par défaut)
-            document.getElementById('exportSelected').addEventListener('click', showExportDatesModal);
-            document.getElementById('exportAll').addEventListener('click', exportAllData);
-            document.getElementById('sendEmail').addEventListener('click', showEmailExportModal);
             
             // Modal d'export de dates
             document.getElementById('cancelExportDates').addEventListener('click', hideExportDatesModal);
@@ -2218,7 +2320,11 @@
             });
             document.getElementById('floatingSearch').addEventListener('click', function(e) {
                 e.preventDefault();
-                document.getElementById('searchText').focus();
+                if (window.innerWidth >= 1024) {
+                    document.getElementById('searchTextDesktop').focus();
+                } else {
+                    document.getElementById('searchText').focus();
+                }
             });
             document.getElementById('floatingCalendar').addEventListener('click', function(e) {
                 e.preventDefault();
@@ -2235,7 +2341,13 @@
             document.getElementById('floatingExport').addEventListener('click', function(e) {
                 e.preventDefault();
                 if (isAdminAuthenticated) {
-                    document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
+                    if (window.innerWidth >= 1024) {
+                        // Scroll vers la section export dans le panneau latéral
+                        document.getElementById('exportSectionSide').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        // Scroll vers la section export dans le contenu principal
+                        document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
+                    }
                 } else {
                     showPasswordModalForAction('export');
                 }
@@ -2244,13 +2356,52 @@
             // Statistiques
             document.getElementById('closeStatsModal').addEventListener('click', hideStatsModal);
             
+            // Ajuster l'affichage des dates sur mobile
+            adjustDateDisplay();
+            window.addEventListener('resize', adjustDateDisplay);
+            
+            loadDataFromGoogleSheets();
+        });
+
+        function initMobileView() {
+            const searchInput = document.getElementById('searchText');
+            const suggestionsContainer = document.getElementById('suggestionsContainer');
+            
+            document.getElementById('searchForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleSearch(e, 'mobile');
+            });
+            
+            document.getElementById('prevMonth').addEventListener('click', function() {
+                prevMonth('mobile');
+            });
+            document.getElementById('nextMonth').addEventListener('click', function() {
+                nextMonth('mobile');
+            });
+            document.getElementById('goToDate').addEventListener('click', function() {
+                goToSelectedDate('mobile');
+            });
+            document.getElementById('showAllButton').addEventListener('click', showAllData);
+            document.getElementById('showLinksButton').addEventListener('click', showPasswordModal);
+            document.getElementById('retryButton').addEventListener('click', loadDataFromGoogleSheets);
+            
+            // Boutons de filtre mobile
+            document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
+            document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
+            document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
+            
+            // Boutons d'export mobile
+            document.getElementById('exportSelected').addEventListener('click', showExportDatesModal);
+            document.getElementById('exportAll').addEventListener('click', exportAllData);
+            document.getElementById('sendEmail').addEventListener('click', showEmailExportModal);
+            
             searchInput.addEventListener('input', function() {
-                showSuggestions(this.value);
+                showSuggestions(this.value, 'mobile');
             });
             
             searchInput.addEventListener('focus', function() {
                 if (this.value) {
-                    showSuggestions(this.value);
+                    showSuggestions(this.value, 'mobile');
                 }
             });
             
@@ -2259,18 +2410,68 @@
                     suggestionsContainer.style.display = 'none';
                 }
             });
+        }
+        
+        function initDesktopView() {
+            const searchInputDesktop = document.getElementById('searchTextDesktop');
+            const suggestionsContainerDesktop = document.getElementById('suggestionsContainerDesktop');
             
-            // Ajuster l'affichage des dates sur mobile
-            adjustDateDisplay();
-            window.addEventListener('resize', adjustDateDisplay);
+            document.getElementById('searchFormDesktop').addEventListener('submit', function(e) {
+                e.preventDefault();
+                handleSearch(e, 'desktop');
+            });
             
-            loadDataFromGoogleSheets();
-        });
+            document.getElementById('prevMonthDesktop').addEventListener('click', function() {
+                prevMonth('desktop');
+            });
+            document.getElementById('nextMonthDesktop').addEventListener('click', function() {
+                nextMonth('desktop');
+            });
+            document.getElementById('goToDateDesktop').addEventListener('click', function() {
+                goToSelectedDate('desktop');
+            });
+            document.getElementById('showAllButtonDesktop').addEventListener('click', showAllData);
+            document.getElementById('showLinksButtonDesktop').addEventListener('click', showPasswordModal);
+            document.getElementById('retryButtonDesktop').addEventListener('click', loadDataFromGoogleSheets);
+            
+            // Boutons de filtre desktop
+            document.getElementById('showFanamarihanaButtonDesktop').addEventListener('click', showFanamarihanaFamerenana);
+            document.getElementById('showFanapahanKevitraButtonDesktop').addEventListener('click', showFanapahanKevitra);
+            document.getElementById('showVaovaoButtonDesktop').addEventListener('click', showVaovao);
+            
+            // Boutons d'export desktop (dans le panneau latéral)
+            document.getElementById('exportSelectedSide').addEventListener('click', showExportDatesModal);
+            document.getElementById('exportAllSide').addEventListener('click', exportAllData);
+            document.getElementById('sendEmailSide').addEventListener('click', showEmailExportModal);
+            
+            searchInputDesktop.addEventListener('input', function() {
+                showSuggestions(this.value, 'desktop');
+            });
+            
+            searchInputDesktop.addEventListener('focus', function() {
+                if (this.value) {
+                    showSuggestions(this.value, 'desktop');
+                }
+            });
+            
+            document.addEventListener('click', function(e) {
+                if (!searchInputDesktop.contains(e.target) && !suggestionsContainerDesktop.contains(e.target)) {
+                    suggestionsContainerDesktop.style.display = 'none';
+                }
+            });
+        }
 
         function scrollToCalendar() {
-            const calendarElement = document.querySelector('.calendar-container');
-            if (calendarElement) {
-                calendarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (window.innerWidth >= 1024) {
+                const calendarElement = document.querySelector('.side-panel .calendar-container');
+                if (calendarElement) {
+                    calendarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            } else {
+                const calendarElement = document.querySelector('.mobile-search-section .calendar-container');
+                if (calendarElement) {
+                    calendarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
         }
 
@@ -2278,121 +2479,39 @@
             const desktopDateList = document.getElementById('desktopDateList');
             const availableDatesDesktop = document.getElementById('availableDatesDesktop');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
-            const mobileTopSection = document.getElementById('mobileTopSection');
+            const desktopDateListSide = document.getElementById('desktopDateListSide');
+            const availableDatesDesktopSide = document.getElementById('availableDatesDesktopSide');
             
             if (window.innerWidth <= 768) {
-                // En mobile, on cache le panneau latéral et on affiche tout verticalement
-                document.querySelector('.left-panel').style.display = 'block';
-                document.querySelector('.container').style.flexDirection = 'column';
-                desktopDateList.style.display = 'none';
+                // Vue mobile
+                if (desktopDateList) desktopDateList.style.display = 'none';
                 if (availableDatesDesktop) availableDatesDesktop.style.display = 'none';
+                if (desktopDateListSide) desktopDateListSide.style.display = 'none';
+                if (availableDatesDesktopSide) availableDatesDesktopSide.style.display = 'none';
                 
-                // En mobile, déplacer les statistiques et dates dans la section mobile
-                updateMobileTopSection();
-                
+                // En mobile, les dates disponibles sont déjà au-dessus du calendrier
+                if (availableDatesContainer && datesWithData.length > 0) {
+                    availableDatesContainer.style.display = 'block';
+                    document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
+                }
+            } else if (window.innerWidth >= 1024) {
+                // Vue ordinateur - panneau latéral
+                if (desktopDateListSide) desktopDateListSide.style.display = 'block';
+                if (availableDatesDesktopSide && datesWithData.length > 0) {
+                    availableDatesDesktopSide.style.display = 'flex';
+                }
+                if (availableDatesContainer) {
+                    availableDatesContainer.style.display = 'none';
+                }
             } else {
-                // En ordinateur, on affiche le panneau latéral
-                document.querySelector('.left-panel').style.display = 'flex';
-                document.querySelector('.container').style.flexDirection = 'row';
-                desktopDateList.style.display = 'block';
+                // Tablette (768px - 1023px)
+                if (desktopDateList) desktopDateList.style.display = 'block';
                 if (availableDatesDesktop && datesWithData.length > 0) {
                     availableDatesDesktop.style.display = 'flex';
                 }
                 if (availableDatesContainer) {
-                    availableDatesContainer.style.display = 'block';
+                    availableDatesContainer.style.display = 'none';
                 }
-                // Vider la section mobile en desktop
-                if (mobileTopSection) {
-                    mobileTopSection.innerHTML = '';
-                }
-            }
-        }
-
-        // NOUVELLE FONCTION : Mettre à jour la section mobile avec statistiques et dates
-        function updateMobileTopSection() {
-            const mobileTopSection = document.getElementById('mobileTopSection');
-            
-            if (window.innerWidth <= 768 && datesWithData.length > 0) {
-                let html = '';
-                
-                // Ajouter les statistiques
-                if (totalPV > 0) {
-                    html += `
-                        <div class="stats-section">
-                            <div class="stat-card">
-                                <div class="stat-value">${totalPV}</div>
-                                <div class="stat-label">Total PV</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
-                                <div class="stat-label">Lieux différents</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value">${allNames.size}</div>
-                                <div class="stat-label">Participants uniques</div>
-                            </div>
-                        </div>
-                    `;
-                }
-                
-                // Ajouter les dates disponibles
-                html += `
-                    <div class="available-dates-container">
-                        <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
-                            <i>📅</i> Dates disponibles
-                            <span style="font-size: 0.75em; color: #666; margin-left: 8px;">(${datesWithData.length} dates)</span>
-                        </h3>
-                        <div class="dates-buttons" id="mobileDatesButtons">
-                `;
-                
-                datesWithData.forEach(item => {
-                    const dateButton = createDateButton(item);
-                    // Cloner le bouton pour la version mobile
-                    const mobileButton = dateButton.cloneNode(true);
-                    mobileButton.style.minWidth = '120px';
-                    mobileButton.style.padding = '6px 10px';
-                    mobileButton.style.fontSize = '0.8em';
-                    mobileButton.style.margin = '0';
-                    mobileButton.style.flex = '1 1 auto';
-                    mobileButton.style.maxWidth = '140px';
-                    html += mobileButton.outerHTML;
-                });
-                
-                html += `
-                        </div>
-                    </div>
-                `;
-                
-                mobileTopSection.innerHTML = html;
-                
-                // Réattacher les événements aux boutons de dates mobiles
-                document.querySelectorAll('#mobileDatesButtons .date-button').forEach((button, index) => {
-                    button.addEventListener('click', () => {
-                        const item = datesWithData[index];
-                        if (item) {
-                            displayDataForDate(item.date);
-                            currentDate = new Date(item.date);
-                            renderCalendar();
-                            
-                            // Mettre en évidence la date sélectionnée
-                            document.querySelectorAll('#mobileDatesButtons .date-button').forEach(btn => {
-                                btn.style.opacity = '0.8';
-                                btn.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
-                            });
-                            button.style.opacity = '1';
-                            button.style.boxShadow = '0 0 0 2px #ff6b6b, 0 3px 10px rgba(231, 76, 60, 0.4)';
-                            
-                            // Retirer la mise en évidence après 3 secondes
-                            setTimeout(() => {
-                                button.style.opacity = '0.8';
-                                button.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
-                            }, 3000);
-                        }
-                    });
-                });
-                
-            } else {
-                mobileTopSection.innerHTML = '';
             }
         }
 
@@ -2788,17 +2907,21 @@ L'équipe de gestion des PV`;
             const datesButtons = document.getElementById('datesButtons');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
             const availableDatesDesktop = document.getElementById('availableDatesDesktop');
+            const availableDatesDesktopSide = document.getElementById('availableDatesDesktopSide');
             
             if (datesWithData.length === 0) {
                 if (availableDatesContainer) availableDatesContainer.style.display = 'none';
                 if (availableDatesDesktop) availableDatesDesktop.style.display = 'none';
+                if (availableDatesDesktopSide) availableDatesDesktopSide.style.display = 'none';
                 return;
             }
             
             // Mettre à jour le compteur de dates
-            document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
+            if (document.getElementById('datesCount')) {
+                document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
+            }
             
-            // Version mobile (boutons) - CACHÉE CAR DÉPLACÉE VERS mobileTopSection
+            // Version mobile (boutons)
             if (availableDatesContainer) {
                 availableDatesContainer.style.display = 'block';
                 datesButtons.innerHTML = '';
@@ -2809,7 +2932,7 @@ L'équipe de gestion des PV`;
                 });
             }
             
-            // Version desktop - DISPOSITION AMELIOREE
+            // Version desktop dans la vue mobile (pour tablettes)
             if (availableDatesDesktop) {
                 availableDatesDesktop.innerHTML = '';
                 
@@ -2823,13 +2946,26 @@ L'équipe de gestion des PV`;
                 });
                 
                 availableDatesDesktop.appendChild(datesGrid);
-                
-                // Afficher ou masquer selon la taille de l'écran
-                adjustDateDisplay();
             }
             
-            // Mettre à jour la section mobile
-            updateMobileTopSection();
+            // Version desktop dans le panneau latéral
+            if (availableDatesDesktopSide) {
+                availableDatesDesktopSide.innerHTML = '';
+                
+                // Créer un conteneur de grille pour les dates
+                const datesGrid = document.createElement('div');
+                datesGrid.className = 'available-dates-grid';
+                
+                datesWithData.forEach(item => {
+                    const dateButton = createDateButton(item);
+                    datesGrid.appendChild(dateButton);
+                });
+                
+                availableDatesDesktopSide.appendChild(datesGrid);
+            }
+            
+            // Afficher ou masquer selon la taille de l'écran
+            adjustDateDisplay();
         }
         
         // NOUVELLE FONCTION : Créer un bouton de date avec événement
@@ -2859,7 +2995,8 @@ L'équipe de gestion des PV`;
                 // Afficher directement les données de cette date
                 displayDataForDate(item.date);
                 currentDate = new Date(item.date);
-                renderCalendar();
+                renderCalendar('mobile');
+                renderCalendar('desktop');
                 
                 // Mettre en évidence la date sélectionnée
                 document.querySelectorAll('.date-button').forEach(btn => {
@@ -3081,11 +3218,12 @@ L'équipe de gestion des PV`;
                 showProtectedColumns = true;
                 hidePasswordModal();
                 
-                // Activer les boutons d'export
+                // Activer les boutons d'export dans les deux vues
                 document.querySelectorAll('.export-btn').forEach(btn => {
                     btn.disabled = false;
                 });
                 document.getElementById('exportSection').classList.remove('locked');
+                document.getElementById('exportSectionSide').classList.remove('locked');
                 
                 // Mettre à jour le bouton modifier dans la modal si elle est ouverte
                 const editButton = document.getElementById('editPVButton');
@@ -3100,7 +3238,11 @@ L'équipe de gestion des PV`;
                 } else if (action === 'edit' && selectedDate) {
                     openEditLinkForDate(selectedDate);
                 } else if (action === 'export') {
-                    document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
+                    if (window.innerWidth >= 1024) {
+                        document.getElementById('exportSectionSide').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
+                    }
                 }
                 
                 // Recharger les résultats actuels si des résultats sont affichés
@@ -3118,7 +3260,7 @@ L'équipe de gestion des PV`;
                     } else if (currentSearch === 'Tous les PV') {
                         showAllData();
                     } else {
-                        handleSearch(new Event('submit'));
+                        handleSearch(new Event('submit'), window.innerWidth >= 1024 ? 'desktop' : 'mobile');
                     }
                 }
             } else {
@@ -3180,9 +3322,24 @@ L'équipe de gestion des PV`;
         }
 
         // MODIFICATION : Le calendrier montre les options, le lieu et le nombre de participants
-        function renderCalendar() {
-            const calendarGrid = document.getElementById('calendarGrid');
-            const currentMonthElement = document.getElementById('currentMonth');
+        function renderCalendar(view = 'mobile') {
+            let calendarGrid, currentMonthElement, calendarId, dateInputId, goToDateId;
+            
+            if (view === 'desktop') {
+                calendarGrid = document.getElementById('calendarGridDesktop');
+                currentMonthElement = document.getElementById('currentMonthDesktop');
+                calendarId = 'calendarGridDesktop';
+                dateInputId = 'dateInputDesktop';
+                goToDateId = 'goToDateDesktop';
+            } else {
+                calendarGrid = document.getElementById('calendarGrid');
+                currentMonthElement = document.getElementById('currentMonth');
+                calendarId = 'calendarGrid';
+                dateInputId = 'dateInput';
+                goToDateId = 'goToDate';
+            }
+            
+            if (!calendarGrid || !currentMonthElement) return;
             
             currentMonthElement.textContent = currentDate.toLocaleDateString('fr-FR', {
                 month: 'long',
@@ -3278,9 +3435,16 @@ L'équipe de gestion des PV`;
         }
 
         // MODIFICATION : La sélection de date via le champ de date va directement aux options
-        function goToSelectedDate() {
-            const dateInput = document.getElementById('dateInput');
-            const dateValue = dateInput.value;
+        function goToSelectedDate(view = 'mobile') {
+            let dateInput, dateValue;
+            
+            if (view === 'desktop') {
+                dateInput = document.getElementById('dateInputDesktop');
+            } else {
+                dateInput = document.getElementById('dateInput');
+            }
+            
+            dateValue = dateInput.value;
             
             if (!dateValue) {
                 alert('Veuillez sélectionner une date');
@@ -3289,7 +3453,8 @@ L'équipe de gestion des PV`;
             
             const selectedDate = new Date(dateValue);
             currentDate = new Date(selectedDate);
-            renderCalendar();
+            renderCalendar('mobile');
+            renderCalendar('desktop');
             
             // AFFICHER LES OPTIONS (comme pour le calendrier)
             showDateOptions(selectedDate);
@@ -3414,76 +3579,153 @@ L'équipe de gestion des PV`;
             
             // Afficher la liste des lieux
             displayToeranaList();
-            
-            // Mettre à jour la section mobile
-            updateMobileTopSection();
         }
         
         function updateStatsDisplay() {
-            document.getElementById('totalPV').textContent = totalPV;
-            document.getElementById('toeranaStats').textContent = Object.keys(toeranaStats).length;
-            document.getElementById('totalParticipants').textContent = allNames.size;
+            // Mise à jour pour la vue mobile
+            if (document.getElementById('totalPV')) {
+                document.getElementById('totalPV').textContent = totalPV;
+                document.getElementById('toeranaStats').textContent = Object.keys(toeranaStats).length;
+                document.getElementById('totalParticipants').textContent = allNames.size;
+            }
+            
+            // Mise à jour pour la vue desktop
+            if (document.getElementById('totalPVDesktop')) {
+                document.getElementById('totalPVDesktop').textContent = totalPV;
+                document.getElementById('toeranaStatsDesktop').textContent = Object.keys(toeranaStats).length;
+                document.getElementById('totalParticipantsDesktop').textContent = allNames.size;
+            }
         }
         
         function displayNamesList() {
+            // Vue mobile
             const namesListContainer = document.getElementById('namesListContainer');
             const namesList = document.getElementById('namesList');
             
+            // Vue desktop
+            const namesListContainerDesktop = document.getElementById('namesListContainerDesktop');
+            const namesListDesktop = document.getElementById('namesListDesktop');
+            
             if (allNames.size === 0) {
-                namesListContainer.style.display = 'none';
+                if (namesListContainer) namesListContainer.style.display = 'none';
+                if (namesListContainerDesktop) namesListContainerDesktop.style.display = 'none';
                 return;
             }
             
-            namesListContainer.style.display = 'block';
-            namesList.innerHTML = '';
+            // Vue mobile
+            if (namesListContainer) {
+                namesListContainer.style.display = 'block';
+                if (namesList) {
+                    namesList.innerHTML = '';
+                    
+                    Array.from(allNames).sort().forEach(name => {
+                        const nameTag = document.createElement('div');
+                        nameTag.className = 'name-tag';
+                        nameTag.textContent = name;
+                        nameTag.addEventListener('click', () => {
+                            showNameStatistics(name);
+                        });
+                        namesList.appendChild(nameTag);
+                    });
+                }
+            }
             
-            Array.from(allNames).sort().forEach(name => {
-                const nameTag = document.createElement('div');
-                nameTag.className = 'name-tag';
-                nameTag.textContent = name;
-                nameTag.addEventListener('click', () => {
-                    showNameStatistics(name);
-                });
-                namesList.appendChild(nameTag);
-            });
+            // Vue desktop
+            if (namesListContainerDesktop) {
+                namesListContainerDesktop.style.display = 'block';
+                if (namesListDesktop) {
+                    namesListDesktop.innerHTML = '';
+                    
+                    Array.from(allNames).sort().forEach(name => {
+                        const nameTag = document.createElement('div');
+                        nameTag.className = 'name-tag';
+                        nameTag.textContent = name;
+                        nameTag.addEventListener('click', () => {
+                            showNameStatistics(name);
+                        });
+                        namesListDesktop.appendChild(nameTag);
+                    });
+                }
+            }
         }
         
         function displayToeranaList() {
+            // Vue mobile
             const toeranaListContainer = document.getElementById('toeranaListContainer');
             const toeranaList = document.getElementById('toeranaList');
             
+            // Vue desktop
+            const toeranaListContainerDesktop = document.getElementById('toeranaListContainerDesktop');
+            const toeranaListDesktop = document.getElementById('toeranaListDesktop');
+            
             if (Object.keys(toeranaStats).length === 0) {
-                toeranaListContainer.style.display = 'none';
+                if (toeranaListContainer) toeranaListContainer.style.display = 'none';
+                if (toeranaListContainerDesktop) toeranaListContainerDesktop.style.display = 'none';
                 return;
             }
-            
-            toeranaListContainer.style.display = 'block';
-            toeranaList.innerHTML = '';
             
             // Trier les lieux par nombre de réunions (décroissant)
             const sortedToerana = Object.entries(toeranaStats).sort((a, b) => b[1] - a[1]);
             
-            sortedToerana.forEach(([toerana, count]) => {
-                const toeranaItem = document.createElement('div');
-                toeranaItem.className = 'date-item';
-                toeranaItem.innerHTML = `
-                    <strong>${toerana}</strong>
-                    <span style="float: right; background: #3498db; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.75em;">
-                        ${count} réunion${count > 1 ? 's' : ''}
-                    </span>
-                `;
-                toeranaItem.addEventListener('click', () => {
-                    // Filtrer les PV pour ce lieu
-                    const filteredData = sheetData.filter(row => {
-                        const toeranaIndex = headers.findIndex(h => 
-                            h && h.toLowerCase().includes('toerana')
-                        );
-                        return toeranaIndex !== -1 && row[toeranaIndex] === toerana;
+            // Vue mobile
+            if (toeranaListContainer) {
+                toeranaListContainer.style.display = 'block';
+                if (toeranaList) {
+                    toeranaList.innerHTML = '';
+                    
+                    sortedToerana.forEach(([toerana, count]) => {
+                        const toeranaItem = document.createElement('div');
+                        toeranaItem.className = 'date-item';
+                        toeranaItem.innerHTML = `
+                            <strong>${toerana}</strong>
+                            <span style="float: right; background: #3498db; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.75em;">
+                                ${count} réunion${count > 1 ? 's' : ''}
+                            </span>
+                        `;
+                        toeranaItem.addEventListener('click', () => {
+                            // Filtrer les PV pour ce lieu
+                            const filteredData = sheetData.filter(row => {
+                                const toeranaIndex = headers.findIndex(h => 
+                                    h && h.toLowerCase().includes('toerana')
+                                );
+                                return toeranaIndex !== -1 && row[toeranaIndex] === toerana;
+                            });
+                            displayResults(filteredData, `PV au lieu: ${toerana}`);
+                        });
+                        toeranaList.appendChild(toeranaItem);
                     });
-                    displayResults(filteredData, `PV au lieu: ${toerana}`);
-                });
-                toeranaList.appendChild(toeranaItem);
-            });
+                }
+            }
+            
+            // Vue desktop
+            if (toeranaListContainerDesktop) {
+                toeranaListContainerDesktop.style.display = 'block';
+                if (toeranaListDesktop) {
+                    toeranaListDesktop.innerHTML = '';
+                    
+                    sortedToerana.forEach(([toerana, count]) => {
+                        const toeranaItem = document.createElement('div');
+                        toeranaItem.className = 'date-item';
+                        toeranaItem.innerHTML = `
+                            <strong>${toerana}</strong>
+                            <span style="float: right; background: #3498db; color: white; padding: 2px 6px; border-radius: 10px; font-size: 0.75em;">
+                                ${count} réunion${count > 1 ? 's' : ''}
+                            </span>
+                        `;
+                        toeranaItem.addEventListener('click', () => {
+                            // Filtrer les PV pour ce lieu
+                            const filteredData = sheetData.filter(row => {
+                                const toeranaIndex = headers.findIndex(h => 
+                                    h && h.toLowerCase().includes('toerana')
+                                );
+                                return toeranaIndex !== -1 && row[toeranaIndex] === toerana;
+                            });
+                            displayResults(filteredData, `PV au lieu: ${toerana}`);
+                        });
+                        toeranaListDesktop.appendChild(toeranaItem);
+                    });
+                }
+            }
         }
         
         // MODIFICATION : Affiche les statistiques avec graphiques cylindriques
@@ -3664,8 +3906,16 @@ L'équipe de gestion des PV`;
             return uniqueDates.slice(0, 10);
         }
         
-        function showSuggestions(searchTerm) {
-            const suggestionsContainer = document.getElementById('suggestionsContainer');
+        function showSuggestions(searchTerm, view = 'mobile') {
+            let suggestionsContainer;
+            
+            if (view === 'desktop') {
+                suggestionsContainer = document.getElementById('suggestionsContainerDesktop');
+            } else {
+                suggestionsContainer = document.getElementById('suggestionsContainer');
+            }
+            
+            if (!suggestionsContainer) return;
             
             if (!searchTerm || searchTerm.length < 2) {
                 suggestionsContainer.style.display = 'none';
@@ -3696,7 +3946,13 @@ L'équipe de gestion des PV`;
                     const searchTerm = this.getAttribute('data-search');
                     const dateStr = this.getAttribute('data-date');
                     
-                    document.getElementById('searchText').value = searchTerm;
+                    // Mettre à jour le champ de recherche correspondant
+                    if (view === 'desktop') {
+                        document.getElementById('searchTextDesktop').value = searchTerm;
+                    } else {
+                        document.getElementById('searchText').value = searchTerm;
+                    }
+                    
                     currentSearchTerm = searchTerm;
                     
                     suggestionsContainer.style.display = 'none';
@@ -3722,7 +3978,7 @@ L'équipe de gestion des PV`;
         }
         
         function showError(message) {
-            const searchSection = document.querySelector('.search-section');
+            const searchSection = document.querySelector('.mobile-search-section');
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.innerHTML = `
@@ -3731,6 +3987,9 @@ L'équipe de gestion des PV`;
             searchSection.appendChild(errorDiv);
             
             document.getElementById('retryButton').style.display = 'block';
+            if (document.getElementById('retryButtonDesktop')) {
+                document.getElementById('retryButtonDesktop').style.display = 'block';
+            }
         }
         
         function clearErrorMessages() {
@@ -3738,10 +3997,16 @@ L'équipe de gestion des PV`;
             errorMessages.forEach(msg => msg.remove());
         }
         
-        function handleSearch(event) {
+        function handleSearch(event, view = 'mobile') {
             if (event) event.preventDefault();
             
-            const searchValue = document.getElementById('searchText').value.trim();
+            let searchValue;
+            if (view === 'desktop') {
+                searchValue = document.getElementById('searchTextDesktop').value.trim();
+            } else {
+                searchValue = document.getElementById('searchText').value.trim();
+            }
+            
             currentSearchTerm = searchValue;
             
             if (!searchValue) {
@@ -3757,7 +4022,12 @@ L'équipe de gestion des PV`;
             const results = searchData(searchValue);
             displayResults(results, searchValue);
             
-            document.getElementById('suggestionsContainer').style.display = 'none';
+            // Masquer les suggestions
+            if (view === 'desktop') {
+                document.getElementById('suggestionsContainerDesktop').style.display = 'none';
+            } else {
+                document.getElementById('suggestionsContainer').style.display = 'none';
+            }
         }
         
         function showAllData() {
@@ -3796,14 +4066,16 @@ L'équipe de gestion des PV`;
             });
         }
         
-        function prevMonth() {
+        function prevMonth(view = 'mobile') {
             currentDate.setMonth(currentDate.getMonth() - 1);
-            renderCalendar();
+            renderCalendar('mobile');
+            renderCalendar('desktop');
         }
         
-        function nextMonth() {
+        function nextMonth(view = 'mobile') {
             currentDate.setMonth(currentDate.getMonth() + 1);
-            renderCalendar();
+            renderCalendar('mobile');
+            renderCalendar('desktop');
         }
         
         function highlightSearchText(text, searchTerm) {
@@ -4319,7 +4591,12 @@ L'équipe de gestion des PV`;
         async function loadDataFromGoogleSheets() {
             console.log('🔍 Début du chargement des données PV...');
             document.getElementById('loadingIndicator').style.display = 'block';
-            document.getElementById('retryButton').style.display = 'none';
+            if (document.getElementById('retryButton')) {
+                document.getElementById('retryButton').style.display = 'none';
+            }
+            if (document.getElementById('retryButtonDesktop')) {
+                document.getElementById('retryButtonDesktop').style.display = 'none';
+            }
             clearErrorMessages();
             
             try {
@@ -4427,7 +4704,8 @@ L'équipe de gestion des PV`;
                 extractDatesWithData();
                 calculateStatistics();
                 showDataInfo();
-                renderCalendar();
+                renderCalendar('mobile');
+                renderCalendar('desktop');
                 
             } catch (error) {
                 console.error('❌ Erreur de traitement:', error);
