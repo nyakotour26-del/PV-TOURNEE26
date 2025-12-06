@@ -349,6 +349,152 @@
             }
         }
         
+        /* MODIFICATION : Boutons de dates disponibles en ROUGE */
+        .date-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 100%) !important; /* ROUGE au lieu de vert */
+            color: white;
+            padding: 8px 15px; /* Un peu plus de padding */
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+            min-width: 140px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .date-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(231, 76, 60, 0.4);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%) !important; /* Rouge plus foncé au survol */
+        }
+        
+        .date-button:active {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+        }
+        
+        .date-button i {
+            font-size: 1em;
+        }
+        
+        /* Animation de brillance au survol */
+        .date-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .date-button:hover::before {
+            left: 100%;
+        }
+        
+        /* Pour les écrans larges (mode ordinateur) - AMELIORATION */
+        @media (min-width: 769px) {
+            .available-dates-container.mobile-dates-above {
+                display: none;
+            }
+            
+            .available-dates-desktop {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin: 25px 0;
+                padding: 15px;
+                background: rgba(255, 245, 245, 0.7);
+                border-radius: var(--border-radius);
+                border: 1px solid #ffcccc;
+                position: relative;
+            }
+            
+            /* Titre spécifique pour les dates en mode desktop */
+            .available-dates-desktop::before {
+                content: "📅 Dates disponibles";
+                position: absolute;
+                top: -30px;
+                left: 0;
+                font-weight: bold;
+                font-size: 1.1em;
+                color: var(--secondary-color);
+                width: 100%;
+                padding-bottom: 5px;
+                border-bottom: 2px solid #ff6b6b;
+            }
+            
+            .available-dates-desktop .date-button {
+                min-width: 150px;
+                padding: 9px 16px;
+                font-size: 0.92em;
+                margin: 0;
+                flex: 0 0 auto;
+            }
+            
+            /* Disposition en grille pour les dates sur ordinateur */
+            .available-dates-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 12px;
+                width: 100%;
+            }
+        }
+        
+        /* Pour les écrans mobiles */
+        @media (max-width: 768px) {
+            .dates-buttons {
+                gap: 10px;
+                justify-content: center;
+                padding: 10px;
+                background: rgba(255, 245, 245, 0.7);
+                border-radius: var(--border-radius);
+                border: 1px solid #ffcccc;
+                margin-top: 10px;
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .date-button {
+                min-width: 150px;
+                padding: 9px 16px;
+                font-size: 0.9em;
+                margin: 0;
+                flex: 1 1 auto;
+                max-width: 170px;
+            }
+            
+            .available-dates-desktop {
+                display: none;
+            }
+        }
+        
+        /* Petits écrans (téléphones très petits) */
+        @media (max-width: 480px) {
+            .date-button {
+                min-width: 130px;
+                padding: 7px 12px;
+                font-size: 0.85em;
+                max-width: 150px;
+            }
+            
+            .dates-buttons {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 8px;
+            }
+        }
+        
         /* DATES DISPONIBLES EN BOUTONS VERT POMME - POUR MOBILE */
         .available-dates-container {
             margin: 20px 0;
@@ -364,84 +510,13 @@
         }
         
         .dates-title i {
-            color: var(--apple-green);
+            color: #e74c3c; /* Rouge au lieu de vert */
         }
         
         .dates-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-        }
-        
-        .date-button {
-            background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            font-size: 0.85em;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            min-width: 130px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            flex-shrink: 0;
-        }
-        
-        .date-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, var(--apple-green-dark) 0%, #3d8b40 100%);
-        }
-        
-        .date-button:active {
-            transform: translateY(-1px);
-        }
-        
-        .date-button i {
-            font-size: 0.9em;
-        }
-        
-        @media (max-width: 768px) {
-            .dates-buttons {
-                gap: 8px;
-                justify-content: center;
-            }
-            
-            .date-button {
-                min-width: 120px;
-                padding: 8px 12px;
-                font-size: 0.85em;
-                flex: 1;
-            }
-            
-            /* Dates disponibles au-dessus du calendrier en mobile */
-            .mobile-dates-above {
-                order: -1;
-            }
-        }
-        
-        /* DATES DISPONIBLES EN MODE ORDINATEUR - COMME EN MOBILE */
-        .available-dates-desktop {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-            padding: 10px 0;
-        }
-        
-        /* Pour les écrans larges, on utilise la même classe que mobile */
-        @media (min-width: 769px) {
-            .available-dates-desktop .date-button {
-                min-width: 140px;
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
         }
         
         /* CALENDRIER AVEC INFOS DE LIEU ET NOMBRE DE PERSONNES - TAILLE DE POLICE AUGMENTEE */
@@ -1627,19 +1702,6 @@
                 font-size: 12px;
             }
         }
-        
-        /* Pour les écrans larges (mode ordinateur) */
-        @media (min-width: 769px) {
-            .available-dates-container.mobile-dates-above {
-                display: none;
-            }
-            
-            .available-dates-desktop {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1693,7 +1755,10 @@
             
             <!-- Section Dates disponibles en boutons - Position mobile -->
             <div class="available-dates-container mobile-dates-above" id="availableDatesContainer" style="display: none;">
-                <h3 class="dates-title"><i>📅</i> Dates disponibles</h3>
+                <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 8px;">
+                    <i>📅</i> Dates disponibles
+                    <span style="font-size: 0.8em; color: #666; margin-left: 10px;" id="datesCount"></span>
+                </h3>
                 <div class="dates-buttons" id="datesButtons">
                     <!-- Les boutons de dates seront générés ici -->
                 </div>
@@ -2085,6 +2150,7 @@
                 // En mobile, les dates disponibles sont déjà au-dessus du calendrier
                 if (availableDatesContainer && datesWithData.length > 0) {
                     availableDatesContainer.style.display = 'block';
+                    document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
                 }
             } else {
                 desktopDateList.style.display = 'block';
@@ -2484,7 +2550,7 @@ L'équipe de gestion des PV`;
             printWindow.focus();
         }
         
-        // MODIFICATION : Générer les boutons de dates pour mobile et desktop
+        // MODIFICATION : Générer les boutons de dates pour mobile et desktop avec disposition améliorée
         function renderDatesButtons() {
             const datesButtons = document.getElementById('datesButtons');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
@@ -2496,76 +2562,85 @@ L'équipe de gestion des PV`;
                 return;
             }
             
+            // Mettre à jour le compteur de dates
+            document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
+            
             // Version mobile (boutons)
             if (availableDatesContainer) {
                 availableDatesContainer.style.display = 'block';
                 datesButtons.innerHTML = '';
                 
                 datesWithData.forEach(item => {
-                    const dateButton = document.createElement('button');
-                    dateButton.className = 'date-button';
-                    
-                    // Formater la date : jjj jj-mm-aa
-                    const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
-                    const day = item.date.getDate().toString().padStart(2, '0');
-                    const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
-                    const year = item.date.getFullYear().toString().slice(-2);
-                    
-                    dateButton.innerHTML = `
-                        <i>📅</i>
-                        ${dayName} ${day}-${month}-${year}
-                    `;
-                    
-                    dateButton.addEventListener('click', () => {
-                        // Afficher directement les données de cette date
-                        displayDataForDate(item.date);
-                        currentDate = new Date(item.date);
-                        renderCalendar();
-                        
-                        // Mettre en évidence la date sélectionnée
-                        document.querySelectorAll('.date-button').forEach(btn => {
-                            btn.style.opacity = '0.8';
-                        });
-                        dateButton.style.opacity = '1';
-                        dateButton.style.boxShadow = '0 0 0 2px var(--apple-green)';
-                    });
-                    
+                    const dateButton = createDateButton(item);
                     datesButtons.appendChild(dateButton);
                 });
             }
             
-            // Version desktop - COMME EN MOBILE
+            // Version desktop - DISPOSITION AMELIOREE
             if (availableDatesDesktop) {
                 availableDatesDesktop.innerHTML = '';
                 
+                // Créer un conteneur de grille pour les dates
+                const datesGrid = document.createElement('div');
+                datesGrid.className = 'available-dates-grid';
+                
                 datesWithData.forEach(item => {
-                    const dateButton = document.createElement('button');
-                    dateButton.className = 'date-button';
-                    
-                    // Formater la date : jjj jj-mm-aa
-                    const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
-                    const day = item.date.getDate().toString().padStart(2, '0');
-                    const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
-                    const year = item.date.getFullYear().toString().slice(-2);
-                    
-                    dateButton.innerHTML = `
-                        <i>📅</i>
-                        ${dayName} ${day}-${month}-${year}
-                    `;
-                    
-                    dateButton.addEventListener('click', () => {
-                        // Afficher directement les données de cette date
-                        displayDataForDate(item.date);
-                        currentDate = new Date(item.date);
-                        renderCalendar();
-                    });
-                    
-                    availableDatesDesktop.appendChild(dateButton);
+                    const dateButton = createDateButton(item);
+                    datesGrid.appendChild(dateButton);
                 });
+                
+                availableDatesDesktop.appendChild(datesGrid);
                 
                 // Afficher ou masquer selon la taille de l'écran
                 adjustDateDisplay();
             }
+        }
+        
+        // NOUVELLE FONCTION : Créer un bouton de date avec événement
+        function createDateButton(item) {
+            const dateButton = document.createElement('button');
+            dateButton.className = 'date-button';
+            
+            // Formater la date : jjj jj-mm-aa
+            const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
+            const day = item.date.getDate().toString().padStart(2, '0');
+            const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
+            const year = item.date.getFullYear().toString().slice(-2);
+            
+            dateButton.innerHTML = `
+                <i>📅</i>
+                ${dayName} ${day}-${month}-${year}
+            `;
+            
+            // Ajouter info-bulle avec nombre de participants si disponible
+            if (item.totalParticipants > 0) {
+                dateButton.title = `${item.totalParticipants} participant(s) - ${item.toerana || 'Lieu non spécifié'}`;
+            } else if (item.toerana) {
+                dateButton.title = item.toerana;
+            }
+            
+            dateButton.addEventListener('click', () => {
+                // Afficher directement les données de cette date
+                displayDataForDate(item.date);
+                currentDate = new Date(item.date);
+                renderCalendar();
+                
+                // Mettre en évidence la date sélectionnée
+                document.querySelectorAll('.date-button').forEach(btn => {
+                    btn.style.opacity = '0.8';
+                    btn.style.boxShadow = '0 2px 8px rgba(231, 76, 60, 0.3)';
+                });
+                dateButton.style.opacity = '1';
+                dateButton.style.boxShadow = '0 0 0 3px #ff6b6b, 0 4px 15px rgba(231, 76, 60, 0.4)';
+                
+                // Retirer la mise en évidence après 3 secondes
+                setTimeout(() => {
+                    dateButton.style.opacity = '0.8';
+                    dateButton.style.boxShadow = '0 2px 8px rgba(231, 76, 60, 0.3)';
+                }, 3000);
+            });
+            
+            return dateButton;
         }
         
         // NOUVELLE FONCTION : Compter le nombre total de participants
@@ -3206,7 +3281,7 @@ L'équipe de gestion des PV`;
                     <div style="flex: 2; min-width: 200px;">
                         <p><strong>Nombre total de PV :</strong> ${stats.totalPVs}</p>
                         <p><strong>Présence totale :</strong> ${stats.presenceCount}</p>
-                        <p><em>${stats.presenceCount}/${stats.totalPVs} PV</em></p>
+                        <em>${stats.presenceCount}/${stats.totalPVs} PV</em>
                     </div>
                 </div>
                 <div class="progress-bar-container">
