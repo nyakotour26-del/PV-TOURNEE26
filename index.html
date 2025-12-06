@@ -33,6 +33,7 @@
             padding: 20px;
             background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23e8f5e8" d="M50 20 Q60 10 70 20 Q80 30 70 40 Q60 50 50 40 Q40 30 50 20 Z"/><path fill="%23d4edda" d="M30 60 Q40 50 50 60 Q60 70 50 80 Q40 90 30 80 Q20 70 30 60 Z"/><path fill="%23c8e6c9" d="M70 60 Q80 50 90 60 Q100 70 90 80 Q80 90 70 80 Q60 70 70 60 Z"/></svg>');
             background-size: 200px 200px;
+            padding-top: 80px;
         }
         
         .container {
@@ -40,19 +41,22 @@
             margin: 0 auto;
         }
         
-        /* HEADER MODERNE ET ATTRACTIF - FONDS NOUVEAU */
+        /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME */
         header {
             text-align: center;
             margin-bottom: 20px;
-            padding: 15px 20px;
-            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 12px 20px;
+            background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            position: relative;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             overflow: hidden;
             border: none;
-            background-image: linear-gradient(135deg, #2c3e50 0%, #2980b9 100%);
-            background-size: cover;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path fill="%234CAF50" opacity="0.1" d="M100 40 Q120 20 140 40 Q160 60 140 80 Q120 100 100 80 Q80 60 100 40 Z"/><path fill="%2345a049" opacity="0.1" d="M60 120 Q80 100 100 120 Q120 140 100 160 Q80 180 60 160 Q40 140 60 120 Z"/><path fill="%233d8b40" opacity="0.1" d="M140 120 Q160 100 180 120 Q200 140 180 160 Q160 180 140 160 Q120 140 140 120 Z"/></svg>'), 
+                          linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
+            background-size: 200px 200px, cover;
             background-position: center;
         }
         
@@ -98,7 +102,7 @@
         }
         
         .header-tagline {
-            color: #ecf0f1;
+            color: #e8f5e9;
             font-size: 0.85em;
             font-weight: 400;
             margin-top: 5px;
@@ -110,7 +114,7 @@
         
         @media (max-width: 768px) {
             header {
-                padding: 12px 15px;
+                padding: 10px 15px;
                 margin-bottom: 15px;
             }
             
@@ -257,34 +261,39 @@
         
         /* STATISTIQUES EN LIGNE SUR MOBILE - MODIFIE */
         .stats-section {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-            padding: 15px;
+            display: flex;
+            gap: 8px;
+            margin: 15px 0;
+            padding: 10px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
+            overflow-x: auto;
+            white-space: nowrap;
         }
         
         @media (max-width: 768px) {
             .stats-section {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-                padding: 10px;
-                margin: 15px 0;
+                gap: 6px;
+                padding: 8px;
+                margin: 12px 0;
+                display: flex;
             }
             
             .stat-card {
-                padding: 8px;
+                padding: 6px 8px;
+                min-width: 90px;
+                flex: 1;
+                border-left: 3px solid var(--primary-color);
             }
             
             .stat-value {
-                font-size: 1.2em;
+                font-size: 1em;
+                margin-bottom: 3px;
             }
             
             .stat-label {
-                font-size: 0.7em;
+                font-size: 0.6em;
             }
             
             .export-buttons {
@@ -340,7 +349,7 @@
             }
         }
         
-        /* DATES DISPONIBLES EN BOUTONS VERT POMME */
+        /* DATES DISPONIBLES EN BOUTONS VERT POMME - POUR MOBILE */
         .available-dates-container {
             margin: 20px 0;
         }
@@ -367,20 +376,21 @@
         .date-button {
             background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
             color: white;
-            padding: 10px 15px;
-            border-radius: 25px;
+            padding: 6px 12px;
+            border-radius: 20px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            font-size: 0.9em;
+            font-size: 0.85em;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            min-width: 140px;
+            min-width: 130px;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 4px;
+            flex-shrink: 0;
         }
         
         .date-button:hover {
@@ -416,23 +426,41 @@
             }
         }
         
+        /* DATES DISPONIBLES EN MODE ORDINATEUR - COMME EN MOBILE */
+        .available-dates-desktop {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 10px 0;
+        }
+        
+        /* Pour les écrans larges, on utilise la même classe que mobile */
+        @media (min-width: 769px) {
+            .available-dates-desktop .date-button {
+                min-width: 140px;
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+        }
+        
         /* CALENDRIER AVEC INFOS DE LIEU ET NOMBRE DE PERSONNES - TAILLE DE POLICE AUGMENTEE */
         .calendar-day.has-data {
             position: relative;
-            min-height: 90px !important; /* Augmenté de 80px à 90px */
+            min-height: 90px !important;
         }
         
         .calendar-day-info {
             position: absolute;
-            bottom: 2px;
+            bottom: 3px;
             left: 0;
             right: 0;
-            font-size: 9px !important; /* Augmenté de 7px à 9px */
-            line-height: 1.2;
+            font-size: 9px !important;
+            line-height: 1.3;
             color: #666;
-            background-color: rgba(255, 255, 255, 0.85);
-            padding: 2px 3px; /* Augmenté le padding */
-            border-radius: 3px;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 3px 4px;
+            border-radius: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -440,80 +468,23 @@
             font-weight: normal;
             display: flex;
             flex-direction: column;
-            gap: 1px;
+            gap: 2px;
         }
         
         .calendar-day-location {
             font-weight: bold;
             color: #2980b9;
-            font-size: 8.5px; /* Augmenté */
+            font-size: 9px;
         }
         
         .calendar-day-participants {
-            color: #27ae60;
-            font-size: 8.5px; /* Augmenté */
+            color: var(--apple-green);
+            font-size: 10px !important;
+            font-weight: bold;
         }
         
         .calendar-day.has-data .calendar-day-info {
             display: flex;
-        }
-        
-        /* Style pour la présentation des dates disponibles en mode ordinateur - MODIFIE POUR LIGNE */
-        .available-dates-desktop {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .date-card {
-            background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
-            color: white;
-            padding: 12px 15px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            min-width: 180px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-        
-        .date-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, var(--apple-green-dark) 0%, #3d8b40 100%);
-        }
-        
-        .date-card-date {
-            font-size: 1.1em;
-            font-weight: bold;
-        }
-        
-        .date-card-location {
-            font-size: 0.8em;
-            opacity: 0.9;
-        }
-        
-        .date-card-participants {
-            font-size: 0.8em;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 2px 8px;
-        }
-        
-        @media (max-width: 768px) {
-            .available-dates-desktop {
-                display: none;
-            }
-            
-            .date-card {
-                min-width: 140px;
-                padding: 10px 12px;
-            }
         }
         
         /* RESTE DU CSS */
@@ -596,7 +567,7 @@
             border-radius: 4px;
             transition: background-color 0.2s;
             position: relative;
-            min-height: 90px; /* Augmenté de 80px à 90px */
+            min-height: 90px;
             font-size: 14px;
         }
         
@@ -756,13 +727,18 @@
             overflow: hidden;
         }
         
+        /* TITRE DE FICHE - MODIFIE AVEC IMAGE DE FOND ET HAUTEUR REDUITE */
         .pv-header {
             background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
             color: #2e7d32;
-            padding: 25px;
+            padding: 15px 20px;
             border-bottom: 3px solid #4CAF50;
             position: relative;
             overflow: hidden;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .pv-header::before {
@@ -772,19 +748,33 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><path fill="%234CAF50" opacity="0.1" d="M40 15 Q47 8 54 15 Q61 22 54 29 Q47 36 40 29 Q33 22 40 15 Z"/><path fill="%234CAF50" opacity="0.1" d="M15 45 Q22 38 29 45 Q36 52 29 59 Q22 66 15 59 Q8 52 15 45 Z"/><path fill="%234CAF50" opacity="0.1" d="M55 45 Q62 38 69 45 Q76 52 69 59 Q62 66 55 59 Q48 52 55 45 Z"/></svg>');
-            background-size: 200px 200px;
-            opacity: 0.2;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><path fill="%234CAF50" opacity="0.08" d="M20 20 L40 10 L60 20 L80 10 L100 20 L100 40 L90 60 L100 80 L80 90 L60 100 L40 90 L20 80 L10 60 L20 40 Z M30 50 Q40 40 50 50 Q60 60 50 70 Q40 80 30 70 Q20 60 30 50 Z M70 50 Q80 40 90 50 Q100 60 90 70 Q80 80 70 70 Q60 60 70 50 Z"/></svg>');
+            background-size: 150px 150px;
+            background-position: right 10px center;
+            opacity: 0.3;
         }
         
         .pv-title {
             color: #2e7d32;
             font-weight: bold;
             margin-top: 0;
-            font-size: 1.6em;
+            font-size: 1.4em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             position: relative;
             z-index: 1;
+            line-height: 1.3;
+        }
+        
+        /* STYLE POUR LE NOMBRE DE PERSONNES DANS LE TITRE */
+        .participant-count {
+            font-size: 0.8em;
+            color: var(--apple-green) !important;
+            background: rgba(255,255,255,0.3);
+            padding: 3px 10px;
+            border-radius: 12px;
+            margin-left: 10px;
+            font-weight: bold;
+            border: 1px solid rgba(76, 175, 80, 0.3);
         }
         
         .data-table {
@@ -1306,9 +1296,9 @@
         
         /* CLASSE DE BASE POUR TOUS LES BOUTONS FLOTTANTS */
         .floating-button {
-            width: 40px;  /* 1cm de largeur */
-            height: 40px; /* 1cm de hauteur */
-            border-radius: 50%; /* Rond parfait */
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             background: white;
             border: 2px solid var(--secondary-color);
             display: flex;
@@ -1320,10 +1310,10 @@
             transition: all 0.3s ease;
             text-decoration: none;
             position: relative;
-            min-width: 40px;  /* Largeur minimale garantie */
-            min-height: 40px; /* Hauteur minimale garantie */
-            padding: 0; /* Supprime tout padding */
-            margin: 0; /* Supprime toute marge */
+            min-width: 40px;
+            min-height: 40px;
+            padding: 0;
+            margin: 0;
         }
         
         /* SPÉCIFIQUE POUR CHAQUE BOUTON - TOUS À 40px × 40px */
@@ -1684,7 +1674,7 @@
                 </div>
             </form>
             
-            <!-- Section Statistiques -->
+            <!-- Section Statistiques MODIFIEE - retirer une carte -->
             <div class="stats-section" id="statsSection">
                 <div class="stat-card">
                     <div class="stat-value" id="totalPV">0</div>
@@ -1698,10 +1688,7 @@
                     <div class="stat-value" id="totalParticipants">0</div>
                     <div class="stat-label">Participants uniques</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="toeranaCount">0</div>
-                    <div class="stat-label">Réunions totales</div>
-                </div>
+                <!-- SUPPRIME : Réunions totales car redondant avec Total PV -->
             </div>
             
             <!-- Section Dates disponibles en boutons - Position mobile -->
@@ -1712,9 +1699,9 @@
                 </div>
             </div>
             
-            <!-- Section Dates disponibles en mode ordinateur - MODIFIE POUR LIGNE -->
+            <!-- Section Dates disponibles en mode ordinateur - COMME EN MOBILE -->
             <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
-                <!-- Les cartes de dates seront générées ici -->
+                <!-- Les boutons de dates seront générés ici -->
             </div>
             
             <!-- Liste des noms -->
@@ -2547,47 +2534,33 @@ L'équipe de gestion des PV`;
                 });
             }
             
-            // Version desktop (cartes) - MODIFIE POUR LIGNE
+            // Version desktop - COMME EN MOBILE
             if (availableDatesDesktop) {
                 availableDatesDesktop.innerHTML = '';
                 
                 datesWithData.forEach(item => {
-                    const dateCard = document.createElement('button'); // Changé de div à button
-                    dateCard.className = 'date-button'; // Utilise la même classe que mobile
+                    const dateButton = document.createElement('button');
+                    dateButton.className = 'date-button';
                     
-                    // Formater la date
+                    // Formater la date : jjj jj-mm-aa
                     const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
                     const day = item.date.getDate().toString().padStart(2, '0');
                     const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
                     const year = item.date.getFullYear().toString().slice(-2);
                     
-                    // Obtenir le nombre de participants pour cette date
-                    const matchingRows = findPVByDate(item.date);
-                    let totalParticipants = 0;
-                    if (matchingRows.length > 0) {
-                        matchingRows.forEach(row => {
-                            const fahatongavanaData = extractFahatongavanaData(row);
-                            // Compter tous les noms dans les catégories de présence
-                            totalParticipants = countTotalParticipants(fahatongavanaData);
-                        });
-                    }
-                    
-                    dateCard.innerHTML = `
+                    dateButton.innerHTML = `
                         <i>📅</i>
                         ${dayName} ${day}-${month}-${year}
                     `;
                     
-                    if (item.toerana && item.toerana.trim() !== '') {
-                        dateCard.title = `📍 ${item.toerana}${totalParticipants > 0 ? ` | 👥 ${totalParticipants} personnes` : ''}`;
-                    }
-                    
-                    dateCard.addEventListener('click', () => {
+                    dateButton.addEventListener('click', () => {
+                        // Afficher directement les données de cette date
                         displayDataForDate(item.date);
                         currentDate = new Date(item.date);
                         renderCalendar();
                     });
                     
-                    availableDatesDesktop.appendChild(dateCard);
+                    availableDatesDesktop.appendChild(dateButton);
                 });
                 
                 // Afficher ou masquer selon la taille de l'écran
@@ -3136,13 +3109,6 @@ L'équipe de gestion des PV`;
             document.getElementById('totalPV').textContent = totalPV;
             document.getElementById('toeranaStats').textContent = Object.keys(toeranaStats).length;
             document.getElementById('totalParticipants').textContent = allNames.size;
-            
-            // Calculer le nombre total de réunions par lieu
-            let totalMeetings = 0;
-            Object.values(toeranaStats).forEach(count => {
-                totalMeetings += count;
-            });
-            document.getElementById('toeranaCount').textContent = totalMeetings;
         }
         
         function displayNamesList() {
@@ -3866,12 +3832,18 @@ L'équipe de gestion des PV`;
                         titre = row[2] || `PV ${index + 1}`;
                     }
                     
+                    // NOUVEAU : Calculer le nombre de personnes présentes pour ce PV
+                    const fahatongavanaData = extractFahatongavanaData(row);
+                    const totalParticipants = countTotalParticipants(fahatongavanaData);
+                    const participantText = totalParticipants > 0 ? `${totalParticipants} personnes présentes` : '';
+                    
                     html += `
                         <div class="pv-item">
                             <div class="pv-header">
                                 <h2>📋 Procès-Verbal de Réunion</h2>
                                 <h3 class="pv-title">
                                     ${currentSearchTerm ? highlightSearchText(titre, currentSearchTerm) : titre} — ${dateStr}
+                                    ${participantText ? `<span class="participant-count">${participantText}</span>` : ''}
                                 </h3>
                             </div>
                             <div style="padding: 20px;">
@@ -3940,7 +3912,6 @@ L'équipe de gestion des PV`;
                         `;
                     }
                     
-                    const fahatongavanaData = extractFahatongavanaData(row);
                     const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
                     
                     if (hasFahatongavana) {
