@@ -122,11 +122,22 @@
                 display: block;
             }
             
-            /* 2 cartes statistiques par ligne sur mobile */
+            /* 5 cartes statistiques par ligne sur mobile (MAJ) */
             .stats-section .stat-card {
-                min-width: calc(50% - 8px) !important;
-                height: 55px !important;
+                min-width: calc(20% - 8px) !important;
+                height: 50px !important;
                 margin-bottom: 8px;
+                padding: 6px 8px !important;
+            }
+            
+            .stat-value {
+                font-size: 1em !important;
+                margin-bottom: 2px !important;
+            }
+            
+            .stat-label {
+                font-size: 0.6em !important;
+                line-height: 1.1 !important;
             }
             
             /* 2 boutons d'export par ligne sur mobile */
@@ -392,13 +403,13 @@
             cursor: pointer;
         }
         
-        /* STATISTIQUES - TAILLE REDUITE 5 PAR LIGNE */
+        /* STATISTIQUES - TAILLE REDUITE 5 PAR LIGNE - MODIFICATION */
         .stats-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin: 10px 0;
-            padding: 10px;
+            padding: 8px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -408,7 +419,7 @@
         
         .stat-card {
             background: #f8f9fa;
-            padding: 8px 10px;
+            padding: 6px 8px;
             border-radius: 6px;
             text-align: center;
             border-left: 3px solid var(--primary-color);
@@ -417,21 +428,30 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            height: 60px;
-            margin-bottom: 8px;
+            height: 50px;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #eef7ff;
         }
         
         .stat-value {
-            font-size: 1.2em;
+            font-size: 1.1em;
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 2px;
+            line-height: 1.2;
         }
         
         .stat-label {
             color: #7f8c8d;
-            font-size: 0.7em;
-            line-height: 1.2;
+            font-size: 0.65em;
+            line-height: 1.1;
+            font-weight: 500;
         }
         
         /* Bouton tableau statistiques */
@@ -489,6 +509,12 @@
             border-radius: 6px;
             padding: 12px;
             text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         
         .stats-summary-value {
@@ -501,29 +527,111 @@
         .stats-summary-label {
             font-size: 0.8em;
             color: #7f8c8d;
+            font-weight: 500;
+        }
+        
+        /* NOUVELLE SECTION STATISTIQUES POUR TABLEAU */
+        .table-stats-summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e1e1;
+        }
+        
+        .table-stat-card {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .table-stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .table-stat-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--apple-green);
+            margin-bottom: 5px;
+        }
+        
+        .table-stat-label {
+            font-size: 0.75em;
+            color: #7f8c8d;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+        
+        @media (max-width: 1024px) {
+            .table-stats-summary {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 8px;
+                padding: 12px;
+            }
+            
+            .table-stat-card {
+                padding: 8px;
+            }
+            
+            .table-stat-value {
+                font-size: 1.2em;
+            }
+            
+            .table-stat-label {
+                font-size: 0.7em;
+            }
         }
         
         @media (max-width: 768px) {
-            .stats-section {
+            .table-stats-summary {
+                grid-template-columns: repeat(5, 1fr);
                 gap: 6px;
-                padding: 8px;
-                margin: 8px 0;
+                padding: 10px;
+            }
+            
+            .table-stat-card {
+                padding: 6px;
+                min-height: 60px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .table-stat-value {
+                font-size: 1em;
+                margin-bottom: 3px;
+            }
+            
+            .table-stat-label {
+                font-size: 0.65em;
+            }
+            
+            .stats-section {
+                gap: 5px;
+                padding: 6px;
             }
             
             .stat-card {
-                padding: 6px 8px;
-                height: 55px;
+                padding: 5px 6px;
+                height: 48px;
                 border-left: 2px solid var(--primary-color);
-                min-width: calc(50% - 6px);
             }
             
             .stat-value {
-                font-size: 1em;
+                font-size: 0.95em;
                 margin-bottom: 1px;
             }
             
             .stat-label {
-                font-size: 0.65em;
+                font-size: 0.6em;
             }
             
             .stats-summary-cards {
@@ -542,23 +650,42 @@
         }
         
         @media (max-width: 480px) {
-            .stats-section {
-                gap: 5px;
-                padding: 6px;
+            .table-stats-summary {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 4px;
+                padding: 8px;
             }
             
-            .stat-card {
-                padding: 5px 6px;
-                height: 50px;
-                min-width: calc(50% - 5px);
+            .table-stat-card {
+                padding: 4px;
+                min-height: 55px;
             }
             
-            .stat-value {
+            .table-stat-value {
                 font-size: 0.9em;
             }
             
-            .stat-label {
+            .table-stat-label {
                 font-size: 0.6em;
+            }
+            
+            .stats-section {
+                gap: 4px;
+                padding: 5px;
+            }
+            
+            .stat-card {
+                padding: 4px 5px;
+                height: 45px;
+                min-width: calc(20% - 4px) !important;
+            }
+            
+            .stat-value {
+                font-size: 0.85em;
+            }
+            
+            .stat-label {
+                font-size: 0.55em;
             }
             
             .export-buttons {
@@ -1530,10 +1657,6 @@
             line-height: 1.2;
         }
 
-        .ordre-du-jour-item:last-child {
-            margin-bottom: 0;
-        }
-
         .section-title {
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
             color: #0d47a1;
@@ -2072,7 +2195,7 @@
             </div>
         </form>
         
-        <!-- Section Statistiques - TAILLE REDUITE -->
+        <!-- Section Statistiques - TAILLE REDUITE - 5 PAR LIGNE -->
         <div class="stats-section" id="statsSection">
             <!-- Les cartes statistiques seront ajoutées dynamiquement -->
         </div>
@@ -2179,7 +2302,7 @@
                     </div>
                 </form>
                 
-                <!-- Section Statistiques - TAILLE REDUITE -->
+                <!-- Section Statistiques - TAILLE REDUITE - 5 PAR LIGNE -->
                 <div class="stats-section" id="statsSectionDesktop">
                     <!-- Les cartes statistiques seront ajoutées dynamiquement -->
                 </div>
@@ -2367,8 +2490,9 @@
                         Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.
                     </div>
                     
-                    <div class="stats-summary-cards" id="statsSummaryCards">
-                        <!-- Les cartes de résumé seront ajoutées dynamiquement -->
+                    <!-- NOUVEAU : SECTION STATISTIQUES AVEC 5 CARTES PAR LIGNE (2 LIGNES) -->
+                    <div class="table-stats-summary" id="tableStatsSummary">
+                        <!-- Les cartes de statistiques seront ajoutées dynamiquement -->
                     </div>
                     
                     <div id="statsTableContent"></div>
@@ -2775,7 +2899,7 @@
         function showStatsTable() {
             const modal = document.getElementById('statsTableModal');
             const content = document.getElementById('statsTableContent');
-            const summaryCards = document.getElementById('statsSummaryCards');
+            const summaryCards = document.getElementById('tableStatsSummary'); // Changé pour utiliser la nouvelle section
             
             // Mettre à jour le texte d'explication avec le nombre réel de PV
             const explanation = document.querySelector('.stats-explanation');
@@ -2789,27 +2913,47 @@
                 return;
             }
             
-            // Créer les cartes de résumé
+            // Créer les cartes de résumé avec 5 cartes par ligne (2 lignes)
             summaryCards.innerHTML = `
-                <div class="stats-summary-card">
-                    <div class="stats-summary-value">${totalPV}</div>
-                    <div class="stats-summary-label">Total PV</div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${totalPV}</div>
+                    <div class="table-stat-label">Total PV</div>
                 </div>
-                <div class="stats-summary-card">
-                    <div class="stats-summary-value">${allNames.size}</div>
-                    <div class="stats-summary-label">Participants</div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${allNames.size}</div>
+                    <div class="table-stat-label">Participants</div>
                 </div>
-                <div class="stats-summary-card">
-                    <div class="stats-summary-value">${presenceRate.toFixed(1)}%</div>
-                    <div class="stats-summary-label">Présence moyenne</div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${presenceRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">Présence moyenne</div>
                 </div>
-                <div class="stats-summary-card">
-                    <div class="stats-summary-value">${onTimeRate.toFixed(1)}%</div>
-                    <div class="stats-summary-label">À l'heure moyenne</div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${onTimeRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">À l'heure moyenne</div>
                 </div>
-                <div class="stats-summary-card">
-                    <div class="stats-summary-value">${maxParticipantsInMeeting}</div>
-                    <div class="stats-summary-label">Max participants</div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${maxParticipantsInMeeting}</div>
+                    <div class="table-stat-label">Max participants</div>
+                </div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${lateRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">Retard moyen</div>
+                </div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${absenceRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">Absence moyenne</div>
+                </div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${earlyLeaveRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">Départ avant l'heure</div>
+                </div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${excuseRate.toFixed(1)}%</div>
+                    <div class="table-stat-label">Excuses</div>
+                </div>
+                <div class="table-stat-card">
+                    <div class="table-stat-value">${Object.keys(toeranaStats).length}</div>
+                    <div class="table-stat-label">Lieux différents</div>
                 </div>
             `;
             
@@ -2899,6 +3043,10 @@
                         body { font-family: Arial, sans-serif; margin: 20px; }
                         h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
                         h2 { color: #3498db; margin-top: 20px; }
+                        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+                        .stat-card { background: white; border: 1px solid #ddd; padding: 12px; border-radius: 5px; text-align: center; }
+                        .stat-value { font-size: 1.4em; font-weight: bold; color: #2980b9; margin: 8px 0; }
+                        .stat-label { font-size: 0.8em; color: #666; }
                         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
                         th { background: #f8f9fa; padding: 10px; text-align: left; border-bottom: 2px solid #ddd; font-weight: bold; }
                         td { padding: 8px 10px; border-bottom: 1px solid #eee; }
@@ -2910,6 +3058,9 @@
                         @media print { 
                             body { margin: 0; font-size: 11px; }
                             h1 { font-size: 18px; }
+                            .stats-grid { grid-template-columns: repeat(5, 1fr); }
+                            .stat-value { font-size: 1.2em; }
+                            .stat-label { font-size: 0.7em; }
                         }
                     </style>
                 </head>
@@ -2933,6 +3084,49 @@
                         <p><strong>Taux moyen d'absence:</strong> ${absenceRate.toFixed(1)}%</p>
                         <p><strong>Taux moyen de départ avant l'heure:</strong> ${earlyLeaveRate.toFixed(1)}%</p>
                         <p><strong>Taux moyen d'excuses:</strong> ${excuseRate.toFixed(1)}%</p>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value">${totalPVs}</div>
+                            <div class="stat-label">Total PV</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${allNames.size}</div>
+                            <div class="stat-label">Participants</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${presenceRate.toFixed(1)}%</div>
+                            <div class="stat-label">Présence moyenne</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${onTimeRate.toFixed(1)}%</div>
+                            <div class="stat-label">À l'heure moyenne</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${maxParticipantsInMeeting}</div>
+                            <div class="stat-label">Max participants</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${lateRate.toFixed(1)}%</div>
+                            <div class="stat-label">Retard moyen</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${absenceRate.toFixed(1)}%</div>
+                            <div class="stat-label">Absence moyenne</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
+                            <div class="stat-label">Départ avant l'heure</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${excuseRate.toFixed(1)}%</div>
+                            <div class="stat-label">Excuses</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                            <div class="stat-label">Lieux différents</div>
+                        </div>
                     </div>
                     
                     <h2>Détails par participant (en pourcentage)</h2>
@@ -2994,6 +3188,12 @@
                     <div style="margin-top: 30px; text-align: center; font-size: 12px; color: #666;">
                         <p><em>Note: Les pourcentages sont calculés sur ${totalPVs} PV au total.</em></p>
                     </div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button onclick="window.print()" style="padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">
+                            🖨️ Imprimer ce rapport
+                        </button>
+                    </div>
                 </body>
                 </html>
             `;
@@ -3029,7 +3229,10 @@
                         .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
                         .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
                         .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
-                        .stats-summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+                        .stat-card { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 5px; text-align: center; }
+                        .stat-value { font-size: 1.3em; font-weight: bold; color: #2980b9; margin: 5px 0; }
+                        .stat-label { font-size: 0.75em; color: #666; }
                         .stats-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
                         .stats-table th { background: #e8f4fc; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
                         .stats-table td { padding: 8px; border-bottom: 1px solid #eee; }
@@ -3057,6 +3260,9 @@
                             h2 { font-size: 16px; }
                             .section { page-break-inside: avoid; }
                             .pv-item { page-break-inside: avoid; }
+                            .stats-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+                            .stat-value { font-size: 1.1em; }
+                            .stat-label { font-size: 0.7em; }
                         }
                     </style>
                 </head>
@@ -3068,40 +3274,118 @@
                     <div class="section">
                         <h2>📊 Statistiques Globales</h2>
                         
-                        <div class="summary-grid">
-                            <div class="summary-card">
-                                <div class="summary-value">${totalPV}</div>
-                                <div class="summary-label">Total des PV</div>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${totalPV}</div>
+                                <div class="stat-label">Total PV</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${allNames.size}</div>
-                                <div class="summary-label">Participants uniques</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${allNames.size}</div>
+                                <div class="stat-label">Participants</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${Object.keys(toeranaStats).length}</div>
-                                <div class="summary-label">Lieux de réunion</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${presenceRate.toFixed(1)}%</div>
+                                <div class="stat-label">Présence moyenne</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${maxParticipantsInMeeting}</div>
-                                <div class="summary-label">Max. personnes par réunion</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${onTimeRate.toFixed(1)}%</div>
+                                <div class="stat-label">À l'heure moyenne</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${presenceRate.toFixed(1)}%</div>
-                                <div class="summary-label">Taux moyen de présence</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${maxParticipantsInMeeting}</div>
+                                <div class="stat-label">Max participants</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${onTimeRate.toFixed(1)}%</div>
-                                <div class="summary-label">Taux moyen à l'heure</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${lateRate.toFixed(1)}%</div>
+                                <div class="stat-label">Retard moyen</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${lateRate.toFixed(1)}%</div>
-                                <div class="summary-label">Taux moyen de retard</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${absenceRate.toFixed(1)}%</div>
+                                <div class="stat-label">Absence moyenne</div>
                             </div>
-                            <div class="summary-card">
-                                <div class="summary-value">${absenceRate.toFixed(1)}%</div>
-                                <div class="summary-label">Taux moyen d'absence</div>
+                            <div class="stat-card">
+                                <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
+                                <div class="stat-label">Départ avant l'heure</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${excuseRate.toFixed(1)}%</div>
+                                <div class="stat-label">Excuses</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="stat-label">Lieux différents</div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>📈 Tableau des statistiques de présence</h2>
+            `;
+            
+            if (Object.keys(nameStatistics).length > 0) {
+                const sortedNames = Object.keys(nameStatistics).sort();
+                
+                html += `
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Ara-potoana</th>
+                                <th>Tara <30min</th>
+                                <th>Tara <1h</th>
+                                <th>Tara >1h</th>
+                                <th>Tapak'andro</th>
+                                <th>Nody aloha</th>
+                                <th>Tsy tonga</th>
+                                <th>Excuse tara</th>
+                                <th>Excuse absent</th>
+                                <th>Présence totale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                
+                sortedNames.forEach(name => {
+                    const stats = nameStatistics[name];
+                    const totalPVs = stats.totalPVs || totalPV;
+                    
+                    const araPotoanaPct = totalPVs > 0 ? ((stats.araPotoana || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const tara30minPct = totalPVs > 0 ? ((stats.taraLatsaky30min || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const tara1hPct = totalPVs > 0 ? ((stats.taraLatsaky1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const taraPlus1hPct = totalPVs > 0 ? ((stats.taraMihoatra1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const tapakAndroPct = totalPVs > 0 ? ((stats.tapakAndro || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const nodyAlohaPct = totalPVs > 0 ? ((stats.nodyAloha || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const tsyTongaPct = totalPVs > 0 ? ((stats.tsyTonga || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const excuseTaraPct = totalPVs > 0 ? ((stats.nialaTsinyTara || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const excuseAbsentPct = totalPVs > 0 ? ((stats.nialaTsinyTsyHoAvy || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    const presencePct = totalPVs > 0 ? ((stats.presenceCount || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                    
+                    html += `
+                        <tr>
+                            <td><strong>${name}</strong></td>
+                            <td>${araPotoanaPct}%</td>
+                            <td>${tara30minPct}%</td>
+                            <td>${tara1hPct}%</td>
+                            <td>${taraPlus1hPct}%</td>
+                            <td>${tapakAndroPct}%</td>
+                            <td>${nodyAlohaPct}%</td>
+                            <td>${tsyTongaPct}%</td>
+                            <td>${excuseTaraPct}%</td>
+                            <td>${excuseAbsentPct}%</td>
+                            <td><strong>${presencePct}%</strong></td>
+                        </tr>
+                    `;
+                });
+                
+                html += `
+                        </tbody>
+                    </table>
+                `;
+            } else {
+                html += '<p style="text-align: center; color: #7f8c8d;">Aucune statistique disponible.</p>';
+            }
+            
+            html += `
                     </div>
                     
                     <div class="section">
@@ -3258,6 +3542,12 @@
             });
             
             html += `
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+                        <button onclick="window.print()" style="padding: 12px 24px; background: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">
+                            🖨️ Imprimer ce Livre PDF
+                        </button>
                     </div>
                     
                     <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 20px;">
@@ -3488,6 +3778,10 @@
                         body { font-family: Arial, sans-serif; margin: 20px; }
                         h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
                         h2 { color: #3498db; margin-top: 20px; }
+                        .stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 20px 0; }
+                        .stat-card { background: white; border: 1px solid #ddd; padding: 10px; border-radius: 5px; text-align: center; }
+                        .stat-value { font-size: 1.3em; font-weight: bold; color: #2980b9; margin: 5px 0; }
+                        .stat-label { font-size: 0.75em; color: #666; }
                         .pv-item { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
                         .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
                         .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
@@ -3508,6 +3802,9 @@
                         @media print { 
                             body { margin: 0; font-size: 12px; }
                             .no-print { display: none; }
+                            .stats-grid { grid-template-columns: repeat(5, 1fr); gap: 8px; }
+                            .stat-value { font-size: 1.1em; }
+                            .stat-label { font-size: 0.7em; }
                         }
                     </style>
                 </head>
@@ -3517,11 +3814,28 @@
                     
                     <div class="stats-summary">
                         <h2>Résumé des statistiques</h2>
-                        <p><strong>Total PV exportés:</strong> ${data.length}</p>
-                        <p><strong>Noms uniques:</strong> ${allNames.size}</p>
-                        <p><strong>Lieux de réunion:</strong> ${Object.keys(toeranaStats).length}</p>
-                        <p><strong>Nombre maximum de personnes par réunion:</strong> ${maxParticipantsInMeeting}</p>
-                        <p><strong>Taux moyen de présence:</strong> ${presenceRate.toFixed(1)}%</p>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">${data.length}</div>
+                                <div class="stat-label">PV exportés</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${allNames.size}</div>
+                                <div class="stat-label">Participants</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${presenceRate.toFixed(1)}%</div>
+                                <div class="stat-label">Présence moyenne</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${maxParticipantsInMeeting}</div>
+                                <div class="stat-label">Max participants</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="stat-label">Lieux différents</div>
+                            </div>
+                        </div>
                     </div>
             `;
             
@@ -4462,7 +4776,7 @@ L'équipe de gestion des PV`;
 
         // MODIFICATION : Mettre à jour l'affichage des statistiques avec 5 cartes par ligne
         function updateStatsDisplay() {
-            // Mise à jour pour la vue mobile (2 par ligne)
+            // Mise à jour pour la vue mobile (5 par ligne)
             if (document.getElementById('statsSection')) {
                 document.getElementById('statsSection').innerHTML = `
                     <div class="stat-card">
@@ -4470,40 +4784,40 @@ L'équipe de gestion des PV`;
                         <div class="stat-label">Total PV</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="maxParticipants">${maxParticipantsInMeeting}</div>
-                        <div class="stat-label">Max personnes</div>
+                        <div class="stat-value" id="totalParticipants">${allNames.size}</div>
+                        <div class="stat-label">Participants</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="presenceRate">${presenceRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux présence</div>
+                        <div class="stat-label">Présence moyenne</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="onTimeRate">${onTimeRate.toFixed(1)}%</div>
                         <div class="stat-label">À l'heure</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-value" id="maxParticipants">${maxParticipantsInMeeting}</div>
+                        <div class="stat-label">Max participants</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-value" id="lateRate">${lateRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux retard</div>
+                        <div class="stat-label">Retard moyen</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="absenceRate">${absenceRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux absence</div>
+                        <div class="stat-label">Absence moyenne</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="earlyLeaveRate">${earlyLeaveRate.toFixed(1)}%</div>
-                        <div class="stat-label">Part avant l'heure</div>
+                        <div class="stat-label">Départ avant l'heure</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="excuseRate">${excuseRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux excuses</div>
+                        <div class="stat-label">Excuses</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="toeranaStats">${Object.keys(toeranaStats).length}</div>
                         <div class="stat-label">Lieux différents</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="totalParticipants">${allNames.size}</div>
-                        <div class="stat-label">Participants uniques</div>
                     </div>
                 `;
             }
@@ -4516,40 +4830,40 @@ L'équipe de gestion des PV`;
                         <div class="stat-label">Total PV</div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-value" id="maxParticipantsDesktop">${maxParticipantsInMeeting}</div>
-                        <div class="stat-label">Max personnes</div>
+                        <div class="stat-value" id="totalParticipantsDesktop">${allNames.size}</div>
+                        <div class="stat-label">Participants</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="presenceRateDesktop">${presenceRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux présence</div>
+                        <div class="stat-label">Présence moyenne</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="onTimeRateDesktop">${onTimeRate.toFixed(1)}%</div>
                         <div class="stat-label">À l'heure</div>
                     </div>
                     <div class="stat-card">
+                        <div class="stat-value" id="maxParticipantsDesktop">${maxParticipantsInMeeting}</div>
+                        <div class="stat-label">Max participants</div>
+                    </div>
+                    <div class="stat-card">
                         <div class="stat-value" id="lateRateDesktop">${lateRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux retard</div>
+                        <div class="stat-label">Retard moyen</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="absenceRateDesktop">${absenceRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux absence</div>
+                        <div class="stat-label">Absence moyenne</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="earlyLeaveRateDesktop">${earlyLeaveRate.toFixed(1)}%</div>
-                        <div class="stat-label">Part avant l'heure</div>
+                        <div class="stat-label">Départ avant l'heure</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="excuseRateDesktop">${excuseRate.toFixed(1)}%</div>
-                        <div class="stat-label">Taux excuses</div>
+                        <div class="stat-label">Excuses</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-value" id="toeranaStatsDesktop">${Object.keys(toeranaStats).length}</div>
                         <div class="stat-label">Lieux différents</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="totalParticipantsDesktop">${allNames.size}</div>
-                        <div class="stat-label">Participants uniques</div>
                     </div>
                 `;
             }
