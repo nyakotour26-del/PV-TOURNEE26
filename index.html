@@ -89,6 +89,12 @@
             .main-content .export-section {
                 display: none;
             }
+            
+            /* 5 cartes statistiques par ligne sur ordinateur */
+            .stats-section .stat-card {
+                min-width: calc(20% - 8px) !important;
+                height: 55px !important;
+            }
         }
         
         /* Pour les tablettes et mobiles - cacher le panneau latéral */
@@ -114,6 +120,27 @@
             /* Afficher la section export dans le contenu principal en mobile */
             .main-content .export-section {
                 display: block;
+            }
+            
+            /* 2 cartes statistiques par ligne sur mobile */
+            .stats-section .stat-card {
+                min-width: calc(50% - 8px) !important;
+                height: 55px !important;
+                margin-bottom: 8px;
+            }
+            
+            /* 2 boutons d'export par ligne sur mobile */
+            .export-buttons {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+            
+            .export-btn {
+                min-width: auto !important;
+                width: 100% !important;
+                padding: 10px 8px !important;
+                font-size: 0.85em !important;
             }
         }
         
@@ -293,6 +320,22 @@
             background: #1a5276;
         }
         
+        .export-btn.stats {
+            background: #9b59b6;
+        }
+        
+        .export-btn.stats:hover:not(:disabled) {
+            background: #8e44ad;
+        }
+        
+        .export-btn.book {
+            background: #e67e22;
+        }
+        
+        .export-btn.book:hover:not(:disabled) {
+            background: #d35400;
+        }
+        
         /* Modal pour l'export de dates sélectionnées */
         .export-dates-modal {
             display: none;
@@ -349,19 +392,18 @@
             cursor: pointer;
         }
         
-        /* STATISTIQUES - NOUVELLE TAILLE COMPACTE */
+        /* STATISTIQUES - TAILLE REDUITE 5 PAR LIGNE */
         .stats-section {
             display: flex;
+            flex-wrap: wrap;
             gap: 8px;
             margin: 10px 0;
             padding: 10px;
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            overflow-x: auto;
-            white-space: nowrap;
             justify-content: space-between;
-            align-items: center;
+            align-items: flex-start;
         }
         
         .stat-card {
@@ -376,10 +418,11 @@
             flex-direction: column;
             justify-content: center;
             height: 60px;
+            margin-bottom: 8px;
         }
         
         .stat-value {
-            font-size: 1.4em;
+            font-size: 1.2em;
             font-weight: bold;
             color: var(--primary-color);
             margin-bottom: 2px;
@@ -387,25 +430,95 @@
         
         .stat-label {
             color: #7f8c8d;
-            font-size: 0.75em;
+            font-size: 0.7em;
             line-height: 1.2;
+        }
+        
+        /* Bouton tableau statistiques */
+        .stats-table-button-container {
+            margin: 15px 0;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .stats-table-btn {
+            background: #9b59b6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+        
+        .stats-table-btn:hover {
+            background: #8e44ad;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        /* Améliorations du tableau statistique */
+        .stats-explanation {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            font-size: 0.85em;
+            color: #666;
+            border-left: 4px solid #3498db;
+        }
+        
+        .stats-summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .stats-summary-card {
+            background: white;
+            border: 1px solid #e1e1e1;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+        
+        .stats-summary-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+        
+        .stats-summary-label {
+            font-size: 0.8em;
+            color: #7f8c8d;
         }
         
         @media (max-width: 768px) {
             .stats-section {
-                gap: 5px;
+                gap: 6px;
                 padding: 8px;
                 margin: 8px 0;
             }
             
             .stat-card {
-                padding: 5px 6px;
-                height: 50px;
+                padding: 6px 8px;
+                height: 55px;
                 border-left: 2px solid var(--primary-color);
+                min-width: calc(50% - 6px);
             }
             
             .stat-value {
-                font-size: 1.1em;
+                font-size: 1em;
                 margin-bottom: 1px;
             }
             
@@ -413,35 +526,49 @@
                 font-size: 0.65em;
             }
             
+            .stats-summary-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
             .export-buttons {
-                flex-direction: column;
+                gap: 6px;
             }
             
             .export-btn {
-                min-width: auto;
-                width: 100%;
-                padding: 10px 15px;
-                font-size: 0.9em;
+                padding: 8px 6px;
+                font-size: 0.8em;
+                min-height: 50px;
             }
         }
         
         @media (max-width: 480px) {
             .stats-section {
-                gap: 4px;
+                gap: 5px;
                 padding: 6px;
             }
             
             .stat-card {
-                padding: 4px 5px;
-                height: 45px;
+                padding: 5px 6px;
+                height: 50px;
+                min-width: calc(50% - 5px);
             }
             
             .stat-value {
-                font-size: 1em;
+                font-size: 0.9em;
             }
             
             .stat-label {
                 font-size: 0.6em;
+            }
+            
+            .export-buttons {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+            
+            .export-btn {
+                padding: 6px 4px;
+                font-size: 0.75em;
+                min-height: 45px;
             }
         }
         
@@ -643,10 +770,10 @@
             gap: 8px;
         }
         
-        /* CALENDRIER AVEC INFOS DE LIEU ET NOMBRE DE PERSONNES */
+        /* CALENDRIER REDUIT */
         .calendar-day.has-data {
             position: relative;
-            min-height: 80px !important;
+            min-height: 65px !important;
         }
         
         .calendar-day-info {
@@ -654,12 +781,12 @@
             bottom: 2px;
             left: 0;
             right: 0;
-            font-size: 8px !important;
-            line-height: 1.2;
+            font-size: 7px !important;
+            line-height: 1.1;
             color: #666;
             background-color: rgba(255, 255, 255, 0.9);
-            padding: 2px 3px;
-            border-radius: 3px;
+            padding: 1px 2px;
+            border-radius: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -667,18 +794,18 @@
             font-weight: normal;
             display: flex;
             flex-direction: column;
-            gap: 1px;
+            gap: 0.5px;
         }
         
         .calendar-day-location {
             font-weight: bold;
             color: #2980b9;
-            font-size: 8px;
+            font-size: 7px;
         }
         
         .calendar-day-participants {
             color: var(--apple-green);
-            font-size: 9px !important;
+            font-size: 8px !important;
             font-weight: bold;
         }
         
@@ -726,40 +853,41 @@
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 12px;
+            padding: 10px;
+            max-width: 500px;
         }
         
         .calendar-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 3px;
         }
         
         .calendar-day-header {
             text-align: center;
             font-weight: bold;
-            padding: 6px;
+            padding: 5px;
             background-color: var(--light-color);
-            border-radius: 4px;
-            font-size: 13px;
+            border-radius: 3px;
+            font-size: 12px;
         }
         
         .calendar-day {
             text-align: center;
-            padding: 8px 4px;
+            padding: 6px 3px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 3px;
             transition: background-color 0.2s;
             position: relative;
-            min-height: 80px;
-            font-size: 13px;
+            min-height: 65px;
+            font-size: 12px;
         }
         
         .calendar-day:hover {
@@ -780,8 +908,8 @@
             position: absolute;
             top: 2px;
             right: 2px;
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             background-color: var(--accent-color);
             border-radius: 50%;
         }
@@ -796,7 +924,8 @@
             background: white;
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
-            padding: 12px;
+            padding: 10px;
+            max-width: 500px;
         }
         
         .date-input-group {
@@ -1457,9 +1586,46 @@
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
             width: 90%;
-            max-width: 700px;
+            max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 12px;
+        }
+        
+        .stats-table th {
+            background: #f8f9fa;
+            padding: 8px;
+            text-align: left;
+            border-bottom: 2px solid #ddd;
+            font-weight: bold;
+        }
+        
+        .stats-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .stats-table tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .stats-table tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+        
+        .stats-table tr:nth-child(even):hover {
+            background-color: #f0f0f0;
+        }
+        
+        .percentage-cell {
+            font-weight: bold;
+            color: #2c3e50;
         }
         
         /* BOUTONS FLOTTANTS - TOUS À 1CM DE HAUTEUR ET 1CM DE LARGEUR */
@@ -1777,19 +1943,20 @@
             
             /* Calendrier mobile ajustements */
             .calendar-day {
-                min-height: 60px;
-                padding: 6px 2px;
-                font-size: 11px;
+                min-height: 50px;
+                padding: 5px 2px;
+                font-size: 10px;
             }
             
             .calendar-day-header {
-                font-size: 11px;
-                padding: 5px;
+                font-size: 10px;
+                padding: 4px;
             }
             
             .calendar-day-info {
-                font-size: 6px !important;
+                font-size: 5px !important;
                 bottom: 1px;
+                padding: 0.5px 1px;
             }
             
             .available-dates-desktop {
@@ -1831,6 +1998,45 @@
                 padding: 1px 6px;
                 margin-left: 6px;
             }
+            
+            .stats-table {
+                font-size: 10px;
+            }
+            
+            .stats-table th,
+            .stats-table td {
+                padding: 4px 6px;
+            }
+            
+            /* Export buttons mobile - 2 par ligne */
+            .export-buttons {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+            
+            .export-btn {
+                min-height: 50px;
+                padding: 8px 6px !important;
+                font-size: 0.8em !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .calendar-day {
+                min-height: 45px;
+                padding: 4px 1px;
+                font-size: 9px;
+            }
+            
+            .calendar-day-header {
+                font-size: 9px;
+                padding: 3px;
+            }
+            
+            .calendar-day-info {
+                font-size: 4px !important;
+            }
         }
     </style>
 </head>
@@ -1868,18 +2074,14 @@
         
         <!-- Section Statistiques - TAILLE REDUITE -->
         <div class="stats-section" id="statsSection">
-            <div class="stat-card">
-                <div class="stat-value" id="totalPV">0</div>
-                <div class="stat-label">Total PV</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="toeranaStats">0</div>
-                <div class="stat-label">Lieux différents</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value" id="totalParticipants">0</div>
-                <div class="stat-label">Participants uniques</div>
-            </div>
+            <!-- Les cartes statistiques seront ajoutées dynamiquement -->
+        </div>
+        
+        <!-- Bouton tableau statistiques -->
+        <div class="stats-table-button-container">
+            <button class="stats-table-btn" id="showStatsTableButtonMobile">
+                <span>📈</span> Tableau statistiques complet
+            </button>
         </div>
         
         <!-- Section Dates disponibles en boutons - Position mobile -->
@@ -1979,18 +2181,14 @@
                 
                 <!-- Section Statistiques - TAILLE REDUITE -->
                 <div class="stats-section" id="statsSectionDesktop">
-                    <div class="stat-card">
-                        <div class="stat-value" id="totalPVDesktop">0</div>
-                        <div class="stat-label">Total PV</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="toeranaStatsDesktop">0</div>
-                        <div class="stat-label">Lieux différents</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value" id="totalParticipantsDesktop">0</div>
-                        <div class="stat-label">Participants uniques</div>
-                    </div>
+                    <!-- Les cartes statistiques seront ajoutées dynamiquement -->
+                </div>
+                
+                <!-- Bouton tableau statistiques -->
+                <div class="stats-table-button-container">
+                    <button class="stats-table-btn" id="showStatsTableButtonDesktop">
+                        <span>📈</span> Tableau statistiques complet
+                    </button>
                 </div>
                 
                 <!-- Section Dates disponibles en mode ordinateur -->
@@ -2066,6 +2264,12 @@
                         <button class="export-btn email" id="sendEmailSide" disabled>
                             <span>📧</span> Envoyer rapport par email
                         </button>
+                        <button class="export-btn stats" id="showStatsTableButtonSide">
+                            <span>📈</span> Tableau statistiques
+                        </button>
+                        <button class="export-btn book" id="exportBookButton">
+                            <span>📚</span> Livre PDF complet
+                        </button>
                     </div>
                 </section>
                 
@@ -2107,6 +2311,12 @@
                     <button class="export-btn email" id="sendEmail" disabled>
                         <span>📧</span> Envoyer rapport par email
                     </button>
+                    <button class="export-btn stats" id="showStatsTableButtonMobileExport">
+                        <span>📈</span> Tableau statistiques
+                    </button>
+                    <button class="export-btn book" id="exportBookButtonMobile">
+                        <span>📚</span> Livre PDF complet
+                    </button>
                 </div>
             </section>
 
@@ -2144,6 +2354,30 @@
                     <h3 id="statsModalTitle">Statistiques</h3>
                     <div id="statsModalContent"></div>
                     <button id="closeStatsModal" class="secondary" style="margin-top: 20px; width: 100%;">Fermer</button>
+                </div>
+            </div>
+            
+            <!-- Modal pour le tableau des statistiques de présence -->
+            <div class="stats-modal" id="statsTableModal">
+                <div class="stats-modal-content">
+                    <h3 id="statsTableModalTitle">📊 Statistiques de présence par personne</h3>
+                    
+                    <div class="stats-explanation">
+                        <strong>Note :</strong> Les taux sont calculés à partir du nombre total de réunions (${totalPV || 0} PV).
+                        Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.
+                    </div>
+                    
+                    <div class="stats-summary-cards" id="statsSummaryCards">
+                        <!-- Les cartes de résumé seront ajoutées dynamiquement -->
+                    </div>
+                    
+                    <div id="statsTableContent"></div>
+                    <div style="margin-top: 20px; display: flex; gap: 10px;">
+                        <button id="exportStatsTablePDF" class="export-btn stats" style="flex: 1;">
+                            <span>📄</span> Exporter en PDF
+                        </button>
+                        <button id="closeStatsTableModal" class="secondary" style="flex: 1;">Fermer</button>
+                    </div>
                 </div>
             </div>
 
@@ -2287,8 +2521,14 @@
         let toeranaStats = {};
         let totalPV = 0;
         
-        // MODIFICATION : Nouvelle variable pour suivre les PV par personne
-        let pvCountByPerson = {};
+        // Nouveaux statistiques ajoutés
+        let maxParticipantsInMeeting = 0;
+        let presenceRate = 0;
+        let onTimeRate = 0;
+        let lateRate = 0;
+        let absenceRate = 0;
+        let earlyLeaveRate = 0;
+        let excuseRate = 0;
         
         document.addEventListener('DOMContentLoaded', function() {
             // Initialisation des événements pour la vue mobile
@@ -2312,6 +2552,18 @@
             document.getElementById('cancelEmailExport').addEventListener('click', hideEmailExportModal);
             document.getElementById('confirmEmailExport').addEventListener('click', confirmEmailExport);
             document.getElementById('selectAllPVs').addEventListener('change', selectAllPVsForEmail);
+            
+            // Boutons statistiques
+            document.getElementById('showStatsTableButtonMobile').addEventListener('click', showStatsTable);
+            document.getElementById('showStatsTableButtonDesktop').addEventListener('click', showStatsTable);
+            document.getElementById('showStatsTableButtonSide').addEventListener('click', showStatsTable);
+            document.getElementById('showStatsTableButtonMobileExport').addEventListener('click', showStatsTable);
+            document.getElementById('exportStatsTablePDF').addEventListener('click', exportStatsTablePDF);
+            document.getElementById('closeStatsTableModal').addEventListener('click', hideStatsTableModal);
+            
+            // Boutons livre PDF
+            document.getElementById('exportBookButton').addEventListener('click', exportBookPDF);
+            document.getElementById('exportBookButtonMobile').addEventListener('click', exportBookPDF);
             
             // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
@@ -2519,6 +2771,616 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // NOUVELLE FONCTION : Afficher le tableau des statistiques
+        function showStatsTable() {
+            const modal = document.getElementById('statsTableModal');
+            const content = document.getElementById('statsTableContent');
+            const summaryCards = document.getElementById('statsSummaryCards');
+            
+            // Mettre à jour le texte d'explication avec le nombre réel de PV
+            const explanation = document.querySelector('.stats-explanation');
+            if (explanation) {
+                explanation.innerHTML = `<strong>Note :</strong> Les taux sont calculés à partir du nombre total de réunions (${totalPV || 0} PV). Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.`;
+            }
+            
+            if (Object.keys(nameStatistics).length === 0) {
+                content.innerHTML = '<p style="text-align: center; color: #7f8c8d;">Aucune statistique disponible.</p>';
+                modal.style.display = 'flex';
+                return;
+            }
+            
+            // Créer les cartes de résumé
+            summaryCards.innerHTML = `
+                <div class="stats-summary-card">
+                    <div class="stats-summary-value">${totalPV}</div>
+                    <div class="stats-summary-label">Total PV</div>
+                </div>
+                <div class="stats-summary-card">
+                    <div class="stats-summary-value">${allNames.size}</div>
+                    <div class="stats-summary-label">Participants</div>
+                </div>
+                <div class="stats-summary-card">
+                    <div class="stats-summary-value">${presenceRate.toFixed(1)}%</div>
+                    <div class="stats-summary-label">Présence moyenne</div>
+                </div>
+                <div class="stats-summary-card">
+                    <div class="stats-summary-value">${onTimeRate.toFixed(1)}%</div>
+                    <div class="stats-summary-label">À l'heure moyenne</div>
+                </div>
+                <div class="stats-summary-card">
+                    <div class="stats-summary-value">${maxParticipantsInMeeting}</div>
+                    <div class="stats-summary-label">Max participants</div>
+                </div>
+            `;
+            
+            let html = `
+                <div style="overflow-x: auto;">
+                    <table class="stats-table">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Ara-potoana</th>
+                                <th>Tara <30min</th>
+                                <th>Tara <1h</th>
+                                <th>Tara >1h</th>
+                                <th>Tapak'andro</th>
+                                <th>Nody aloha</th>
+                                <th>Tsy tonga</th>
+                                <th>Excuse tara</th>
+                                <th>Excuse absent</th>
+                                <th>Présence totale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Trier les noms par ordre alphabétique
+            const sortedNames = Object.keys(nameStatistics).sort();
+            
+            sortedNames.forEach(name => {
+                const stats = nameStatistics[name];
+                const totalPVs = stats.totalPVs || totalPV;
+                
+                // Calculer les pourcentages
+                const araPotoanaPct = totalPVs > 0 ? ((stats.araPotoana || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tara30minPct = totalPVs > 0 ? ((stats.taraLatsaky30min || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tara1hPct = totalPVs > 0 ? ((stats.taraLatsaky1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const taraPlus1hPct = totalPVs > 0 ? ((stats.taraMihoatra1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tapakAndroPct = totalPVs > 0 ? ((stats.tapakAndro || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const nodyAlohaPct = totalPVs > 0 ? ((stats.nodyAloha || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tsyTongaPct = totalPVs > 0 ? ((stats.tsyTonga || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const excuseTaraPct = totalPVs > 0 ? ((stats.nialaTsinyTara || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const excuseAbsentPct = totalPVs > 0 ? ((stats.nialaTsinyTsyHoAvy || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const presencePct = totalPVs > 0 ? ((stats.presenceCount || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                
+                html += `
+                    <tr>
+                        <td><strong>${name}</strong></td>
+                        <td class="percentage-cell">${araPotoanaPct}%</td>
+                        <td class="percentage-cell">${tara30minPct}%</td>
+                        <td class="percentage-cell">${tara1hPct}%</td>
+                        <td class="percentage-cell">${taraPlus1hPct}%</td>
+                        <td class="percentage-cell">${tapakAndroPct}%</td>
+                        <td class="percentage-cell">${nodyAlohaPct}%</td>
+                        <td class="percentage-cell">${tsyTongaPct}%</td>
+                        <td class="percentage-cell">${excuseTaraPct}%</td>
+                        <td class="percentage-cell">${excuseAbsentPct}%</td>
+                        <td class="percentage-cell"><strong>${presencePct}%</strong></td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            content.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+        
+        function hideStatsTableModal() {
+            document.getElementById('statsTableModal').style.display = 'none';
+        }
+        
+        function exportStatsTablePDF() {
+            const sortedNames = Object.keys(nameStatistics).sort();
+            const totalPVs = totalPV;
+            
+            // Ouvrir une nouvelle fenêtre pour l'impression
+            const printWindow = window.open('', '_blank');
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Statistiques de présence - Tournée NY AKO 2026</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+                        h2 { color: #3498db; margin-top: 20px; }
+                        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                        th { background: #f8f9fa; padding: 10px; text-align: left; border-bottom: 2px solid #ddd; font-weight: bold; }
+                        td { padding: 8px 10px; border-bottom: 1px solid #eee; }
+                        tr:nth-child(even) { background-color: #fafafa; }
+                        tr:hover { background-color: #f5f5f5; }
+                        .percentage { font-weight: bold; color: #2c3e50; }
+                        .summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        .explanation { background: #e8f4fc; padding: 12px; border-radius: 5px; margin-bottom: 15px; font-size: 0.9em; }
+                        @media print { 
+                            body { margin: 0; font-size: 11px; }
+                            h1 { font-size: 18px; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>📊 Statistiques de présence - Tournée NY AKO 2026</h1>
+                    <p>Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
+                    
+                    <div class="explanation">
+                        <strong>Note :</strong> Les taux sont calculés à partir du nombre total de réunions (${totalPVs} PV).
+                        Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.
+                    </div>
+                    
+                    <div class="summary">
+                        <h2>Résumé global</h2>
+                        <p><strong>Total PV:</strong> ${totalPVs}</p>
+                        <p><strong>Participants uniques:</strong> ${sortedNames.length}</p>
+                        <p><strong>Nombre maximum de personnes présentes à une réunion:</strong> ${maxParticipantsInMeeting}</p>
+                        <p><strong>Taux moyen de présence:</strong> ${presenceRate.toFixed(1)}%</p>
+                        <p><strong>Taux moyen à l'heure:</strong> ${onTimeRate.toFixed(1)}%</p>
+                        <p><strong>Taux moyen de retard:</strong> ${lateRate.toFixed(1)}%</p>
+                        <p><strong>Taux moyen d'absence:</strong> ${absenceRate.toFixed(1)}%</p>
+                        <p><strong>Taux moyen de départ avant l'heure:</strong> ${earlyLeaveRate.toFixed(1)}%</p>
+                        <p><strong>Taux moyen d'excuses:</strong> ${excuseRate.toFixed(1)}%</p>
+                    </div>
+                    
+                    <h2>Détails par participant (en pourcentage)</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Ara-potoana</th>
+                                <th>Tara <30min</th>
+                                <th>Tara <1h</th>
+                                <th>Tara >1h</th>
+                                <th>Tapak'andro</th>
+                                <th>Nody aloha</th>
+                                <th>Tsy tonga</th>
+                                <th>Excuse tara</th>
+                                <th>Excuse absent</th>
+                                <th>Présence totale</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            sortedNames.forEach(name => {
+                const stats = nameStatistics[name];
+                
+                // Calculer les pourcentages
+                const araPotoanaPct = totalPVs > 0 ? ((stats.araPotoana || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tara30minPct = totalPVs > 0 ? ((stats.taraLatsaky30min || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tara1hPct = totalPVs > 0 ? ((stats.taraLatsaky1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const taraPlus1hPct = totalPVs > 0 ? ((stats.taraMihoatra1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tapakAndroPct = totalPVs > 0 ? ((stats.tapakAndro || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const nodyAlohaPct = totalPVs > 0 ? ((stats.nodyAloha || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const tsyTongaPct = totalPVs > 0 ? ((stats.tsyTonga || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const excuseTaraPct = totalPVs > 0 ? ((stats.nialaTsinyTara || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const excuseAbsentPct = totalPVs > 0 ? ((stats.nialaTsinyTsyHoAvy || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                const presencePct = totalPVs > 0 ? ((stats.presenceCount || 0) / totalPVs * 100).toFixed(1) : '0.0';
+                
+                html += `
+                    <tr>
+                        <td><strong>${name}</strong></td>
+                        <td class="percentage">${araPotoanaPct}%</td>
+                        <td class="percentage">${tara30minPct}%</td>
+                        <td class="percentage">${tara1hPct}%</td>
+                        <td class="percentage">${taraPlus1hPct}%</td>
+                        <td class="percentage">${tapakAndroPct}%</td>
+                        <td class="percentage">${nodyAlohaPct}%</td>
+                        <td class="percentage">${tsyTongaPct}%</td>
+                        <td class="percentage">${excuseTaraPct}%</td>
+                        <td class="percentage">${excuseAbsentPct}%</td>
+                        <td class="percentage"><strong>${presencePct}%</strong></td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                        </tbody>
+                    </table>
+                    
+                    <div style="margin-top: 30px; text-align: center; font-size: 12px; color: #666;">
+                        <p><em>Note: Les pourcentages sont calculés sur ${totalPVs} PV au total.</em></p>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+        }
+        
+        // NOUVELLE FONCTION : Exporter un livre PDF complet avec présentation des fiches
+        function exportBookPDF() {
+            if (!isAdminAuthenticated) {
+                showPasswordModalForAction('book');
+                return;
+            }
+            
+            // Ouvrir une nouvelle fenêtre avec le contenu pour impression
+            const printWindow = window.open('', '_blank');
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>Livre des PV - Tournée NY AKO 2026</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; text-align: center; }
+                        h2 { color: #3498db; margin-top: 20px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+                        h3 { color: #2c3e50; margin-top: 15px; }
+                        .section { margin-bottom: 30px; page-break-inside: avoid; }
+                        .pv-item { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; page-break-inside: avoid; }
+                        .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
+                        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+                        .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+                        .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                        .stats-summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        .stats-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                        .stats-table th { background: #e8f4fc; padding: 8px; text-align: left; border-bottom: 2px solid #ddd; }
+                        .stats-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                        .summary-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin: 20px 0; }
+                        .summary-card { background: white; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+                        .summary-value { font-size: 24px; font-weight: bold; color: #2980b9; margin: 10px 0; }
+                        .summary-label { color: #666; font-size: 14px; }
+                        
+                        /* Styles pour les fiches de données */
+                        .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+                        .date-time-item { flex: 1; display: flex; align-items: flex-start; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
+                        .date-time-label { font-weight: bold; color: #0277bd; font-size: 13px; margin-bottom: 2px; }
+                        .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
+                        .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
+                        .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
+                        .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #0277bd; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
+                        .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
+                        .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
+                        
+                        @media print { 
+                            body { margin: 15mm; font-size: 11px; }
+                            h1 { font-size: 20px; }
+                            h2 { font-size: 16px; }
+                            .section { page-break-inside: avoid; }
+                            .pv-item { page-break-inside: avoid; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>📚 Livre des Procès-Verbaux</h1>
+                    <h2>Tournée NY AKO 2026</h2>
+                    <p style="text-align: center;"><em>Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</em></p>
+                    
+                    <div class="section">
+                        <h2>📊 Statistiques Globales</h2>
+                        
+                        <div class="summary-grid">
+                            <div class="summary-card">
+                                <div class="summary-value">${totalPV}</div>
+                                <div class="summary-label">Total des PV</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${allNames.size}</div>
+                                <div class="summary-label">Participants uniques</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="summary-label">Lieux de réunion</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${maxParticipantsInMeeting}</div>
+                                <div class="summary-label">Max. personnes par réunion</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${presenceRate.toFixed(1)}%</div>
+                                <div class="summary-label">Taux moyen de présence</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${onTimeRate.toFixed(1)}%</div>
+                                <div class="summary-label">Taux moyen à l'heure</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${lateRate.toFixed(1)}%</div>
+                                <div class="summary-label">Taux moyen de retard</div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="summary-value">${absenceRate.toFixed(1)}%</div>
+                                <div class="summary-label">Taux moyen d'absence</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="section">
+                        <h2>📋 Procès-Verbaux Détailés</h2>
+            `;
+            
+            // Ajouter tous les PV avec la même présentation que les fiches
+            sheetData.forEach((row, index) => {
+                const dateStr = row[1] || 'Date non spécifiée';
+                const titre = row[2] || `PV ${index + 1}`;
+                
+                // Extraire les données pour la fiche
+                const fahatongavanaData = extractFahatongavanaData(row);
+                const totalParticipants = countTotalParticipants(fahatongavanaData);
+                const ordreDuJourData = extractOrdreDuJourData(row);
+                
+                // Extraire les informations de date et lieu
+                let datyValue = '';
+                let oraFanombohanaValue = '';
+                let oraFiravanaValue = '';
+                let toeranaValue = '';
+                
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    const value = row[colIndex] || '';
+                    
+                    if (header.toLowerCase().includes('daty')) {
+                        datyValue = value;
+                    } else if (header.toLowerCase().includes('ora fanombohana')) {
+                        oraFanombohanaValue = value;
+                    } else if (header.toLowerCase().includes('ora firavana')) {
+                        oraFiravanaValue = value;
+                    } else if (header.toLowerCase().includes('toerana')) {
+                        toeranaValue = value;
+                    }
+                }
+                
+                html += `
+                    <div class="pv-item">
+                        <div class="pv-header">
+                            <h3>${titre} - ${dateStr}</h3>
+                            <p><strong>${totalParticipants} personnes présentes</strong></p>
+                        </div>
+                        
+                        <div style="padding: 15px;">
+                `;
+                
+                // Ajouter la ligne date/heure/lieu
+                if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
+                    html += `
+                        <div class="date-time-row">
+                            ${datyValue ? `
+                                <div class="date-time-item">
+                                    <div>📅</div>
+                                    <div>
+                                        <div class="date-time-label">Daty</div>
+                                        <div class="date-time-value">${datyValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${oraFanombohanaValue ? `
+                                <div class="date-time-item">
+                                    <div>⏰</div>
+                                    <div>
+                                        <div class="date-time-label">Ora fanombohana</div>
+                                        <div class="date-time-value">${oraFanombohanaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${oraFiravanaValue ? `
+                                <div class="date-time-item">
+                                    <div>⏰</div>
+                                    <div>
+                                        <div class="date-time-label">Ora firavana</div>
+                                        <div class="date-time-value">${oraFiravanaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${toeranaValue ? `
+                                <div class="date-time-item">
+                                    <div>📍</div>
+                                    <div>
+                                        <div class="date-time-label">Toerana</div>
+                                        <div class="date-time-value">${toeranaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+                
+                // Ajouter Fahatongavana
+                const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
+                if (hasFahatongavana) {
+                    html += `
+                        <div class="section-title">FAHATONGAVANA</div>
+                        ${formatFahatongavanaSectionForPDF(fahatongavanaData)}
+                    `;
+                }
+                
+                // Ajouter Ordre du Jour
+                if (ordreDuJourData.length > 0) {
+                    html += `
+                        <div class="section-title">ORDRE DU JOUR</div>
+                        ${formatOrdreDuJourSectionForPDF(ordreDuJourData)}
+                    `;
+                }
+                
+                // Ajouter les autres informations
+                const excludedHeaders = [
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                ];
+                
+                const processedHeaders = new Set();
+                
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
+                    let value = row[colIndex] || '';
+                    
+                    if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
+                        processedHeaders.has(header) ||
+                        header.toLowerCase().includes('ara-potoana') ||
+                        header.toLowerCase().includes('tara latsaky') ||
+                        header.toLowerCase().includes('tara mihoatra') ||
+                        header.toLowerCase().includes('tapak') ||
+                        header.toLowerCase().includes('nody') ||
+                        header.toLowerCase().includes('tsy tonga') ||
+                        header.toLowerCase().includes('niala-tsiny') ||
+                        header.toLowerCase().includes('ordre du jour')) {
+                        continue;
+                    }
+                    
+                    if (value !== undefined && value !== null && value !== '' && value.trim() !== '') {
+                        const titleClass = getTitleClass(header);
+                        const titleStyle = titleClass.includes('title-') ? 'style="background: #f8f9fa; padding: 8px; border-left: 3px solid #3498db;"' : '';
+                        
+                        html += `
+                            <table class="data-table" style="margin-bottom: 12px;">
+                                <tr>
+                                    <th ${titleStyle}>${header}</th>
+                                    <td><div style="font-size:14px; font-weight:500; white-space:pre-wrap; line-height:1.6; font-family: inherit;">${value}</div></td>
+                                </tr>
+                            </table>
+                        `;
+                        
+                        processedHeaders.add(header);
+                    }
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    </div>
+                    
+                    <div style="margin-top: 40px; text-align: center; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 20px;">
+                        <p><em>Document généré automatiquement - Tournée NY AKO 2026</em></p>
+                        <p><em>${new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</em></p>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+        }
+        
+        // Fonctions auxiliaires pour le PDF
+        function formatFahatongavanaSectionForPDF(fahatongavanaData) {
+            let html = '<div class="fahatongavana-section">';
+            
+            if (fahatongavanaData.araPotoana.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Ara-potoana</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.araPotoana.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.taraLatsaky30min.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara latsaky ny 30min</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky30min.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.taraLatsaky1h.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara latsaky ny 1h</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky1h.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.taraMihoatra1h.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tara mihoatra ny 1h</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.taraMihoatra1h.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.tapakAndro.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tapak'andro</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.tapakAndro.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.nodyAloha.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Nody aloha</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nodyAloha.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.tsyTonga.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Tsy tonga</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.tsyTonga.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.nialaTsinyTara.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Niala-tsiny tara</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTara.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            if (fahatongavanaData.nialaTsinyTsyHoAvy.length > 0) {
+                html += `
+                    <div class="fahatongavana-row">
+                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy</div>
+                        <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTsyHoAvy.join(' / ')}</div>
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+        
+        function formatOrdreDuJourSectionForPDF(ordreDuJourData) {
+            if (ordreDuJourData.length === 0) return '';
+            
+            let html = '<div class="ordre-du-jour-section">';
+            
+            ordreDuJourData.forEach((item, index) => {
+                const num = extractNumber(item.header) || (index + 1);
+                html += `
+                    <div class="ordre-du-jour-item">
+                        <strong>${num}.</strong> ${item.value}
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
+            return html;
+        }
+
         // MODAL D'EXPORT DE DATES SELECTIONNEES
         function showExportDatesModal() {
             if (!isAdminAuthenticated) {
@@ -2604,13 +3466,223 @@
                         exportToExcel(rowsToExport, `pv_selection_${new Date().toISOString().split('T')[0]}.xlsx`);
                         break;
                     case 'pdf':
-                        exportToPDF(rowsToExport, `Rapport PV sélection`);
+                        // Exporter la fiche du jour en PDF avec présentation complète
+                        exportToPDFWithPresentation(rowsToExport, `Rapport PV sélection`);
                         break;
                 }
                 hideExportDatesModal();
             } else {
                 alert('Aucune donnée trouvée pour les dates sélectionnées.');
             }
+        }
+        
+        // NOUVELLE FONCTION : Exporter en PDF avec présentation complète
+        function exportToPDFWithPresentation(data, title) {
+            const printWindow = window.open('', '_blank');
+            let html = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${title}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
+                        h2 { color: #3498db; margin-top: 20px; }
+                        .pv-item { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
+                        .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
+                        .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+                        .date-time-item { flex: 1; display: flex; align-items: flex-start; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
+                        .date-time-label { font-weight: bold; color: #0277bd; font-size: 13px; margin-bottom: 2px; }
+                        .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
+                        .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
+                        .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
+                        .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #0277bd; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
+                        .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
+                        .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
+                        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+                        .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+                        .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
+                        .stats-summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        @media print { 
+                            body { margin: 0; font-size: 12px; }
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>${title}</h1>
+                    <p>Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
+                    
+                    <div class="stats-summary">
+                        <h2>Résumé des statistiques</h2>
+                        <p><strong>Total PV exportés:</strong> ${data.length}</p>
+                        <p><strong>Noms uniques:</strong> ${allNames.size}</p>
+                        <p><strong>Lieux de réunion:</strong> ${Object.keys(toeranaStats).length}</p>
+                        <p><strong>Nombre maximum de personnes par réunion:</strong> ${maxParticipantsInMeeting}</p>
+                        <p><strong>Taux moyen de présence:</strong> ${presenceRate.toFixed(1)}%</p>
+                    </div>
+            `;
+            
+            data.forEach((row, index) => {
+                const dateStr = row[1] || 'Date non spécifiée';
+                const titre = row[2] || `PV ${index + 1}`;
+                
+                // Extraire les données pour la fiche
+                const fahatongavanaData = extractFahatongavanaData(row);
+                const totalParticipants = countTotalParticipants(fahatongavanaData);
+                const ordreDuJourData = extractOrdreDuJourData(row);
+                
+                // Extraire les informations de date et lieu
+                let datyValue = '';
+                let oraFanombohanaValue = '';
+                let oraFiravanaValue = '';
+                let toeranaValue = '';
+                
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    const value = row[colIndex] || '';
+                    
+                    if (header.toLowerCase().includes('daty')) {
+                        datyValue = value;
+                    } else if (header.toLowerCase().includes('ora fanombohana')) {
+                        oraFanombohanaValue = value;
+                    } else if (header.toLowerCase().includes('ora firavana')) {
+                        oraFiravanaValue = value;
+                    } else if (header.toLowerCase().includes('toerana')) {
+                        toeranaValue = value;
+                    }
+                }
+                
+                html += `
+                    <div class="pv-item">
+                        <div class="pv-header">
+                            <h2>${titre}</h2>
+                            <p><strong>Date:</strong> ${dateStr} | <strong>Participants:</strong> ${totalParticipants}</p>
+                        </div>
+                        
+                        <div style="padding: 15px;">
+                `;
+                
+                // Ajouter la ligne date/heure/lieu
+                if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
+                    html += `
+                        <div class="date-time-row">
+                            ${datyValue ? `
+                                <div class="date-time-item">
+                                    <div>📅</div>
+                                    <div>
+                                        <div class="date-time-label">Daty</div>
+                                        <div class="date-time-value">${datyValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${oraFanombohanaValue ? `
+                                <div class="date-time-item">
+                                    <div>⏰</div>
+                                    <div>
+                                        <div class="date-time-label">Ora fanombohana</div>
+                                        <div class="date-time-value">${oraFanombohanaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${oraFiravanaValue ? `
+                                <div class="date-time-item">
+                                    <div>⏰</div>
+                                    <div>
+                                        <div class="date-time-label">Ora firavana</div>
+                                        <div class="date-time-value">${oraFiravanaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                            ${toeranaValue ? `
+                                <div class="date-time-item">
+                                    <div>📍</div>
+                                    <div>
+                                        <div class="date-time-label">Toerana</div>
+                                        <div class="date-time-value">${toeranaValue}</div>
+                                    </div>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                }
+                
+                // Ajouter Fahatongavana
+                const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
+                if (hasFahatongavana) {
+                    html += `
+                        <div class="section-title">FAHATONGAVANA</div>
+                        ${formatFahatongavanaSectionForPDF(fahatongavanaData)}
+                    `;
+                }
+                
+                // Ajouter Ordre du Jour
+                if (ordreDuJourData.length > 0) {
+                    html += `
+                        <div class="section-title">ORDRE DU JOUR</div>
+                        ${formatOrdreDuJourSectionForPDF(ordreDuJourData)}
+                    `;
+                }
+                
+                // Ajouter les autres informations
+                const excludedHeaders = [
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                ];
+                
+                const processedHeaders = new Set();
+                
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
+                    let value = row[colIndex] || '';
+                    
+                    if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
+                        processedHeaders.has(header) ||
+                        header.toLowerCase().includes('ara-potoana') ||
+                        header.toLowerCase().includes('tara latsaky') ||
+                        header.toLowerCase().includes('tara mihoatra') ||
+                        header.toLowerCase().includes('tapak') ||
+                        header.toLowerCase().includes('nody') ||
+                        header.toLowerCase().includes('tsy tonga') ||
+                        header.toLowerCase().includes('niala-tsiny') ||
+                        header.toLowerCase().includes('ordre du jour')) {
+                        continue;
+                    }
+                    
+                    if (value !== undefined && value !== null && value !== '' && value.trim() !== '') {
+                        html += `
+                            <table class="data-table">
+                                <tr>
+                                    <th>${header}</th>
+                                    <td>${value.replace(/\n/g, '<br>')}</td>
+                                </tr>
+                            </table>
+                        `;
+                        
+                        processedHeaders.add(header);
+                    }
+                }
+                
+                html += `
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `
+                    <div class="no-print" style="margin-top: 30px; text-align: center;">
+                        <button onclick="window.print()" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            🖨️ Imprimer ce rapport
+                        </button>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(html);
+            printWindow.document.close();
+            printWindow.focus();
         }
         
         // NOUVELLE FONCTION : Modal d'envoi par email avec sélection de PV
@@ -2760,7 +3832,7 @@ L'équipe de gestion des PV`;
                         exportToExcel(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}.xlsx`);
                         break;
                     case 'pdf':
-                        exportToPDF(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}`);
+                        exportToPDFWithPresentation(dataToExport, `Rapport_PV_${new Date().toISOString().split('T')[0]}`);
                         break;
                 }
             }, 1000);
@@ -2775,7 +3847,7 @@ L'équipe de gestion des PV`;
             
             if (sheetData.length > 0) {
                 // Demander le format
-                const format = prompt('Choisissez le format d\'export :\n1. CSV (Tableur)\n2. Excel (XLSX)\n3. PDF (Rapport)\n\nEntrez 1, 2 ou 3 :', '1');
+                const format = prompt('Choisissez le format d\'export :\n1. CSV (Tableur)\n2. Excel (XLSX)\n3. PDF (Rapport avec présentation complète)\n\nEntrez 1, 2 ou 3 :', '1');
                 
                 switch(format) {
                     case '1':
@@ -2785,7 +3857,7 @@ L'équipe de gestion des PV`;
                         exportToExcel(sheetData, `pv_complet_${new Date().toISOString().split('T')[0]}.xlsx`);
                         break;
                     case '3':
-                        exportToPDF(sheetData, `Rapport PV complet`);
+                        exportToPDFWithPresentation(sheetData, `Rapport PV complet`);
                         break;
                 }
             } else {
@@ -2824,82 +3896,8 @@ L'équipe de gestion des PV`;
         }
         
         function exportToPDF(data, title) {
-            // Ouvrir une nouvelle fenêtre avec le contenu HTML pour impression
-            const printWindow = window.open('', '_blank');
-            let html = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>${title}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 20px; }
-                        h1 { color: #2c3e50; border-bottom: 2px solid #4CAF50; padding-bottom: 10px; }
-                        h2 { color: #3498db; margin-top: 20px; }
-                        .pv-item { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
-                        .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
-                        .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
-                        .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
-                        .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
-                        .stats-summary { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-                        @media print { 
-                            body { margin: 0; font-size: 12px; }
-                            .no-print { display: none; }
-                        }
-                    </style>
-                </head>
-                <body>
-                    <h1>${title}</h1>
-                    <p>Généré le ${new Date().toLocaleDateString('fr-FR')} à ${new Date().toLocaleTimeString('fr-FR')}</p>
-                    
-                    <div class="stats-summary">
-                        <h2>Résumé des statistiques</h2>
-                        <p><strong>Total PV exportés:</strong> ${data.length}</p>
-                        <p><strong>Noms uniques:</strong> ${allNames.size}</p>
-                        <p><strong>Lieux de réunion:</strong> ${Object.keys(toeranaStats).length}</p>
-                    </div>
-            `;
-            
-            data.forEach((row, index) => {
-                const dateStr = row[1] || 'Date non spécifiée';
-                const titre = row[2] || `PV ${index + 1}`;
-                
-                html += `
-                    <div class="pv-item">
-                        <div class="pv-header">
-                            <h2>${titre}</h2>
-                            <p><strong>Date:</strong> ${dateStr}</p>
-                        </div>
-                        <table class="data-table">
-                `;
-                
-                headers.forEach((header, colIndex) => {
-                    const value = row[colIndex] || '';
-                    if (value && value.trim() !== '') {
-                        html += `
-                            <tr>
-                                <th>${header}</th>
-                                <td>${value.replace(/\n/g, '<br>')}</td>
-                            </tr>
-                        `;
-                    }
-                });
-                
-                html += `</table></div>`;
-            });
-            
-            html += `
-                    <div class="no-print" style="margin-top: 30px; text-align: center;">
-                        <button onclick="window.print()" style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                            🖨️ Imprimer ce rapport
-                        </button>
-                    </div>
-                </body>
-                </html>
-            `;
-            
-            printWindow.document.write(html);
-            printWindow.document.close();
-            printWindow.focus();
+            // Fonction pour PDF simple (conservée pour compatibilité)
+            exportToPDFWithPresentation(data, title);
         }
         
         // MODIFICATION : Générer les boutons de dates pour mobile et desktop avec disposition améliorée
@@ -3111,10 +4109,10 @@ L'équipe de gestion des PV`;
                 });
                 
                 document.getElementById('downloadPDFButton').addEventListener('click', function() {
-                    // Exporter le PV de cette date en PDF
+                    // Exporter le PV de cette date en PDF avec présentation complète
                     const matchingRows = findPVByDate(date);
                     if (matchingRows.length > 0) {
-                        exportToPDF(matchingRows, `PV du ${formatDateForDisplay(date)}`);
+                        exportToPDFWithPresentation(matchingRows, `PV du ${formatDateForDisplay(date)}`);
                         hideDateOptionsModal();
                     }
                 });
@@ -3243,6 +4241,8 @@ L'équipe de gestion des PV`;
                     } else {
                         document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
                     }
+                } else if (action === 'book') {
+                    exportBookPDF();
                 }
                 
                 // Recharger les résultats actuels si des résultats sont affichés
@@ -3321,7 +4321,7 @@ L'équipe de gestion des PV`;
             renderDatesButtons();
         }
 
-        // MODIFICATION : Le calendrier montre les options, le lieu et le nombre de participants
+        // MODIFICATION : Le calendrier réduit montre les options, le lieu et le nombre de participants
         function renderCalendar(view = 'mobile') {
             let calendarGrid, currentMonthElement, calendarId, dateInputId, goToDateId;
             
@@ -3392,7 +4392,7 @@ L'équipe de gestion des PV`;
                     if (dateData.toerana && dateData.toerana.trim() !== '') {
                         const locationSpan = document.createElement('div');
                         locationSpan.className = 'calendar-day-location';
-                        locationSpan.textContent = `📍 ${dateData.toerana}`;
+                        locationSpan.textContent = `📍 ${dateData.toerana.substring(0, 15)}${dateData.toerana.length > 15 ? '...' : ''}`;
                         infoSpan.appendChild(locationSpan);
                     }
                     
@@ -3460,21 +4460,135 @@ L'équipe de gestion des PV`;
             showDateOptions(selectedDate);
         }
 
-        // MODIFICATION : FONCTION POUR CALCULER LES STATISTIQUES - ENLEVE TEXTE D'EXPLICATION
+        // MODIFICATION : Mettre à jour l'affichage des statistiques avec 5 cartes par ligne
+        function updateStatsDisplay() {
+            // Mise à jour pour la vue mobile (2 par ligne)
+            if (document.getElementById('statsSection')) {
+                document.getElementById('statsSection').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPV">${totalPV}</div>
+                        <div class="stat-label">Total PV</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maxParticipants">${maxParticipantsInMeeting}</div>
+                        <div class="stat-label">Max personnes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="presenceRate">${presenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux présence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="onTimeRate">${onTimeRate.toFixed(1)}%</div>
+                        <div class="stat-label">À l'heure</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="lateRate">${lateRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux retard</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="absenceRate">${absenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux absence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="earlyLeaveRate">${earlyLeaveRate.toFixed(1)}%</div>
+                        <div class="stat-label">Part avant l'heure</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="excuseRate">${excuseRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux excuses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="toeranaStats">${Object.keys(toeranaStats).length}</div>
+                        <div class="stat-label">Lieux différents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalParticipants">${allNames.size}</div>
+                        <div class="stat-label">Participants uniques</div>
+                    </div>
+                `;
+            }
+            
+            // Mise à jour pour la vue desktop (5 par ligne)
+            if (document.getElementById('statsSectionDesktop')) {
+                document.getElementById('statsSectionDesktop').innerHTML = `
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalPVDesktop">${totalPV}</div>
+                        <div class="stat-label">Total PV</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maxParticipantsDesktop">${maxParticipantsInMeeting}</div>
+                        <div class="stat-label">Max personnes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="presenceRateDesktop">${presenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux présence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="onTimeRateDesktop">${onTimeRate.toFixed(1)}%</div>
+                        <div class="stat-label">À l'heure</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="lateRateDesktop">${lateRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux retard</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="absenceRateDesktop">${absenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux absence</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="earlyLeaveRateDesktop">${earlyLeaveRate.toFixed(1)}%</div>
+                        <div class="stat-label">Part avant l'heure</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="excuseRateDesktop">${excuseRate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux excuses</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="toeranaStatsDesktop">${Object.keys(toeranaStats).length}</div>
+                        <div class="stat-label">Lieux différents</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalParticipantsDesktop">${allNames.size}</div>
+                        <div class="stat-label">Participants uniques</div>
+                    </div>
+                `;
+            }
+        }
+        
+        // MODIFICATION : Calculer les nouvelles statistiques
         function calculateStatistics() {
             // Réinitialiser les statistiques
             allNames.clear();
             nameStatistics = {};
             toeranaStats = {};
             totalPV = sheetData.length;
-            pvCountByPerson = {}; // Réinitialiser
             
-            // MODIFICATION : Compter d'abord le nombre total de PV
-            const totalPVCount = sheetData.length;
+            // Variables pour les nouvelles statistiques
+            let totalPresenceCount = 0;
+            let totalOnTimeCount = 0;
+            let totalLateCount = 0;
+            let totalAbsenceCount = 0;
+            let totalEarlyLeaveCount = 0;
+            let totalExcuseCount = 0;
+            maxParticipantsInMeeting = 0;
+            
+            // Variables pour les totaux par personne
+            let totalPresenceByPerson = 0;
+            let totalOnTimeByPerson = 0;
+            let totalLateByPerson = 0;
+            let totalAbsenceByPerson = 0;
+            let totalEarlyLeaveByPerson = 0;
+            let totalExcuseByPerson = 0;
             
             sheetData.forEach((row, pvIndex) => {
                 // Extraire les données de présence
                 const fahatongavanaData = extractFahatongavanaData(row);
+                
+                // Compter les participants pour cette réunion
+                const meetingParticipants = countTotalParticipants(fahatongavanaData);
+                if (meetingParticipants > maxParticipantsInMeeting) {
+                    maxParticipantsInMeeting = meetingParticipants;
+                }
                 
                 // Créer un Set pour chaque catégorie pour éviter les doublons dans une même PV
                 const araPotoanaSet = new Set();
@@ -3512,7 +4626,15 @@ L'équipe de gestion des PV`;
                 processCategory(fahatongavanaData.nialaTsinyTara, nialaTsinyTaraSet);
                 processCategory(fahatongavanaData.nialaTsinyTsyHoAvy, nialaTsinyTsyHoAvySet);
                 
-                // MODIFICATION : Pour chaque nom, compter le nombre de PV où il apparaît
+                // Mettre à jour les statistiques globales pour cette PV
+                totalOnTimeCount += araPotoanaSet.size;
+                totalLateCount += taraLatsaky30minSet.size + taraLatsaky1hSet.size + taraMihoatra1hSet.size + tapakAndroSet.size;
+                totalPresenceCount += araPotoanaSet.size + taraLatsaky30minSet.size + taraLatsaky1hSet.size + taraMihoatra1hSet.size + tapakAndroSet.size;
+                totalEarlyLeaveCount += nodyAlohaSet.size;
+                totalAbsenceCount += tsyTongaSet.size;
+                totalExcuseCount += nialaTsinyTaraSet.size + nialaTsinyTsyHoAvySet.size;
+                
+                // Mettre à jour les statistiques par personne
                 const updateStatsForCategory = (nameSet, categoryKey) => {
                     nameSet.forEach(name => {
                         if (!nameStatistics[name]) {
@@ -3527,7 +4649,7 @@ L'équipe de gestion des PV`;
                                 nialaTsinyTara: 0,
                                 nialaTsinyTsyHoAvy: 0,
                                 presenceCount: 0,
-                                totalPVs: totalPVCount
+                                totalPVs: totalPV
                             };
                         }
                         
@@ -3571,6 +4693,31 @@ L'équipe de gestion des PV`;
                 }
             });
             
+            // Calculer les totaux par personne pour les moyennes
+            Object.keys(nameStatistics).forEach(name => {
+                const stats = nameStatistics[name];
+                totalPresenceByPerson += stats.presenceCount || 0;
+                totalOnTimeByPerson += stats.araPotoana || 0;
+                totalLateByPerson += (stats.taraLatsaky30min || 0) + (stats.taraLatsaky1h || 0) + 
+                                   (stats.taraMihoatra1h || 0) + (stats.tapakAndro || 0);
+                totalEarlyLeaveByPerson += stats.nodyAloha || 0;
+                totalAbsenceByPerson += stats.tsyTonga || 0;
+                totalExcuseByPerson += (stats.nialaTsinyTara || 0) + (stats.nialaTsinyTsyHoAvy || 0);
+            });
+            
+            // Calculer les taux moyens
+            const totalPersons = allNames.size;
+            const totalPossiblePresences = totalPV * totalPersons;
+            
+            if (totalPossiblePresences > 0) {
+                presenceRate = (totalPresenceByPerson / totalPossiblePresences) * 100;
+                onTimeRate = (totalOnTimeByPerson / totalPossiblePresences) * 100;
+                lateRate = (totalLateByPerson / totalPossiblePresences) * 100;
+                absenceRate = (totalAbsenceByPerson / totalPossiblePresences) * 100;
+                earlyLeaveRate = (totalEarlyLeaveByPerson / totalPossiblePresences) * 100;
+                excuseRate = (totalExcuseByPerson / totalPossiblePresences) * 100;
+            }
+            
             // Mettre à jour l'affichage des statistiques
             updateStatsDisplay();
             
@@ -3579,22 +4726,6 @@ L'équipe de gestion des PV`;
             
             // Afficher la liste des lieux
             displayToeranaList();
-        }
-        
-        function updateStatsDisplay() {
-            // Mise à jour pour la vue mobile
-            if (document.getElementById('totalPV')) {
-                document.getElementById('totalPV').textContent = totalPV;
-                document.getElementById('toeranaStats').textContent = Object.keys(toeranaStats).length;
-                document.getElementById('totalParticipants').textContent = allNames.size;
-            }
-            
-            // Mise à jour pour la vue desktop
-            if (document.getElementById('totalPVDesktop')) {
-                document.getElementById('totalPVDesktop').textContent = totalPV;
-                document.getElementById('toeranaStatsDesktop').textContent = Object.keys(toeranaStats).length;
-                document.getElementById('totalParticipantsDesktop').textContent = allNames.size;
-            }
         }
         
         function displayNamesList() {
@@ -3972,6 +5103,7 @@ L'équipe de gestion des PV`;
                 <div class="success-message">
                     ✅ Données chargées avec succès : ${sheetData.length} PV trouvé(s)
                     <br><small>${allNames.size} participants uniques • ${Object.keys(toeranaStats).length} lieux de réunion</small>
+                    <br><small>Maximum de personnes par réunion : ${maxParticipantsInMeeting}</small>
                 </div>
             `;
             dataInfo.style.display = 'block';
