@@ -1287,7 +1287,7 @@
             border: 1px solid rgba(76, 175, 80, 0.3);
         }
         
-        /* STYLE POUR LA SIGNATURE DU RÉDACTEUR */
+        /* STYLE POUR LA SIGNATURE DU RÉDACTEUR - MODIFIÉ : "Nanoratra:" */
         .signature-section {
             margin-top: 20px;
             padding: 15px;
@@ -1656,13 +1656,8 @@
             border-left: 3px solid #2196F3 !important;
         }
         
-        .title-nanoratra {
-            background: linear-gradient(135deg, #ffecb3 0%, #ffe082 50%, #ffd54f 100%) !important;
-            color: #5d4037 !important;
-            font-weight: bold;
-            border-left: 3px solid #ff9800 !important;
-        }
-
+        /* MODIFICATION : Retirer le style pour "title-nanoratra" car il n'est plus dans la fiche principale */
+        
         .fahatongavana-section {
             background: #f8fdff;
             border: 1px solid #e1f5fe;
@@ -3752,7 +3747,7 @@
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
                 
-                // Extraire le rédacteur (Nanoratra)
+                // MODIFICATION : Extraire le rédacteur (Nanoratra) mais ne pas l'ajouter dans la fiche principale
                 const nanoratra = extractNanoratra(row);
                 
                 // Extraire les informations de date et lieu
@@ -3847,10 +3842,10 @@
                     `;
                 }
                 
-                // Ajouter les autres informations (EXCLURE "Rohy fiche" pour le livre PDF)
+                // MODIFICATION : Exclure "Nanoratra" de la fiche principale
                 const excludedHeaders = [
                     'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
-                    'toerana', 'rohy fiche', 'nanoratra'
+                    'toerana', 'rohy fiche', 'nanoratra', 'nanoratra:', 'rédigé', 'signature'
                 ];
                 
                 const processedHeaders = new Set();
@@ -3859,7 +3854,7 @@
                     const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                     let value = row[colIndex] || '';
                     
-                    // EXCLURE "Rohy fiche" et "Nanoratra" du livre PDF
+                    // MODIFICATION : Exclure explicitement "Nanoratra" et ses variantes
                     if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
                         processedHeaders.has(header) ||
                         header.toLowerCase().includes('ara-potoana') ||
@@ -3890,11 +3885,11 @@
                     }
                 }
                 
-                // Ajouter la signature du rédacteur si disponible
+                // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                 if (nanoratra) {
                     html += `
                         <div class="signature-section">
-                            <span class="signature-label">Rédigé par :</span>
+                            <span class="signature-label">Nanoratra :</span>
                             <span class="signature-name">${nanoratra}</span>
                         </div>
                     `;
@@ -4283,6 +4278,7 @@
                 const fahatongavanaData = extractFahatongavanaData(row);
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
+                // MODIFICATION : Extraire nanoratra pour la signature
                 const nanoratra = extractNanoratra(row);
                 
                 // Extraire les informations de date et lieu
@@ -4377,10 +4373,10 @@
                     `;
                 }
                 
-                // Ajouter les autres informations (EXCLURE "Rohy fiche")
+                // MODIFICATION : Exclure "Nanoratra" de la fiche principale
                 const excludedHeaders = [
                     'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
-                    'toerana', 'rohy fiche', 'nanoratra'
+                    'toerana', 'rohy fiche', 'nanoratra', 'nanoratra:', 'rédigé', 'signature'
                 ];
                 
                 const processedHeaders = new Set();
@@ -4416,11 +4412,11 @@
                     }
                 }
                 
-                // Ajouter la signature du rédacteur si disponible
+                // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                 if (nanoratra) {
                     html += `
                         <div class="signature-section">
-                            <span class="signature-label">Rédigé par :</span>
+                            <span class="signature-label">Nanoratra :</span>
                             <span class="signature-name">${nanoratra}</span>
                         </div>
                     `;
@@ -4562,7 +4558,7 @@ L'équipe de gestion des PV`;
                     emailBody += `Date: ${dateStr}\n`;
                     
                     if (nanoratra) {
-                        emailBody += `Rédigé par: ${nanoratra}\n`;
+                        emailBody += `Nanoratra: ${nanoratra}\n`; // MODIFICATION : "Nanoratra:" au lieu de "Rédigé par:"
                     }
                     
                     // Ajouter les informations principales (exclure "Rohy fiche")
@@ -4570,7 +4566,8 @@ L'équipe de gestion des PV`;
                         const value = row[colIndex] || '';
                         if (value && value.trim() !== '' && 
                             !header.toLowerCase().includes('rohy fiche') &&
-                            !header.toLowerCase().includes('horodateur')) {
+                            !header.toLowerCase().includes('horodateur') &&
+                            !header.toLowerCase().includes('nanoratra')) { // MODIFICATION : Exclure aussi "nanoratra"
                             emailBody += `${header}: ${value}\n`;
                         }
                     });
@@ -6176,8 +6173,9 @@ L'équipe de gestion des PV`;
             
             const headerLower = header.toLowerCase();
             
+            // MODIFICATION : Retirer la classe pour "title-nanoratra" car il n'est plus dans la fiche principale
             if (headerLower.includes('nanoratra') || headerLower.includes('rédigé') || headerLower.includes('signature')) {
-                return 'title-nanoratra';
+                return ''; // Retourner une chaîne vide pour ne pas appliquer de style spécial
             }
             
             if (headerLower.includes('fanamarihana famerenana')) {
@@ -6497,7 +6495,7 @@ L'équipe de gestion des PV`;
                     const totalParticipants = countTotalParticipants(fahatongavanaData);
                     const participantText = totalParticipants > 0 ? `${totalParticipants} personnes présentes` : '';
                     
-                    // NOUVEAU : Extraire le rédacteur (Nanoratra)
+                    // MODIFICATION : Extraire le rédacteur (Nanoratra) pour la signature
                     const nanoratra = extractNanoratra(row);
                     
                     html += `
@@ -6592,8 +6590,10 @@ L'équipe de gestion des PV`;
                         `;
                     }
                     
+                    // MODIFICATION : Exclure "Nanoratra" et ses variantes de la fiche principale
                     const excludedHeaders = [
-                        'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                        'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana',
+                        'nanoratra', 'nanoratra:', 'rédigé', 'signature'
                     ];
                     
                     const processedHeaders = new Set();
@@ -6646,11 +6646,11 @@ L'équipe de gestion des PV`;
                         }
                     }
                     
-                    // Ajouter la signature du rédacteur si disponible
+                    // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                     if (nanoratra) {
                         html += `
                             <div class="signature-section">
-                                <span class="signature-label">Rédigé par :</span>
+                                <span class="signature-label">Nanoratra :</span>
                                 <span class="signature-name">${nanoratra}</span>
                             </div>
                         `;
