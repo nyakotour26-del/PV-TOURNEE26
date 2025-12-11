@@ -3038,8 +3038,8 @@
                         <div class="table-stat-label">Absence moyenne</div>
                     </div>
                     <div class="table-stat-card">
-                        <div class="table-stat-value" style="color: #9b59b6;">-</div>
-                        <div class="table-stat-label" style="color: #9b59b6;">(vide)</div>
+                        <div class="table-stat-value">${Object.keys(toeranaStats).length}</div>
+                        <div class="table-stat-label">Lieux différents</div>
                     </div>
                     <div class="table-stat-card">
                         <div class="table-stat-value">${earlyLeaveRate.toFixed(1)}%</div>
@@ -3257,8 +3257,8 @@
                             <div class="stat-label">Absence moyenne</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-value" style="color: #9b59b6;">-</div>
-                            <div class="stat-label" style="color: #9b59b6;">(vide)</div>
+                            <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                            <div class="stat-label">Lieux différents</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
@@ -3477,8 +3477,8 @@
                                 <div class="stat-label">Absence moyenne</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-value" style="color: #9b59b6;">-</div>
-                                <div class="stat-label" style="color: #9b59b6;">(vide)</div>
+                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="stat-label">Lieux différents</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
@@ -3667,9 +3667,9 @@
                     `;
                 }
                 
-                // Ajouter les autres informations
+                // Ajouter les autres informations (EXCLURE "Rohy fiche" pour le livre PDF)
                 const excludedHeaders = [
-                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana', 'rohy fiche'
                 ];
                 
                 const processedHeaders = new Set();
@@ -3678,6 +3678,7 @@
                     const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                     let value = row[colIndex] || '';
                     
+                    // EXCLURE "Rohy fiche" du livre PDF
                     if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
                         processedHeaders.has(header) ||
                         header.toLowerCase().includes('ara-potoana') ||
@@ -4049,8 +4050,8 @@
                                 <div class="stat-label">Absence moyenne</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-value" style="color: #9b59b6;">-</div>
-                                <div class="stat-label" style="color: #9b59b6;">(vide)</div>
+                                <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                                <div class="stat-label">Lieux différents</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
@@ -4165,9 +4166,9 @@
                     `;
                 }
                 
-                // Ajouter les autres informations
+                // Ajouter les autres informations (EXCLURE "Rohy fiche")
                 const excludedHeaders = [
-                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana'
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana', 'rohy fiche'
                 ];
                 
                 const processedHeaders = new Set();
@@ -4337,7 +4338,7 @@ L'équipe de gestion des PV`;
                     emailBody += `PV: ${titre}\n`;
                     emailBody += `Date: ${dateStr}\n`;
                     
-                    // Ajouter les informations principales
+                    // Ajouter les informations principales (exclure "Rohy fiche")
                     headers.forEach((header, colIndex) => {
                         const value = row[colIndex] || '';
                         if (value && value.trim() !== '' && 
@@ -5069,8 +5070,8 @@ L'équipe de gestion des PV`;
                             <div class="stat-label">Absence moyenne</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-value" style="color: #9b59b6;">-</div>
-                            <div class="stat-label" style="color: #9b59b6;">(vide)</div>
+                            <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                            <div class="stat-label">Lieux différents</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
@@ -5146,8 +5147,8 @@ L'équipe de gestion des PV`;
                             <div class="stat-label">Absence moyenne</div>
                         </div>
                         <div class="stat-card">
-                            <div class="stat-value" style="color: #9b59b6;">-</div>
-                            <div class="stat-label" style="color: #9b59b6;">(vide)</div>
+                            <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                            <div class="stat-label">Lieux différents</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
