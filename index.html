@@ -432,6 +432,14 @@
             background: #d35400;
         }
         
+        .export-btn.sheet {
+            background: #3498db;
+        }
+        
+        .export-btn.sheet:hover:not(:disabled) {
+            background: #2980b9;
+        }
+        
         /* Modal pour l'export de dates sélectionnées */
         .export-dates-modal {
             display: none;
@@ -1279,6 +1287,30 @@
             border: 1px solid rgba(76, 175, 80, 0.3);
         }
         
+        /* STYLE POUR LA SIGNATURE DU RÉDACTEUR */
+        .signature-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border-left: 4px solid #3498db;
+            font-style: italic;
+            text-align: right;
+            border-top: 1px solid #e1e1e1;
+        }
+        
+        .signature-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-right: 10px;
+        }
+        
+        .signature-name {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 1.1em;
+        }
+        
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -1622,6 +1654,13 @@
             color: #0d47a1 !important;
             font-weight: bold;
             border-left: 3px solid #2196F3 !important;
+        }
+        
+        .title-nanoratra {
+            background: linear-gradient(135deg, #ffecb3 0%, #ffe082 50%, #ffd54f 100%) !important;
+            color: #5d4037 !important;
+            font-weight: bold;
+            border-left: 3px solid #ff9800 !important;
         }
 
         .fahatongavana-section {
@@ -2196,6 +2235,11 @@
                 padding: 8px 6px !important;
                 font-size: 0.8em !important;
             }
+            
+            .signature-section {
+                padding: 10px;
+                font-size: 0.9em;
+            }
         }
         
         @media (max-width: 480px) {
@@ -2446,6 +2490,9 @@
                         <button class="export-btn book" id="exportBookButton">
                             <span>📚</span> Livre PDF complet
                         </button>
+                        <button class="export-btn sheet" id="accessSheetSource">
+                            <span>📊</span> Accès Sheet Source
+                        </button>
                     </div>
                 </section>
                 
@@ -2492,6 +2539,9 @@
                     </button>
                     <button class="export-btn book" id="exportBookButtonMobile">
                         <span>📚</span> Livre PDF complet
+                    </button>
+                    <button class="export-btn sheet" id="accessSheetSourceMobile">
+                        <span>📊</span> Accès Sheet Source
                     </button>
                 </div>
             </section>
@@ -2678,6 +2728,7 @@
 
     <script>
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pub?gid=1509861479&single=true&output=csv';
+        const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSXIJyclDLf2asT-FMnmaeWMSPtQHxpAC1wiGJ_xzXbl2StziwiUw9ElW9XyK5yemQ-PHaWlRQbtdHb/pubhtml';
         const PASSWORD = "admin";
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdFwjo69WNzQlrGSI8GQUTP-M8_wXsEVc6T7JogUzoj1V-JlA/viewform?usp=header";
         
@@ -2718,6 +2769,9 @@
         let maxPresenceRateMeeting = { date: '', rate: 0, dateFormatted: '' };
         let maxOnTimeRateMeeting = { date: '', rate: 0, dateFormatted: '' };
         
+        // Variable pour stocker tous les mots uniques pour les suggestions
+        let allWords = new Set();
+        
         document.addEventListener('DOMContentLoaded', function() {
             // Initialisation des événements pour la vue mobile
             initMobileView();
@@ -2752,6 +2806,10 @@
             // Boutons livre PDF
             document.getElementById('exportBookButton').addEventListener('click', exportBookPDF);
             document.getElementById('exportBookButtonMobile').addEventListener('click', exportBookPDF);
+            
+            // Boutons accès sheet source
+            document.getElementById('accessSheetSource').addEventListener('click', accessSheetSource);
+            document.getElementById('accessSheetSourceMobile').addEventListener('click', accessSheetSource);
             
             // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
@@ -2836,12 +2894,12 @@
             document.getElementById('sendEmail').addEventListener('click', showEmailExportModal);
             
             searchInput.addEventListener('input', function() {
-                showSuggestions(this.value, 'mobile');
+                showWordSuggestions(this.value, 'mobile');
             });
             
             searchInput.addEventListener('focus', function() {
                 if (this.value) {
-                    showSuggestions(this.value, 'mobile');
+                    showWordSuggestions(this.value, 'mobile');
                 }
             });
             
@@ -2885,12 +2943,12 @@
             document.getElementById('sendEmailSide').addEventListener('click', showEmailExportModal);
             
             searchInputDesktop.addEventListener('input', function() {
-                showSuggestions(this.value, 'desktop');
+                showWordSuggestions(this.value, 'desktop');
             });
             
             searchInputDesktop.addEventListener('focus', function() {
                 if (this.value) {
-                    showSuggestions(this.value, 'desktop');
+                    showWordSuggestions(this.value, 'desktop');
                 }
             });
             
@@ -2957,6 +3015,122 @@
 
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // NOUVELLE FONCTION : Accès au Sheet Source
+        function accessSheetSource() {
+            if (!isAdminAuthenticated) {
+                showPasswordModalForAction('sheet');
+                return;
+            }
+            
+            window.open(GOOGLE_SHEETS_SOURCE_URL, '_blank');
+        }
+
+        // NOUVELLE FONCTION : Extraire tous les mots uniques des données
+        function extractAllWords() {
+            allWords.clear();
+            
+            sheetData.forEach(row => {
+                row.forEach(cell => {
+                    if (cell && typeof cell === 'string' && cell.trim() !== '') {
+                        // Diviser le texte en mots
+                        const words = cell.toLowerCase()
+                            .split(/[\s,\/\.\(\)\[\]\-\+;:!'"]+/)
+                            .filter(word => word.length > 2); // Ignorer les mots trop courts
+                        
+                        words.forEach(word => {
+                            if (word.length > 0) {
+                                allWords.add(word);
+                            }
+                        });
+                    }
+                });
+            });
+            
+            console.log(`📝 ${allWords.size} mots uniques extraits pour les suggestions`);
+        }
+
+        // NOUVELLE FONCTION : Afficher les suggestions de mots
+        function showWordSuggestions(searchTerm, view = 'mobile') {
+            let suggestionsContainer;
+            
+            if (view === 'desktop') {
+                suggestionsContainer = document.getElementById('suggestionsContainerDesktop');
+            } else {
+                suggestionsContainer = document.getElementById('suggestionsContainer');
+            }
+            
+            if (!suggestionsContainer) return;
+            
+            if (!searchTerm || searchTerm.length < 2) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            const searchLower = searchTerm.toLowerCase();
+            const matchingWords = Array.from(allWords)
+                .filter(word => word.includes(searchLower))
+                .sort((a, b) => {
+                    // Prioriser les mots qui commencent par la recherche
+                    const aStartsWith = a.startsWith(searchLower);
+                    const bStartsWith = b.startsWith(searchLower);
+                    if (aStartsWith && !bStartsWith) return -1;
+                    if (!aStartsWith && bStartsWith) return 1;
+                    
+                    // Sinon trier par longueur
+                    return a.length - b.length;
+                })
+                .slice(0, 10); // Limiter à 10 suggestions
+            
+            if (matchingWords.length === 0) {
+                suggestionsContainer.style.display = 'none';
+                return;
+            }
+            
+            suggestionsContainer.innerHTML = matchingWords
+                .map(word => {
+                    // Mettre en évidence la partie correspondante
+                    const index = word.indexOf(searchLower);
+                    let highlighted = word;
+                    if (index !== -1) {
+                        highlighted = word.substring(0, index) + 
+                                    '<span class="suggestion-highlight">' + 
+                                    word.substring(index, index + searchTerm.length) + 
+                                    '</span>' + 
+                                    word.substring(index + searchTerm.length);
+                    }
+                    
+                    return `
+                        <div class="suggestion-item" data-word="${word}">
+                            🔍 ${highlighted}
+                        </div>
+                    `;
+                })
+                .join('');
+            
+            suggestionsContainer.style.display = 'block';
+            
+            document.querySelectorAll('.suggestion-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const word = this.getAttribute('data-word');
+                    
+                    // Mettre à jour le champ de recherche correspondant
+                    if (view === 'desktop') {
+                        document.getElementById('searchTextDesktop').value = word;
+                    } else {
+                        document.getElementById('searchText').value = word;
+                    }
+                    
+                    currentSearchTerm = word;
+                    
+                    suggestionsContainer.style.display = 'none';
+                    
+                    // Effectuer la recherche automatiquement
+                    const results = searchData(word);
+                    displayResults(results, word);
+                });
+            });
         }
 
         // NOUVELLE FONCTION : Afficher le tableau des statistiques
@@ -3398,6 +3572,9 @@
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
+                        .signature-section { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db; font-style: italic; text-align: right; border-top: 1px solid #e1e1e1; }
+                        .signature-label { font-weight: bold; color: #2c3e50; margin-right: 10px; }
+                        .signature-name { font-weight: bold; color: #e74c3c; font-size: 1.1em; }
                         
                         @media print { 
                             body { margin: 15mm; font-size: 11px; }
@@ -3575,6 +3752,9 @@
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
                 
+                // Extraire le rédacteur (Nanoratra)
+                const nanoratra = extractNanoratra(row);
+                
                 // Extraire les informations de date et lieu
                 let datyValue = '';
                 let oraFanombohanaValue = '';
@@ -3669,7 +3849,8 @@
                 
                 // Ajouter les autres informations (EXCLURE "Rohy fiche" pour le livre PDF)
                 const excludedHeaders = [
-                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana', 'rohy fiche'
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
+                    'toerana', 'rohy fiche', 'nanoratra'
                 ];
                 
                 const processedHeaders = new Set();
@@ -3678,7 +3859,7 @@
                     const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                     let value = row[colIndex] || '';
                     
-                    // EXCLURE "Rohy fiche" du livre PDF
+                    // EXCLURE "Rohy fiche" et "Nanoratra" du livre PDF
                     if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
                         processedHeaders.has(header) ||
                         header.toLowerCase().includes('ara-potoana') ||
@@ -3709,6 +3890,16 @@
                     }
                 }
                 
+                // Ajouter la signature du rédacteur si disponible
+                if (nanoratra) {
+                    html += `
+                        <div class="signature-section">
+                            <span class="signature-label">Rédigé par :</span>
+                            <span class="signature-name">${nanoratra}</span>
+                        </div>
+                    `;
+                }
+                
                 html += `
                         </div>
                     </div>
@@ -3736,6 +3927,22 @@
             printWindow.document.close();
             printWindow.focus();
             printWindow.print();
+        }
+        
+        // NOUVELLE FONCTION : Extraire le rédacteur (Nanoratra)
+        function extractNanoratra(row) {
+            for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                const header = headers[colIndex] || '';
+                if (header.toLowerCase().includes('nanoratra') || 
+                    header.toLowerCase().includes('rédigé') || 
+                    header.toLowerCase().includes('signature')) {
+                    const value = row[colIndex] || '';
+                    if (value && value.trim() !== '') {
+                        return value;
+                    }
+                }
+            }
+            return '';
         }
         
         // Fonctions auxiliaires pour le PDF
@@ -3973,6 +4180,9 @@
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
+                        .signature-section { margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db; font-style: italic; text-align: right; border-top: 1px solid #e1e1e1; }
+                        .signature-label { font-weight: bold; color: #2c3e50; margin-right: 10px; }
+                        .signature-name { font-weight: bold; color: #e74c3c; font-size: 1.1em; }
                         .data-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
                         .data-table th { background: #f8f9fa; text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
                         .data-table td { padding: 8px; border-bottom: 1px solid #eee; }
@@ -4073,6 +4283,7 @@
                 const fahatongavanaData = extractFahatongavanaData(row);
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
+                const nanoratra = extractNanoratra(row);
                 
                 // Extraire les informations de date et lieu
                 let datyValue = '';
@@ -4168,7 +4379,8 @@
                 
                 // Ajouter les autres informations (EXCLURE "Rohy fiche")
                 const excludedHeaders = [
-                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana', 'rohy fiche'
+                    'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
+                    'toerana', 'rohy fiche', 'nanoratra'
                 ];
                 
                 const processedHeaders = new Set();
@@ -4202,6 +4414,16 @@
                         
                         processedHeaders.add(header);
                     }
+                }
+                
+                // Ajouter la signature du rédacteur si disponible
+                if (nanoratra) {
+                    html += `
+                        <div class="signature-section">
+                            <span class="signature-label">Rédigé par :</span>
+                            <span class="signature-name">${nanoratra}</span>
+                        </div>
+                    `;
                 }
                 
                 html += `
@@ -4334,9 +4556,14 @@ L'équipe de gestion des PV`;
                 dataToExport.forEach((row, index) => {
                     const dateStr = row[1] || 'Date non spécifiée';
                     const titre = row[2] || `PV ${selectedPVs[index] + 1}`;
+                    const nanoratra = extractNanoratra(row);
                     
                     emailBody += `PV: ${titre}\n`;
                     emailBody += `Date: ${dateStr}\n`;
+                    
+                    if (nanoratra) {
+                        emailBody += `Rédigé par: ${nanoratra}\n`;
+                    }
                     
                     // Ajouter les informations principales (exclure "Rohy fiche")
                     headers.forEach((header, colIndex) => {
@@ -4789,6 +5016,8 @@ L'équipe de gestion des PV`;
                     exportBookPDF();
                 } else if (action === 'statsExport') {
                     exportStatsTablePDF();
+                } else if (action === 'sheet') {
+                    accessSheetSource();
                 }
                 
                 // Recharger les résultats actuels si des résultats sont affichés
@@ -5432,6 +5661,9 @@ L'équipe de gestion des PV`;
             
             // Afficher la liste des lieux
             displayToeranaList();
+            
+            // Extraire tous les mots uniques pour les suggestions
+            extractAllWords();
         }
         
         function displayNamesList() {
@@ -5944,6 +6176,10 @@ L'équipe de gestion des PV`;
             
             const headerLower = header.toLowerCase();
             
+            if (headerLower.includes('nanoratra') || headerLower.includes('rédigé') || headerLower.includes('signature')) {
+                return 'title-nanoratra';
+            }
+            
             if (headerLower.includes('fanamarihana famerenana')) {
                 return 'title-fanamarihana-famerenana';
             }
@@ -6261,6 +6497,9 @@ L'équipe de gestion des PV`;
                     const totalParticipants = countTotalParticipants(fahatongavanaData);
                     const participantText = totalParticipants > 0 ? `${totalParticipants} personnes présentes` : '';
                     
+                    // NOUVEAU : Extraire le rédacteur (Nanoratra)
+                    const nanoratra = extractNanoratra(row);
+                    
                     html += `
                         <div class="pv-item">
                             <div class="pv-header">
@@ -6405,6 +6644,16 @@ L'équipe de gestion des PV`;
                             
                             processedHeaders.add(header);
                         }
+                    }
+                    
+                    // Ajouter la signature du rédacteur si disponible
+                    if (nanoratra) {
+                        html += `
+                            <div class="signature-section">
+                                <span class="signature-label">Rédigé par :</span>
+                                <span class="signature-name">${nanoratra}</span>
+                            </div>
+                        `;
                     }
                     
                     html += `
