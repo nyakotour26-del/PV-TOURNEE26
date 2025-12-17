@@ -440,6 +440,14 @@
             background: #2980b9;
         }
         
+        .export-btn.source {
+            background: #9b59b6;
+        }
+        
+        .export-btn.source:hover:not(:disabled) {
+            background: #8e44ad;
+        }
+        
         /* Modal pour l'export de dates sélectionnées */
         .export-dates-modal {
             display: none;
@@ -2488,6 +2496,10 @@
                         <button class="export-btn sheet" id="accessSheetSource">
                             <span>📊</span> Accès Sheet Source
                         </button>
+                        <!-- NOUVEAU BOUTON POUR ACCÉDER AU SHEET SOURCE DIRECT -->
+                        <button class="export-btn source" id="accessSheetSourceDirect">
+                            <span>📋</span> Sheet Source Google
+                        </button>
                     </div>
                 </section>
                 
@@ -2537,6 +2549,10 @@
                     </button>
                     <button class="export-btn sheet" id="accessSheetSourceMobile">
                         <span>📊</span> Accès Sheet Source
+                    </button>
+                    <!-- NOUVEAU BOUTON POUR ACCÉDER AU SHEET SOURCE DIRECT (MOBILE) -->
+                    <button class="export-btn source" id="accessSheetSourceDirectMobile">
+                        <span>📋</span> Sheet Source Google
                     </button>
                 </div>
             </section>
@@ -2723,9 +2739,9 @@
 
     <script>
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxQRFk9leJ62gA7D_06BjbIWElax5ficRDyYFyaUsUNFTilbErU6sAwJBA5-64xSJ5qyc9482YYY8c/pub?gid=759853582&single=true&output=csv';
-const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxQRFk9leJ62gA7D_06BjbIWElax5ficRDyYFyaUsUNFTilbErU6sAwJBA5-64xSJ5qyc9482YYY8c/pubhtml';
+const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwmOOzYBBgpUufx1TPSza0M743jIIo9mZ4tF7PwM/edit?resourcekey=&gid=759853582#gid=759853582';
         const PASSWORD = "admin";
-        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdFwjo69WNzQlrGSI8GQUTP-M8_wXsEVc6T7JogUzoj1V-JlA/viewform?usp=header";
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeHoUZ_Y5fl_Boa6MtcFDjmXw54sFo-CXMqv4GagrmHr2hfdg/viewform?usp=header";
         
         let showProtectedColumns = false;
         const PROTECTED_COLUMNS = ['Rohy fiche'];
@@ -2805,6 +2821,10 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX
             // Boutons accès sheet source
             document.getElementById('accessSheetSource').addEventListener('click', accessSheetSource);
             document.getElementById('accessSheetSourceMobile').addEventListener('click', accessSheetSource);
+            
+            // NOUVEAU : Boutons pour accéder au sheet source Google Sheets direct
+            document.getElementById('accessSheetSourceDirect').addEventListener('click', accessSheetSourceDirect);
+            document.getElementById('accessSheetSourceDirectMobile').addEventListener('click', accessSheetSourceDirect);
             
             // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
@@ -3012,6 +3032,16 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // NOUVELLE FONCTION : Accès au Sheet Source Direct (Google Sheets)
+        function accessSheetSourceDirect() {
+            if (!isAdminAuthenticated) {
+                showPasswordModalForAction('sheetDirect');
+                return;
+            }
+            
+            window.open(GOOGLE_SHEETS_SOURCE_URL, '_blank');
+        }
+
         // NOUVELLE FONCTION : Accès au Sheet Source
         function accessSheetSource() {
             if (!isAdminAuthenticated) {
@@ -3019,7 +3049,7 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX
                 return;
             }
             
-            window.open(GOOGLE_SHEETS_SOURCE_URL, '_blank');
+            window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxQRFk9leJ62gA7D_06BjbIWElax5ficRDyYFyaUsUNFTilbErU6sAwJBA5-64xSJ5qyc9482YYY8c/pubhtml', '_blank');
         }
 
         // NOUVELLE FONCTION : Extraire tous les mots uniques des données
@@ -5015,6 +5045,8 @@ L'équipe de gestion des PV`;
                     exportStatsTablePDF();
                 } else if (action === 'sheet') {
                     accessSheetSource();
+                } else if (action === 'sheetDirect') {
+                    accessSheetSourceDirect();
                 }
                 
                 // Recharger les résultats actuels si des résultats sont affichés
