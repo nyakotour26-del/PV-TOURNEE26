@@ -17,6 +17,8 @@
             --orange-dark: #FF7A00;
             --apple-green: #4CAF50;
             --apple-green-dark: #45a049;
+            --turquoise-blue: #40E0D0;
+            --turquoise-dark: #20B2AA;
         }
         
         * {
@@ -24,7 +26,7 @@
             margin: 0;
             padding: 0;
         }
-         /* =============== hello MMR =============== */ 
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -33,7 +35,7 @@
             padding: 20px;
             background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23e8f5e8" d="M50 20 Q60 10 70 20 Q80 30 70 40 Q60 50 50 40 Q40 30 50 20 Z"/><path fill="%23d4edda" d="M30 60 Q40 50 50 60 Q60 70 50 80 Q40 90 30 80 Q20 70 30 60 Z"/><path fill="%23c8e6c9" d="M70 60 Q80 50 90 60 Q100 70 90 80 Q80 90 70 80 Q60 70 70 60 Z"/></svg>');
             background-size: 200px 200px;
-            padding-top: 80px;
+            padding-top: 70px;
         }
         
         /* CONTENEUR PRINCIPAL AVEC DISPOSITION FLEX POUR ORDINATEUR */
@@ -54,14 +56,14 @@
             max-height: calc(100vh - 120px);
             overflow-y: auto;
             position: sticky;
-            top: 100px;
-            display: none; /* Masqué par défaut, affiché uniquement sur ordinateur */
+            top: 90px;
+            display: none;
         }
         
         /* CONTENU PRINCIPAL - 60% */
         .main-content {
             flex: 0 0 60%;
-            min-width: 0; /* Important pour le flex-shrink */
+            min-width: 0;
         }
         
         /* Pour les écrans larges (mode ordinateur) */
@@ -223,6 +225,31 @@
             .stats-line .stat-label {
                 font-size: 0.6em;
             }
+            
+            /* Calendrier responsive - ajustement de largeur */
+            .calendar {
+                max-width: 100% !important;
+                min-width: 100% !important;
+            }
+            
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr) !important;
+                gap: 2px !important;
+            }
+            
+            .calendar-day {
+                min-height: 40px !important;
+                padding: 3px 1px !important;
+                font-size: 10px !important;
+            }
+            
+            .calendar-day.has-data .calendar-day-info {
+                display: none !important;
+            }
+            
+            .calendar-day.has-data::after {
+                display: block !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -237,6 +264,18 @@
             
             .stats-line .stat-label {
                 font-size: 0.55em;
+            }
+            
+            /* Calendrier encore plus compact sur petits écrans */
+            .calendar-day {
+                min-height: 35px !important;
+                padding: 2px 0 !important;
+                font-size: 9px !important;
+            }
+            
+            .calendar-day-header {
+                font-size: 9px !important;
+                padding: 3px !important;
             }
         }
         
@@ -254,11 +293,16 @@
             margin: 0 auto;
         }
         
-        /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME */
+        /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME - HAUTEUR RÉDUITE À 2CM */
         header {
             text-align: center;
-            margin-bottom: 20px;
-            padding: 12px 20px;
+            margin-bottom: 15px;
+            padding: 8px 15px;
+            height: 2cm;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             background: linear-gradient(135deg, var(--apple-green) 0%, var(--apple-green-dark) 100%);
             border-radius: var(--border-radius);
             box-shadow: var(--box-shadow);
@@ -279,14 +323,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         
         .header-icons {
             display: flex;
-            gap: 10px;
-            font-size: 1.5em;
+            gap: 8px;
+            font-size: 1.2em;
         }
         
         .header-icons span {
@@ -300,47 +344,51 @@
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
+            50% { transform: translateY(-3px); }
         }
         
         h1 {
             color: white;
             margin: 0;
-            font-size: 1.5em;
+            font-size: 1.1em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             position: relative;
             z-index: 1;
             font-weight: 700;
             letter-spacing: 0.5px;
+            line-height: 1.2;
         }
         
         .header-tagline {
             color: #e8f5e9;
-            font-size: 0.85em;
+            font-size: 0.7em;
             font-weight: 400;
-            margin-top: 5px;
+            margin-top: 3px;
             position: relative;
             z-index: 1;
             opacity: 0.9;
             font-style: italic;
+            line-height: 1.1;
         }
         
         @media (max-width: 768px) {
             header {
-                padding: 10px 15px;
-                margin-bottom: 15px;
+                padding: 8px 12px;
+                margin-bottom: 12px;
+                height: auto;
+                min-height: 50px;
             }
             
             h1 {
-                font-size: 1.2em;
+                font-size: 0.95em;
             }
             
             .header-tagline {
-                font-size: 0.75em;
+                font-size: 0.65em;
             }
             
             .header-icons {
-                font-size: 1.2em;
+                font-size: 1em;
             }
         }
         
@@ -812,19 +860,19 @@
             }
         }
         
-        /* BOUTONS DE DATES DISPONIBLES EN ROUGE - TAILLE REDUITE */
+        /* BOUTONS DE DATES DISPONIBLES EN ROUGE - FORMAT MODIFIÉ: ddd dd-mmm - TAILLE RÉDUITE */
         .date-button {
             background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 100%) !important;
             color: white;
-            padding: 6px 12px;
+            padding: 5px 10px;
             border-radius: 16px;
             border: none;
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: 600;
-            font-size: 0.85em;
+            font-size: 0.75em;
             box-shadow: 0 1px 4px rgba(231, 76, 60, 0.3);
-            min-width: 120px;
+            min-width: 100px;
             text-align: center;
             display: flex;
             align-items: center;
@@ -847,7 +895,7 @@
         }
         
         .date-button i {
-            font-size: 0.9em;
+            font-size: 0.8em;
         }
         
         /* Pour les écrans larges (mode ordinateur) */
@@ -859,9 +907,9 @@
             .available-dates-desktop {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 10px;
-                margin: 20px 0;
-                padding: 12px;
+                gap: 8px;
+                margin: 15px 0;
+                padding: 10px;
                 background: rgba(255, 245, 245, 0.7);
                 border-radius: var(--border-radius);
                 border: 1px solid #ffcccc;
@@ -871,28 +919,28 @@
             .available-dates-desktop::before {
                 content: "📅 Dates disponibles";
                 position: absolute;
-                top: -25px;
+                top: -22px;
                 left: 0;
                 font-weight: bold;
-                font-size: 1em;
+                font-size: 0.9em;
                 color: var(--secondary-color);
                 width: 100%;
-                padding-bottom: 5px;
+                padding-bottom: 4px;
                 border-bottom: 2px solid #ff6b6b;
             }
             
             .available-dates-desktop .date-button {
-                min-width: 130px;
-                padding: 7px 12px;
-                font-size: 0.85em;
+                min-width: 110px;
+                padding: 6px 10px;
+                font-size: 0.75em;
                 margin: 0;
                 flex: 0 0 auto;
             }
             
             .available-dates-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-                gap: 10px;
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 8px;
                 width: 100%;
             }
         }
@@ -900,24 +948,24 @@
         /* Pour les écrans mobiles - NOUVELLE TAILLE REDUITE */
         @media (max-width: 768px) {
             .dates-buttons {
-                gap: 8px;
+                gap: 6px;
                 justify-content: center;
-                padding: 8px;
+                padding: 6px;
                 background: rgba(255, 245, 245, 0.7);
                 border-radius: var(--border-radius);
                 border: 1px solid #ffcccc;
-                margin-top: 8px;
+                margin-top: 6px;
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
             }
             
             .date-button {
-                min-width: 120px;
-                padding: 6px 10px;
-                font-size: 0.8em;
+                min-width: 100px;
+                padding: 5px 8px;
+                font-size: 0.7em;
                 margin: 0;
                 flex: 1 1 auto;
-                max-width: 140px;
+                max-width: 120px;
             }
             
             .available-dates-desktop {
@@ -928,42 +976,43 @@
         /* Petits écrans (téléphones très petits) */
         @media (max-width: 480px) {
             .date-button {
-                min-width: 100px;
-                padding: 5px 8px;
-                font-size: 0.75em;
-                max-width: 120px;
+                min-width: 85px;
+                padding: 4px 6px;
+                font-size: 0.65em;
+                max-width: 100px;
                 border-radius: 14px;
             }
             
             .dates-buttons {
-                grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-                gap: 6px;
-                padding: 6px;
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 5px;
+                padding: 5px;
             }
         }
         
         /* DATES DISPONIBLES EN BOUTONS VERT POMME - POUR MOBILE */
         .available-dates-container {
-            margin: 15px 0;
+            margin: 12px 0;
         }
         
         .dates-title {
             color: var(--text-color);
-            margin-bottom: 10px;
-            font-size: 1em;
+            margin-bottom: 8px;
+            font-size: 0.9em;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .dates-title i {
             color: #e74c3c;
+            font-size: 0.9em;
         }
         
         .dates-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
         
         /* CALENDRIER REDUIT */
@@ -1245,15 +1294,15 @@
             overflow: hidden;
         }
         
-        /* TITRE DE FICHE */
+        /* TITRE DE FICHE - MODIFIÉ POUR RÉDUIRE LES INTERLIGNES */
         .pv-header {
             background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
             color: #2e7d32;
-            padding: 12px 15px;
+            padding: 8px 15px;
             border-bottom: 2px solid #4CAF50;
             position: relative;
             overflow: hidden;
-            min-height: 70px;
+            min-height: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1276,11 +1325,11 @@
             color: #2e7d32;
             font-weight: bold;
             margin-top: 0;
-            font-size: 1.2em;
+            font-size: 1.1em;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
             position: relative;
             z-index: 1;
-            line-height: 1.3;
+            line-height: 1.2;
         }
         
         /* STYLE POUR LE NOMBRE DE PERSONNES DANS LE TITRE */
@@ -1664,8 +1713,6 @@
             border-left: 3px solid #2196F3 !important;
         }
         
-        /* MODIFICATION : Retirer le style pour "title-nanoratra" car il n'est plus dans la fiche principale */
-        
         .fahatongavana-section {
             background: #f8fdff;
             border: 1px solid #e1f5fe;
@@ -1691,7 +1738,7 @@
         .fahatongavana-label {
             font-weight: bold;
             min-width: 160px;
-            color: #0277bd;
+            color: var(--turquoise-blue);
             padding-right: 12px;
             font-size: 12px;
         }
@@ -1703,6 +1750,7 @@
             line-height: 1.2;
         }
 
+        /* MODIFICATION : DATE-TIME ROW POUR METTRE LABEL ET VALEUR SUR LA MÊME LIGNE */
         .date-time-row {
             display: flex;
             gap: 10px;
@@ -1713,25 +1761,33 @@
         .date-time-item {
             flex: 1;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 6px;
             padding: 8px;
             background: #f8fdff;
             border-radius: 5px;
             border: 1px solid #e1f5fe;
             min-width: 180px;
+            height: 0.7cm; /* Hauteur réduite à 0.7cm */
+            min-height: 20px; /* Minimum pour le contenu */
         }
 
         .date-time-item i {
             font-size: 14px;
-            margin-top: 2px;
+        }
+
+        .date-time-content {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
         }
 
         .date-time-label {
             font-weight: bold;
-            color: #0277bd;
+            color: var(--turquoise-blue); /* Bleu turquoise */
             font-size: 13px;
-            margin-bottom: 2px;
+            white-space: nowrap;
         }
 
         .date-time-value {
@@ -1928,30 +1984,116 @@
             height: 40px;
         }
         
+        .floating-button.new-pv {
+            background: linear-gradient(135deg, #FF5722, #E64A19);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .floating-button.sidebar-toggle {
+            background: linear-gradient(135deg, #607D8B, #455A64);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: none;
+        }
+        
         .floating-button:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 10px rgba(0,0,0,0.3);
         }
         
-        .floating-button-tooltip {
-            position: absolute;
-            right: 55px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s;
-            pointer-events: none;
-        }
-        
-        .floating-button:hover .floating-button-tooltip {
-            opacity: 1;
-        }
-        
-        /* Graphique pour les statistiques */
+      .floating-button-tooltip {
+    position: absolute;
+    right: 55px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.floating-button:hover .floating-button-tooltip {
+    opacity: 1;
+}
+
+.results-navigation {
+    position: fixed;
+    bottom: 70px;
+    left: 15px;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    width: 1cm;
+    min-width: 1cm;
+    max-width: 1cm;
+    overflow: hidden;
+    align-items: center;
+}
+
+.nav-button {
+    width: 1cm;
+    height: 1cm;
+    border-radius: 0;
+    border: 1px solid #ddd;
+    background: white;
+    color: #333;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.nav-button:hover {
+    background: #f8f9fa;
+    border-color: #999;
+}
+
+.nav-button.up {
+    background: white;
+    color: #333;
+}
+
+.nav-button.up:hover {
+    background: #f8f9fa;
+    color: #333;
+}
+
+.nav-button.down {
+    background: white;
+    color: #333;
+}
+
+.nav-button.down:hover {
+    background: #f8f9fa;
+    color: #333;
+}.nav-button::before {
+    content: "";
+    display: inline-block;
+    font-size: 16px; /* Taille des emojis */
+    line-height: 1;
+}/* Graphique pour les statistiques */
+
         .progress-bar-container {
             width: 100%;
             background-color: #f0f0f0;
@@ -2072,6 +2214,127 @@
             color: #666;
         }
         
+        /* SIDEBAR MOBILE */
+        .mobile-sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            z-index: 2000;
+            transition: left 0.3s ease;
+            overflow-y: auto;
+            padding: 20px;
+        }
+        
+        .mobile-sidebar.active {
+            left: 0;
+        }
+        
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+        
+        .sidebar-overlay.active {
+            display: block;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .sidebar-close {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: var(--border-radius);
+            border: none;
+            font-size: 0.95em;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .sidebar-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f0f0f0;
+        }
+        
+        .sidebar-item.disabled:hover {
+            background: #f0f0f0;
+            transform: none;
+            color: var(--text-color);
+        }
+        
+        .sidebar-item:hover:not(.disabled) {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+        
+        .sidebar-item i {
+            font-size: 1.2em;
+            min-width: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .floating-button.sidebar-toggle {
+                display: flex;
+                position: fixed;
+                left: 15px;
+                bottom: 15px;
+                z-index: 999;
+            }
+            
+            .floating-buttons {
+                right: 15px;
+                bottom: 70px;
+            }
+            
+            .floating-button.new-pv {
+                display: flex;
+            }
+            
+            /* MODIFICATION : Ajustement de la position de navigation pour mobile */
+            .results-navigation {
+                left: 15px;
+                bottom: 70px;
+            }
+        }
+        
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
@@ -2117,7 +2380,7 @@
             }
             
             h1 {
-                font-size: 1.5em;
+                font-size: 1.1em;
             }
             
             .date-time-row {
@@ -2127,6 +2390,8 @@
 
             .date-time-item {
                 min-width: auto;
+                height: auto; /* Hauteur automatique sur mobile */
+                min-height: 35px; /* Minimum pour le contenu */
             }
 
             .fahatongavana-row {
@@ -2161,7 +2426,7 @@
             
             /* Calendrier mobile ajustements */
             .calendar-day {
-                min-height: 50px;
+                min-height: 40px;
                 padding: 5px 2px;
                 font-size: 10px;
             }
@@ -2203,8 +2468,8 @@
             }
             
             .pv-header {
-                padding: 10px 12px;
-                min-height: 60px;
+                padding: 8px 12px;
+                min-height: 50px;
             }
             
             .pv-title {
@@ -2247,7 +2512,7 @@
         
         @media (max-width: 480px) {
             .calendar-day {
-                min-height: 45px;
+                min-height: 35px;
                 padding: 4px 1px;
                 font-size: 9px;
             }
@@ -2493,13 +2758,6 @@
                         <button class="export-btn book" id="exportBookButton">
                             <span>📚</span> Livre PDF complet
                         </button>
-                        <button class="export-btn sheet" id="accessSheetSource">
-                            <span>📊</span> Accès Sheet Source
-                        </button>
-                        <!-- NOUVEAU BOUTON POUR ACCÉDER AU SHEET SOURCE DIRECT -->
-                        <button class="export-btn source" id="accessSheetSourceDirect">
-                            <span>📋</span> Sheet Source Google
-                        </button>
                     </div>
                 </section>
                 
@@ -2546,13 +2804,6 @@
                     </button>
                     <button class="export-btn book" id="exportBookButtonMobile">
                         <span>📚</span> Livre PDF complet
-                    </button>
-                    <button class="export-btn sheet" id="accessSheetSourceMobile">
-                        <span>📊</span> Accès Sheet Source
-                    </button>
-                    <!-- NOUVEAU BOUTON POUR ACCÉDER AU SHEET SOURCE DIRECT (MOBILE) -->
-                    <button class="export-btn source" id="accessSheetSourceDirectMobile">
-                        <span>📋</span> Sheet Source Google
                     </button>
                 </div>
             </section>
@@ -2709,7 +2960,42 @@
         </div>
     </div>
 
-    <!-- Boutons flottants AVEC bouton calendrier AJOUTE -->
+    <!-- SIDEBAR MOBILE -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <h3>📋 Menu</h3>
+            <button class="sidebar-close" id="closeSidebar">✕</button>
+        </div>
+        <div class="sidebar-menu">
+            <button class="sidebar-item disabled" id="sidebarSheetSource" title="Accès admin requis">
+                <span>📊</span> Accès Sheet Source
+            </button>
+            <button class="sidebar-item" id="sidebarCalendar">
+                <span>📅</span> Aller vers calendrier
+            </button>
+            <button class="sidebar-item" id="sidebarAllSheets">
+                <span>📋</span> Afficher toutes les fiches
+            </button>
+            <button class="sidebar-item disabled" id="sidebarNewPV" title="Accès admin requis">
+                <span>✍️</span> Nouveau PV
+            </button>
+            <button class="sidebar-item" id="sidebarStats">
+                <span>📈</span> Afficher statistiques
+            </button>
+            <button class="sidebar-item disabled" id="sidebarExportBook" title="Accès admin requis">
+                <span>📚</span> Exporter livre PDF
+            </button>
+            <button class="sidebar-item disabled" id="sidebarExportDates" title="Accès admin requis">
+                <span>📅</span> Exporter par sélection de dates
+            </button>
+            <button class="sidebar-item disabled" id="sidebarEmailReport" title="Accès admin requis">
+                <span>📧</span> Envoyer rapport par email
+            </button>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- BOUTONS FLOTTANTS -->
     <div class="floating-buttons">
         <a href="#" class="floating-button home" id="floatingHome" title="Accueil">
             🏠
@@ -2735,13 +3021,33 @@
             📤
             <span class="floating-button-tooltip">Export</span>
         </a>
+        <a href="#" class="floating-button new-pv disabled" id="floatingNewPV" title="Nouveau PV (Admin)">
+            ✍️
+            <span class="floating-button-tooltip">Nouveau PV (Admin)</span>
+        </a>
+    </div>
+    
+    <!-- BOUTON SIDEBAR TOGGLE (MOBILE) -->
+    <a href="#" class="floating-button sidebar-toggle" id="floatingSidebarToggle" title="Menu">
+        ☰
+        <span class="floating-button-tooltip">Menu</span>
+    </a>
+
+    <!-- MODIFICATION : NOUVELLES FLÈCHES DE NAVIGATION - AVEC EMOJIS -->
+    <div class="results-navigation" id="resultsNavigation">
+        <button class="nav-button up" id="navUp" title="Résultat précédent">
+            🔼
+        </button>
+        <button class="nav-button down" id="navDown" title="Résultat suivant">
+            🔽
+        </button>
     </div>
 
     <script>
         const GOOGLE_SHEETS_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRxQRFk9leJ62gA7D_06BjbIWElax5ficRDyYFyaUsUNFTilbErU6sAwJBA5-64xSJ5qyc9482YYY8c/pub?gid=759853582&single=true&output=csv';
-const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwmOOzYBBgpUufx1TPSza0M743jIIo9mZ4tF7PwM/edit?resourcekey=&gid=759853582#gid=759853582';
-        const PASSWORD = "admin";
+        const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwmOOzYBBgpUufx1TPSza0M743jIIo9mZ4tF7PwM/edit?resourcekey=&gid=759853582#gid=759853582';
         const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeHoUZ_Y5fl_Boa6MtcFDjmXw54sFo-CXMqv4GagrmHr2hfdg/viewform?usp=header";
+        const PASSWORD = "admin";
         
         let showProtectedColumns = false;
         const PROTECTED_COLUMNS = ['Rohy fiche'];
@@ -2782,7 +3088,11 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
         
         // Variable pour stocker tous les mots uniques pour les suggestions
         let allWords = new Set();
-        
+
+        // Variable pour suivre la position actuelle dans les résultats
+        let currentResultIndex = 0;
+        let allResultElements = [];
+
         document.addEventListener('DOMContentLoaded', function() {
             // Initialisation des événements pour la vue mobile
             initMobileView();
@@ -2818,21 +3128,86 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             document.getElementById('exportBookButton').addEventListener('click', exportBookPDF);
             document.getElementById('exportBookButtonMobile').addEventListener('click', exportBookPDF);
             
-            // Boutons accès sheet source
-            document.getElementById('accessSheetSource').addEventListener('click', accessSheetSource);
-            document.getElementById('accessSheetSourceMobile').addEventListener('click', accessSheetSource);
+            // Boutons sidebar mobile
+            document.getElementById('floatingSidebarToggle').addEventListener('click', function(e) {
+                e.preventDefault();
+                toggleMobileSidebar();
+            });
             
-            // NOUVEAU : Boutons pour accéder au sheet source Google Sheets direct
-            document.getElementById('accessSheetSourceDirect').addEventListener('click', accessSheetSourceDirect);
-            document.getElementById('accessSheetSourceDirectMobile').addEventListener('click', accessSheetSourceDirect);
+            document.getElementById('closeSidebar').addEventListener('click', toggleMobileSidebar);
+            document.getElementById('sidebarOverlay').addEventListener('click', toggleMobileSidebar);
+            
+            // Événements des éléments du sidebar
+            document.getElementById('sidebarSheetSource').addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                toggleMobileSidebar();
+                accessSheetSource();
+            });
+            
+            document.getElementById('sidebarCalendar').addEventListener('click', function() {
+                toggleMobileSidebar();
+                scrollToCalendar();
+            });
+            
+            document.getElementById('sidebarAllSheets').addEventListener('click', function() {
+                toggleMobileSidebar();
+                showAllData();
+            });
+            
+            document.getElementById('sidebarNewPV').addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                toggleMobileSidebar();
+                window.open(GOOGLE_FORM_URL, '_blank');
+            });
+            
+            document.getElementById('sidebarStats').addEventListener('click', function() {
+                toggleMobileSidebar();
+                showStatsTable();
+            });
+            
+            document.getElementById('sidebarExportBook').addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                toggleMobileSidebar();
+                if (!isAdminAuthenticated) {
+                    showPasswordModalForAction('book');
+                } else {
+                    exportBookPDF();
+                }
+            });
+            
+            document.getElementById('sidebarExportDates').addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                toggleMobileSidebar();
+                if (!isAdminAuthenticated) {
+                    showPasswordModalForAction('export');
+                } else {
+                    showExportDatesModal();
+                }
+            });
+            
+            document.getElementById('sidebarEmailReport').addEventListener('click', function() {
+                if (this.classList.contains('disabled')) return;
+                toggleMobileSidebar();
+                if (!isAdminAuthenticated) {
+                    showPasswordModalForAction('export');
+                } else {
+                    showEmailExportModal();
+                }
+            });
+            
+            // Boutons de navigation des résultats
+            document.getElementById('navUp').addEventListener('click', navigateResultsUp);
+            document.getElementById('navDown').addEventListener('click', navigateResultsDown);
             
             // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 scrollToTop();
             });
             document.getElementById('floatingSearch').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 if (window.innerWidth >= 1024) {
                     document.getElementById('searchTextDesktop').focus();
                 } else {
@@ -2841,28 +3216,39 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             });
             document.getElementById('floatingCalendar').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 scrollToCalendar();
             });
             document.getElementById('floatingList').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 showAllData();
             });
             document.getElementById('floatingLock').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 showPasswordModal();
             });
             document.getElementById('floatingExport').addEventListener('click', function(e) {
                 e.preventDefault();
+                hideResultsNavigation();
                 if (isAdminAuthenticated) {
                     if (window.innerWidth >= 1024) {
-                        // Scroll vers la section export dans le panneau latéral
                         document.getElementById('exportSectionSide').scrollIntoView({ behavior: 'smooth' });
                     } else {
-                        // Scroll vers la section export dans le contenu principal
                         document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
                     }
                 } else {
                     showPasswordModalForAction('export');
+                }
+            });
+            document.getElementById('floatingNewPV').addEventListener('click', function(e) {
+                e.preventDefault();
+                hideResultsNavigation();
+                if (isAdminAuthenticated) {
+                    window.open(GOOGLE_FORM_URL, '_blank');
+                } else {
+                    showPasswordModalForAction('create');
                 }
             });
             
@@ -2875,6 +3261,80 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             
             loadDataFromGoogleSheets();
         });
+
+        // Fonction pour masquer la navigation des résultats
+        function hideResultsNavigation() {
+            document.getElementById('resultsNavigation').style.display = 'none';
+        }
+
+        // Fonction pour basculer le sidebar mobile
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('mobileSidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        // MODIFICATION : Fonctions de navigation des résultats améliorées
+        function navigateResultsUp() {
+            if (currentResultIndex > 0) {
+                currentResultIndex--;
+                scrollToSearchTermInResult(currentResultIndex);
+            }
+        }
+
+        function navigateResultsDown() {
+            if (currentResultIndex < allResultElements.length - 1) {
+                currentResultIndex++;
+                scrollToSearchTermInResult(currentResultIndex);
+            }
+        }
+
+        // MODIFICATION : Fonction pour scroller vers le texte recherché dans le résultat
+        function scrollToSearchTermInResult(index) {
+            if (allResultElements[index]) {
+                const resultElement = allResultElements[index];
+                
+                // Chercher le texte recherché dans ce résultat
+                if (currentSearchTerm && currentSearchTerm.trim() !== '') {
+                    const searchLower = currentSearchTerm.toLowerCase();
+                    const elementsWithText = resultElement.querySelectorAll('td, .date-time-value, .fahatongavana-value, .ordre-du-jour-item');
+                    
+                    let foundElement = null;
+                    
+                    for (let element of elementsWithText) {
+                        if (element.textContent.toLowerCase().includes(searchLower)) {
+                            foundElement = element;
+                            break;
+                        }
+                    }
+                    
+                    if (foundElement) {
+                        // Scroller vers l'élément contenant le texte recherché
+                        foundElement.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'center' 
+                        });
+                        
+                        // Ajouter un effet visuel temporaire
+                        foundElement.style.backgroundColor = '#ffeb3b';
+                        foundElement.style.transition = 'background-color 0.5s ease';
+                        setTimeout(() => {
+                            foundElement.style.backgroundColor = '';
+                        }, 1500);
+                        
+                        return;
+                    }
+                }
+                
+                // Si aucun texte recherché trouvé, scroller vers le début du résultat
+                resultElement.scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                });
+            }
+        }
 
         function initMobileView() {
             const searchInput = document.getElementById('searchText');
@@ -3002,7 +3462,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 if (desktopDateListSide) desktopDateListSide.style.display = 'none';
                 if (availableDatesDesktopSide) availableDatesDesktopSide.style.display = 'none';
                 
-                // En mobile, les dates disponibles sont déjà au-dessus du calendrier
                 if (availableDatesContainer && datesWithData.length > 0) {
                     availableDatesContainer.style.display = 'block';
                     document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
@@ -3032,37 +3491,67 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // NOUVELLE FONCTION : Accès au Sheet Source Direct (Google Sheets)
-        function accessSheetSourceDirect() {
-            if (!isAdminAuthenticated) {
-                showPasswordModalForAction('sheetDirect');
-                return;
-            }
-            
+        // Fonction : Accès au Sheet Source
+        function accessSheetSource() {
             window.open(GOOGLE_SHEETS_SOURCE_URL, '_blank');
         }
 
-        // NOUVELLE FONCTION : Accès au Sheet Source
-        function accessSheetSource() {
-            if (!isAdminAuthenticated) {
-                showPasswordModalForAction('sheet');
-                return;
-            }
+        // Fonction : Mettre à jour l'état des boutons admin
+        function updateAdminButtons() {
+            const adminButtons = [
+                'sidebarSheetSource', 'sidebarNewPV', 'sidebarExportBook', 
+                'sidebarExportDates', 'sidebarEmailReport', 'floatingNewPV'
+            ];
             
-            window.open('https://docs.google.com/spreadsheets/d/e/2PACX-1vRxQRFk9leJ62gA7D_06BjbIWElax5ficRDyYFyaUsUNFTilbErU6sAwJBA5-64xSJ5qyc9482YYY8c/pubhtml', '_blank');
+            const exportButtons = document.querySelectorAll('.export-btn');
+            
+            adminButtons.forEach(buttonId => {
+                const button = document.getElementById(buttonId);
+                if (button) {
+                    if (isAdminAuthenticated) {
+                        button.classList.remove('disabled');
+                        button.disabled = false;
+                        if (button.title) {
+                            button.title = button.title.replace(' (Admin)', '').replace('Accès admin requis', '');
+                        }
+                    } else {
+                        button.classList.add('disabled');
+                        button.disabled = true;
+                        if (!button.title.includes('Accès admin requis')) {
+                            button.title = 'Accès admin requis';
+                        }
+                    }
+                }
+            });
+            
+            exportButtons.forEach(button => {
+                button.disabled = !isAdminAuthenticated;
+            });
+            
+            // Mettre à jour les sections export
+            if (isAdminAuthenticated) {
+                document.getElementById('exportSection').classList.remove('locked');
+                document.getElementById('exportSectionSide').classList.remove('locked');
+                document.getElementById('exportStatsTablePDF').disabled = false;
+                document.getElementById('exportStatsTablePDF').title = "";
+            } else {
+                document.getElementById('exportSection').classList.add('locked');
+                document.getElementById('exportSectionSide').classList.add('locked');
+                document.getElementById('exportStatsTablePDF').disabled = true;
+                document.getElementById('exportStatsTablePDF').title = "Accès admin requis";
+            }
         }
 
-        // NOUVELLE FONCTION : Extraire tous les mots uniques des données
+        // Fonction : Extraire tous les mots uniques des données
         function extractAllWords() {
             allWords.clear();
             
             sheetData.forEach(row => {
                 row.forEach(cell => {
                     if (cell && typeof cell === 'string' && cell.trim() !== '') {
-                        // Diviser le texte en mots
                         const words = cell.toLowerCase()
                             .split(/[\s,\/\.\(\)\[\]\-\+;:!'"]+/)
-                            .filter(word => word.length > 2); // Ignorer les mots trop courts
+                            .filter(word => word.length > 2);
                         
                         words.forEach(word => {
                             if (word.length > 0) {
@@ -3076,7 +3565,7 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             console.log(`📝 ${allWords.size} mots uniques extraits pour les suggestions`);
         }
 
-        // NOUVELLE FONCTION : Afficher les suggestions de mots
+        // Fonction : Afficher les suggestions de mots
         function showWordSuggestions(searchTerm, view = 'mobile') {
             let suggestionsContainer;
             
@@ -3097,16 +3586,14 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             const matchingWords = Array.from(allWords)
                 .filter(word => word.includes(searchLower))
                 .sort((a, b) => {
-                    // Prioriser les mots qui commencent par la recherche
                     const aStartsWith = a.startsWith(searchLower);
                     const bStartsWith = b.startsWith(searchLower);
                     if (aStartsWith && !bStartsWith) return -1;
                     if (!aStartsWith && bStartsWith) return 1;
                     
-                    // Sinon trier par longueur
                     return a.length - b.length;
                 })
-                .slice(0, 10); // Limiter à 10 suggestions
+                .slice(0, 10);
             
             if (matchingWords.length === 0) {
                 suggestionsContainer.style.display = 'none';
@@ -3115,7 +3602,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             
             suggestionsContainer.innerHTML = matchingWords
                 .map(word => {
-                    // Mettre en évidence la partie correspondante
                     const index = word.indexOf(searchLower);
                     let highlighted = word;
                     if (index !== -1) {
@@ -3140,7 +3626,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 item.addEventListener('click', function() {
                     const word = this.getAttribute('data-word');
                     
-                    // Mettre à jour le champ de recherche correspondant
                     if (view === 'desktop') {
                         document.getElementById('searchTextDesktop').value = word;
                     } else {
@@ -3151,20 +3636,18 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     
                     suggestionsContainer.style.display = 'none';
                     
-                    // Effectuer la recherche automatiquement
                     const results = searchData(word);
                     displayResults(results, word);
                 });
             });
         }
 
-        // NOUVELLE FONCTION : Afficher le tableau des statistiques
+        // Fonction : Afficher le tableau des statistiques
         function showStatsTable() {
             const modal = document.getElementById('statsTableModal');
             const content = document.getElementById('statsTableContent');
             const summaryCards = document.getElementById('tableStatsSummary');
             
-            // Mettre à jour le texte d'explication avec le nombre réel de PV
             const explanation = document.querySelector('.stats-explanation');
             if (explanation) {
                 explanation.innerHTML = `<strong>Note :</strong> Les taux sont calculés à partir du nombre total de réunions (${totalPV || 0} PV). Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.`;
@@ -3180,73 +3663,73 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             summaryCards.innerHTML = `
                 <!-- 1ère ligne -->
                 <div class="stats-line">
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${totalPV}</div>
-                        <div class="table-stat-label">Total PV</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${totalPV}</div>
+                        <div class="stat-label">Total PV</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxParticipantsInMeeting}</div>
-                        <div class="table-stat-label">Max participants</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxParticipantsInMeeting}</div>
+                        <div class="stat-label">Max participants</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxPresenceMeeting.participants}</div>
-                        <div class="table-stat-label">Max présence</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxPresenceMeeting.participants}</div>
+                        <div class="stat-label">Max présence</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${presenceRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Présence moyenne</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${presenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Présence moyenne</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxPresenceRateMeeting.rate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Taux max présence</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxPresenceRateMeeting.rate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux max présence</div>
                     </div>
                 </div>
                 
                 <!-- 2ème ligne -->
                 <div class="stats-line">
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${allNames.size}</div>
-                        <div class="table-stat-label">Participants</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${allNames.size}</div>
+                        <div class="stat-label">Participants</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${onTimeRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">À l'heure moyenne</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${onTimeRate.toFixed(1)}%</div>
+                        <div class="stat-label">À l'heure moyenne</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxOnTimeMeeting.participants}</div>
-                        <div class="table-stat-label">Max ara-potoana</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxOnTimeMeeting.participants}</div>
+                        <div class="stat-label">Max ara-potoana</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxOnTimeRateMeeting.rate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Taux max ara-potoana</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxOnTimeRateMeeting.rate.toFixed(1)}%</div>
+                        <div class="stat-label">Taux max ara-potoana</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${maxPresenceMeeting.dateFormatted}</div>
-                        <div class="table-stat-label">Date max présence</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${maxPresenceMeeting.dateFormatted}</div>
+                        <div class="stat-label">Date max présence</div>
                     </div>
                 </div>
                 
                 <!-- 3ème ligne -->
                 <div class="stats-line">
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${lateRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Retard moyen</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${lateRate.toFixed(1)}%</div>
+                        <div class="stat-label">Retard moyen</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${absenceRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Absence moyenne</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${absenceRate.toFixed(1)}%</div>
+                        <div class="stat-label">Absence moyenne</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${Object.keys(toeranaStats).length}</div>
-                        <div class="table-stat-label">Lieux différents</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${Object.keys(toeranaStats).length}</div>
+                        <div class="stat-label">Lieux différents</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${earlyLeaveRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Départ avant l'heure</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${earlyLeaveRate.toFixed(1)}%</div>
+                        <div class="stat-label">Départ avant l'heure</div>
                     </div>
-                    <div class="table-stat-card">
-                        <div class="table-stat-value">${excuseRate.toFixed(1)}%</div>
-                        <div class="table-stat-label">Excuses</div>
+                    <div class="stat-card">
+                        <div class="stat-value">${excuseRate.toFixed(1)}%</div>
+                        <div class="stat-label">Excuses</div>
                     </div>
                 </div>
             `;
@@ -3272,14 +3755,12 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         <tbody>
             `;
             
-            // Trier les noms par ordre alphabétique
             const sortedNames = Object.keys(nameStatistics).sort();
             
             sortedNames.forEach(name => {
                 const stats = nameStatistics[name];
                 const totalPVs = stats.totalPVs || totalPV;
                 
-                // Calculer les pourcentages
                 const araPotoanaPct = totalPVs > 0 ? ((stats.araPotoana || 0) / totalPVs * 100).toFixed(1) : '0.0';
                 const tara30minPct = totalPVs > 0 ? ((stats.taraLatsaky30min || 0) / totalPVs * 100).toFixed(1) : '0.0';
                 const tara1hPct = totalPVs > 0 ? ((stats.taraLatsaky1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
@@ -3317,7 +3798,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             content.innerHTML = html;
             modal.style.display = 'flex';
             
-            // Mettre à jour l'état du bouton d'export PDF
             document.getElementById('exportStatsTablePDF').disabled = !isAdminAuthenticated;
             if (!isAdminAuthenticated) {
                 document.getElementById('exportStatsTablePDF').title = "Accès admin requis";
@@ -3339,7 +3819,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             const sortedNames = Object.keys(nameStatistics).sort();
             const totalPVs = totalPV;
             
-            // Ouvrir une nouvelle fenêtre pour l'impression
             const printWindow = window.open('', '_blank');
             let html = `
                 <!DOCTYPE html>
@@ -3492,7 +3971,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             sortedNames.forEach(name => {
                 const stats = nameStatistics[name];
                 
-                // Calculer les pourcentages
                 const araPotoanaPct = totalPVs > 0 ? ((stats.araPotoana || 0) / totalPVs * 100).toFixed(1) : '0.0';
                 const tara30minPct = totalPVs > 0 ? ((stats.taraLatsaky30min || 0) / totalPVs * 100).toFixed(1) : '0.0';
                 const tara1hPct = totalPVs > 0 ? ((stats.taraLatsaky1h || 0) / totalPVs * 100).toFixed(1) : '0.0';
@@ -3544,14 +4022,13 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             printWindow.print();
         }
         
-        // NOUVELLE FONCTION : Exporter un livre PDF complet avec présentation des fiches
+        // Fonction : Exporter un livre PDF complet
         function exportBookPDF() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('book');
                 return;
             }
             
-            // Ouvrir une nouvelle fenêtre avec le contenu pour impression
             const printWindow = window.open('', '_blank');
             let html = `
                 <!DOCTYPE html>
@@ -3587,13 +4064,13 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         
                         /* Styles pour les fiches de données */
                         .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-                        .date-time-item { flex: 1; display: flex; align-items: flex-start; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
-                        .date-time-label { font-weight: bold; color: #0277bd; font-size: 13px; margin-bottom: 2px; }
+                        .date-time-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
+                        .date-time-label { font-weight: bold; color: #40E0D0; font-size: 13px; margin-right: 5px; white-space: nowrap; }
                         .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
                         .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
                         .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
                         .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
-                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #0277bd; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #40E0D0; padding-right: 12px; font-size: 12px; }
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
@@ -3772,15 +4249,11 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 const dateStr = row[1] || 'Date non spécifiée';
                 const titre = row[2] || `PV ${index + 1}`;
                 
-                // Extraire les données pour la fiche
                 const fahatongavanaData = extractFahatongavanaData(row);
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
-                
-                // MODIFICATION : Extraire le rédacteur (Nanoratra) mais ne pas l'ajouter dans la fiche principale
                 const nanoratra = extractNanoratra(row);
                 
-                // Extraire les informations de date et lieu
                 let datyValue = '';
                 let oraFanombohanaValue = '';
                 let oraFiravanaValue = '';
@@ -3811,15 +4284,14 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         <div style="padding: 15px;">
                 `;
                 
-                // Ajouter la ligne date/heure/lieu
                 if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
                     html += `
                         <div class="date-time-row">
                             ${datyValue ? `
                                 <div class="date-time-item">
                                     <div>📅</div>
-                                    <div>
-                                        <div class="date-time-label">Daty</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Daty:</div>
                                         <div class="date-time-value">${datyValue}</div>
                                     </div>
                                 </div>
@@ -3827,8 +4299,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${oraFanombohanaValue ? `
                                 <div class="date-time-item">
                                     <div>⏰</div>
-                                    <div>
-                                        <div class="date-time-label">Ora fanombohana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Ora fanombohana:</div>
                                         <div class="date-time-value">${oraFanombohanaValue}</div>
                                     </div>
                                 </div>
@@ -3836,8 +4308,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${oraFiravanaValue ? `
                                 <div class="date-time-item">
                                     <div>⏰</div>
-                                    <div>
-                                        <div class="date-time-label">Ora firavana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Ora firavana:</div>
                                         <div class="date-time-value">${oraFiravanaValue}</div>
                                     </div>
                                 </div>
@@ -3845,8 +4317,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${toeranaValue ? `
                                 <div class="date-time-item">
                                     <div>📍</div>
-                                    <div>
-                                        <div class="date-time-label">Toerana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Toerana:</div>
                                         <div class="date-time-value">${toeranaValue}</div>
                                     </div>
                                 </div>
@@ -3855,16 +4327,14 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     `;
                 }
                 
-                // Ajouter Fahatongavana
                 const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
                 if (hasFahatongavana) {
                     html += `
-                        <div class="section-title">FAHATONGAVANA</div>
+                        <div class="section-title">FAHATONGAVANA (${totalParticipants})</div>
                         ${formatFahatongavanaSectionForPDF(fahatongavanaData)}
                     `;
                 }
                 
-                // Ajouter Ordre du Jour
                 if (ordreDuJourData.length > 0) {
                     html += `
                         <div class="section-title">ORDRE DU JOUR</div>
@@ -3872,7 +4342,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     `;
                 }
                 
-                // MODIFICATION : Exclure "Nanoratra" de la fiche principale
                 const excludedHeaders = [
                     'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
                     'toerana', 'rohy fiche', 'nanoratra', 'nanoratra:', 'rédigé', 'signature'
@@ -3884,7 +4353,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     const header = headers[colIndex] || `Colonne ${colIndex + 1}`;
                     let value = row[colIndex] || '';
                     
-                    // MODIFICATION : Exclure explicitement "Nanoratra" et ses variantes
                     if (excludedHeaders.some(excluded => header.toLowerCase().includes(excluded)) ||
                         processedHeaders.has(header) ||
                         header.toLowerCase().includes('ara-potoana') ||
@@ -3915,7 +4383,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     }
                 }
                 
-                // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                 if (nanoratra) {
                     html += `
                         <div class="signature-section">
@@ -3954,7 +4421,7 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             printWindow.print();
         }
         
-        // NOUVELLE FONCTION : Extraire le rédacteur (Nanoratra)
+        // Fonction : Extraire le rédacteur (Nanoratra)
         function extractNanoratra(row) {
             for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                 const header = headers[colIndex] || '';
@@ -3974,82 +4441,111 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
         function formatFahatongavanaSectionForPDF(fahatongavanaData) {
             let html = '<div class="fahatongavana-section">';
             
+            // Compter le nombre de personnes dans chaque catégorie
+            const countNamesInCategory = (namesArray) => {
+                let count = 0;
+                const countedNames = new Set();
+                
+                namesArray.forEach(fullName => {
+                    if (fullName && fullName.trim()) {
+                        const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
+                        names.forEach(name => {
+                            if (name && !countedNames.has(name)) {
+                                countedNames.add(name);
+                                count++;
+                            }
+                        });
+                    }
+                });
+                
+                return count;
+            };
+            
             if (fahatongavanaData.araPotoana.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.araPotoana);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Ara-potoana</div>
+                        <div class="fahatongavana-label">Ara-potoana (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.araPotoana.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraLatsaky30min.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraLatsaky30min);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara latsaky ny 30min</div>
+                        <div class="fahatongavana-label">Tara latsaky ny 30min (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky30min.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraLatsaky1h.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraLatsaky1h);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara latsaky ny 1h</div>
+                        <div class="fahatongavana-label">Tara latsaky ny 1h (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky1h.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraMihoatra1h.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraMihoatra1h);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara mihoatra ny 1h</div>
+                        <div class="fahatongavana-label">Tara mihoatra ny 1h (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraMihoatra1h.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.tapakAndro.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.tapakAndro);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tapak'andro</div>
+                        <div class="fahatongavana-label">Tapak'andro (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.tapakAndro.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nodyAloha.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nodyAloha);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Nody aloha</div>
+                        <div class="fahatongavana-label">Nody aloha (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nodyAloha.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.tsyTonga.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.tsyTonga);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tsy tonga</div>
+                        <div class="fahatongavana-label">Tsy tonga (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.tsyTonga.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nialaTsinyTara.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nialaTsinyTara);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Niala-tsiny tara</div>
+                        <div class="fahatongavana-label">Niala-tsiny tara (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTara.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nialaTsinyTsyHoAvy.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nialaTsinyTsyHoAvy);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy</div>
+                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTsyHoAvy.join(' / ')}</div>
                     </div>
                 `;
@@ -4143,7 +4639,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 selectedDates.push(checkbox.value);
             });
             
-            // Filtrer les données selon les dates sélectionnées
             const rowsToExport = [];
             selectedDates.forEach(dateStr => {
                 const date = parseDate(dateStr);
@@ -4162,7 +4657,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         exportToExcel(rowsToExport, `pv_selection_${new Date().toISOString().split('T')[0]}.xlsx`);
                         break;
                     case 'pdf':
-                        // Exporter la fiche du jour en PDF avec présentation complète
                         exportToPDFWithPresentation(rowsToExport, `Rapport PV sélection`);
                         break;
                 }
@@ -4172,7 +4666,7 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             }
         }
         
-        // NOUVELLE FONCTION : Exporter en PDF avec présentation complète
+        // Fonction : Exporter en PDF avec présentation complète
         function exportToPDFWithPresentation(data, title) {
             const printWindow = window.open('', '_blank');
             let html = `
@@ -4195,13 +4689,13 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         .pv-item { margin-bottom: 30px; border: 1px solid #ddd; padding: 15px; }
                         .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
                         .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-                        .date-time-item { flex: 1; display: flex; align-items: flex-start; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
-                        .date-time-label { font-weight: bold; color: #0277bd; font-size: 13px; margin-bottom: 2px; }
+                        .date-time-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
+                        .date-time-label { font-weight: bold; color: #40E0D0; font-size: 13px; margin-right: 5px; white-space: nowrap; }
                         .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
                         .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
                         .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
                         .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
-                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #0277bd; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #40E0D0; padding-right: 12px; font-size: 12px; }
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
@@ -4304,14 +4798,11 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 const dateStr = row[1] || 'Date non spécifiée';
                 const titre = row[2] || `PV ${index + 1}`;
                 
-                // Extraire les données pour la fiche
                 const fahatongavanaData = extractFahatongavanaData(row);
                 const totalParticipants = countTotalParticipants(fahatongavanaData);
                 const ordreDuJourData = extractOrdreDuJourData(row);
-                // MODIFICATION : Extraire nanoratra pour la signature
                 const nanoratra = extractNanoratra(row);
                 
-                // Extraire les informations de date et lieu
                 let datyValue = '';
                 let oraFanombohanaValue = '';
                 let oraFiravanaValue = '';
@@ -4342,15 +4833,14 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                         <div style="padding: 15px;">
                 `;
                 
-                // Ajouter la ligne date/heure/lieu
                 if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
                     html += `
                         <div class="date-time-row">
                             ${datyValue ? `
                                 <div class="date-time-item">
                                     <div>📅</div>
-                                    <div>
-                                        <div class="date-time-label">Daty</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Daty:</div>
                                         <div class="date-time-value">${datyValue}</div>
                                     </div>
                                 </div>
@@ -4358,8 +4848,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${oraFanombohanaValue ? `
                                 <div class="date-time-item">
                                     <div>⏰</div>
-                                    <div>
-                                        <div class="date-time-label">Ora fanombohana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Ora fanombohana:</div>
                                         <div class="date-time-value">${oraFanombohanaValue}</div>
                                     </div>
                                 </div>
@@ -4367,8 +4857,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${oraFiravanaValue ? `
                                 <div class="date-time-item">
                                     <div>⏰</div>
-                                    <div>
-                                        <div class="date-time-label">Ora firavana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Ora firavana:</div>
                                         <div class="date-time-value">${oraFiravanaValue}</div>
                                     </div>
                                 </div>
@@ -4376,8 +4866,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                             ${toeranaValue ? `
                                 <div class="date-time-item">
                                     <div>📍</div>
-                                    <div>
-                                        <div class="date-time-label">Toerana</div>
+                                    <div class="date-time-content">
+                                        <div class="date-time-label">Toerana:</div>
                                         <div class="date-time-value">${toeranaValue}</div>
                                     </div>
                                 </div>
@@ -4386,16 +4876,14 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     `;
                 }
                 
-                // Ajouter Fahatongavana
                 const hasFahatongavana = Object.values(fahatongavanaData).some(arr => arr.length > 0);
                 if (hasFahatongavana) {
                     html += `
-                        <div class="section-title">FAHATONGAVANA</div>
+                        <div class="section-title">FAHATONGAVANA (${totalParticipants})</div>
                         ${formatFahatongavanaSectionForPDF(fahatongavanaData)}
                     `;
                 }
                 
-                // Ajouter Ordre du Jour
                 if (ordreDuJourData.length > 0) {
                     html += `
                         <div class="section-title">ORDRE DU JOUR</div>
@@ -4403,7 +4891,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     `;
                 }
                 
-                // MODIFICATION : Exclure "Nanoratra" de la fiche principale
                 const excludedHeaders = [
                     'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 
                     'toerana', 'rohy fiche', 'nanoratra', 'nanoratra:', 'rédigé', 'signature'
@@ -4442,7 +4929,6 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                     }
                 }
                 
-                // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                 if (nanoratra) {
                     html += `
                         <div class="signature-section">
@@ -4473,7 +4959,7 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
             printWindow.focus();
         }
         
-        // NOUVELLE FONCTION : Modal d'envoi par email avec sélection de PV
+        // Fonction : Modal d'envoi par email avec sélection de PV
         function showEmailExportModal() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('export');
@@ -4513,10 +4999,8 @@ const GOOGLE_SHEETS_SOURCE_URL = 'https://docs.google.com/spreadsheets/d/1gCojwm
                 });
             }
             
-            // Pré-remplir le sujet
             document.getElementById('emailSubject').value = `Rapport PV - Tournée NY AKO 2026 - ${new Date().toLocaleDateString('fr-FR')}`;
             
-            // Pré-remplir le message
             const message = `Bonjour,
 
 Veuillez trouver ci-joint le rapport des procès-verbaux de la Tournée NY AKO 2026.
@@ -4554,7 +5038,6 @@ L'équipe de gestion des PV`;
                 return;
             }
             
-            // Récupérer les PV sélectionnés
             const selectedPVs = [];
             const checkboxes = document.querySelectorAll('.pv-checkbox:checked');
             
@@ -4570,10 +5053,8 @@ L'équipe de gestion des PV`;
                 }
             });
             
-            // Préparer les données pour l'email
             const dataToExport = sheetData.filter((row, index) => selectedPVs.includes(index));
             
-            // Créer le contenu du message avec les PV si demandé
             let emailBody = message;
             
             if (includePVContent && dataToExport.length > 0) {
@@ -4588,16 +5069,15 @@ L'équipe de gestion des PV`;
                     emailBody += `Date: ${dateStr}\n`;
                     
                     if (nanoratra) {
-                        emailBody += `Nanoratra: ${nanoratra}\n`; // MODIFICATION : "Nanoratra:" au lieu de "Rédigé par:"
+                        emailBody += `Nanoratra: ${nanoratra}\n`;
                     }
                     
-                    // Ajouter les informations principales (exclure "Rohy fiche")
                     headers.forEach((header, colIndex) => {
                         const value = row[colIndex] || '';
                         if (value && value.trim() !== '' && 
                             !header.toLowerCase().includes('rohy fiche') &&
                             !header.toLowerCase().includes('horodateur') &&
-                            !header.toLowerCase().includes('nanoratra')) { // MODIFICATION : Exclure aussi "nanoratra"
+                            !header.toLowerCase().includes('nanoratra')) {
                             emailBody += `${header}: ${value}\n`;
                         }
                     });
@@ -4606,7 +5086,6 @@ L'équipe de gestion des PV`;
                 });
             }
             
-            // Créer le lien mailto
             const encodedBody = encodeURIComponent(emailBody);
             const encodedSubject = encodeURIComponent(subject);
             const emailRecipients = recipients.split(',').map(email => email.trim()).join(',');
@@ -4616,7 +5095,6 @@ L'équipe de gestion des PV`;
             window.open(mailtoLink);
             hideEmailExportModal();
             
-            // Pour l'export réel du fichier
             setTimeout(() => {
                 switch(format) {
                     case 'csv':
@@ -4640,7 +5118,6 @@ L'équipe de gestion des PV`;
             }
             
             if (sheetData.length > 0) {
-                // Demander le format
                 const format = prompt('Choisissez le format d\'export :\n1. CSV (Tableur)\n2. Excel (XLSX)\n3. PDF (Rapport avec présentation complète)\n\nEntrez 1, 2 ou 3 :', '1');
                 
                 switch(format) {
@@ -4662,10 +5139,8 @@ L'équipe de gestion des PV`;
         function exportToCSV(data, filename) {
             let csvContent = 'data:text/csv;charset=utf-8,';
             
-            // Ajouter les en-têtes
             csvContent += headers.map(header => `"${header}"`).join(',') + '\n';
             
-            // Ajouter les données
             data.forEach(row => {
                 const rowData = headers.map((header, index) => {
                     const value = row[index] || '';
@@ -4674,7 +5149,6 @@ L'équipe de gestion des PV`;
                 csvContent += rowData.join(',') + '\n';
             });
             
-            // Télécharger le fichier
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement('a');
             link.setAttribute('href', encodedUri);
@@ -4685,16 +5159,14 @@ L'équipe de gestion des PV`;
         }
         
         function exportToExcel(data, filename) {
-            // Pour Excel, nous utilisons CSV pour l'instant
             exportToCSV(data, filename.replace('.xlsx', '.csv'));
         }
         
         function exportToPDF(data, title) {
-            // Fonction pour PDF simple (conservée pour compatibilité)
             exportToPDFWithPresentation(data, title);
         }
         
-        // MODIFICATION : Générer les boutons de dates pour mobile et desktop avec disposition améliorée
+        // MODIFICATION : Générer les boutons de dates avec format ddd dd-mmm
         function renderDatesButtons() {
             const datesButtons = document.getElementById('datesButtons');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
@@ -4708,12 +5180,10 @@ L'équipe de gestion des PV`;
                 return;
             }
             
-            // Mettre à jour le compteur de dates
             if (document.getElementById('datesCount')) {
                 document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
             }
             
-            // Version mobile (boutons)
             if (availableDatesContainer) {
                 availableDatesContainer.style.display = 'block';
                 datesButtons.innerHTML = '';
@@ -4724,11 +5194,9 @@ L'équipe de gestion des PV`;
                 });
             }
             
-            // Version desktop dans la vue mobile (pour tablettes)
             if (availableDatesDesktop) {
                 availableDatesDesktop.innerHTML = '';
                 
-                // Créer un conteneur de grille pour les dates
                 const datesGrid = document.createElement('div');
                 datesGrid.className = 'available-dates-grid';
                 
@@ -4740,11 +5208,9 @@ L'équipe de gestion des PV`;
                 availableDatesDesktop.appendChild(datesGrid);
             }
             
-            // Version desktop dans le panneau latéral
             if (availableDatesDesktopSide) {
                 availableDatesDesktopSide.innerHTML = '';
                 
-                // Créer un conteneur de grille pour les dates
                 const datesGrid = document.createElement('div');
                 datesGrid.className = 'available-dates-grid';
                 
@@ -4756,27 +5222,24 @@ L'équipe de gestion des PV`;
                 availableDatesDesktopSide.appendChild(datesGrid);
             }
             
-            // Afficher ou masquer selon la taille de l'écran
             adjustDateDisplay();
         }
         
-        // NOUVELLE FONCTION : Créer un bouton de date avec événement
+        // MODIFICATION : Créer un bouton de date avec format ddd dd-mmm
         function createDateButton(item) {
             const dateButton = document.createElement('button');
             dateButton.className = 'date-button';
             
-            // Formater la date : jjj jj-mm-aa
+            // Formater la date : ddd dd-mmm
             const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
             const day = item.date.getDate().toString().padStart(2, '0');
-            const month = (item.date.getMonth() + 1).toString().padStart(2, '0');
-            const year = item.date.getFullYear().toString().slice(-2);
+            const month = item.date.toLocaleDateString('fr-FR', { month: 'short' }).substring(0, 3);
             
             dateButton.innerHTML = `
                 <i>📅</i>
-                ${dayName} ${day}-${month}-${year}
+                ${dayName} ${day}-${month}
             `;
             
-            // Ajouter info-bulle avec nombre de participants si disponible
             if (item.totalParticipants > 0) {
                 dateButton.title = `${item.totalParticipants} participant(s) - ${item.toerana || 'Lieu non spécifié'}`;
             } else if (item.toerana) {
@@ -4784,13 +5247,11 @@ L'équipe de gestion des PV`;
             }
             
             dateButton.addEventListener('click', () => {
-                // Afficher directement les données de cette date
                 displayDataForDate(item.date);
                 currentDate = new Date(item.date);
                 renderCalendar('mobile');
                 renderCalendar('desktop');
                 
-                // Mettre en évidence la date sélectionnée
                 document.querySelectorAll('.date-button').forEach(btn => {
                     btn.style.opacity = '0.8';
                     btn.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
@@ -4798,7 +5259,6 @@ L'équipe de gestion des PV`;
                 dateButton.style.opacity = '1';
                 dateButton.style.boxShadow = '0 0 0 2px #ff6b6b, 0 3px 10px rgba(231, 76, 60, 0.4)';
                 
-                // Retirer la mise en évidence après 3 secondes
                 setTimeout(() => {
                     dateButton.style.opacity = '0.8';
                     dateButton.style.boxShadow = '0 1px 4px rgba(231, 76, 60, 0.3)';
@@ -4808,12 +5268,11 @@ L'équipe de gestion des PV`;
             return dateButton;
         }
         
-        // NOUVELLE FONCTION : Compter le nombre total de participants
+        // Fonction : Compter le nombre total de participants
         function countTotalParticipants(fahatongavanaData) {
             let count = 0;
             const countedNames = new Set();
             
-            // Compter les noms uniques dans toutes les catégories de présence
             const categories = [
                 'araPotoana', 'taraLatsaky30min', 'taraLatsaky1h', 
                 'taraMihoatra1h', 'tapakAndro'
@@ -4844,7 +5303,6 @@ L'équipe de gestion des PV`;
             const formattedDate = formatDateForDisplay(date);
             title.textContent = `Options pour le ${formattedDate}`;
             
-            // Vérifier si la date a déjà un PV
             const hasPV = datesWithData.some(item => 
                 item.date.getDate() === date.getDate() &&
                 item.date.getMonth() === date.getMonth() &&
@@ -4854,7 +5312,6 @@ L'équipe de gestion des PV`;
             buttonsContainer.innerHTML = '';
             
             if (!hasPV) {
-                // Date vierge - option pour créer un nouveau PV
                 buttonsContainer.innerHTML = `
                     <button class="date-option-btn primary" id="createPVButton">
                         <span>✍️</span> Créer un nouveau PV pour cette date
@@ -4863,16 +5320,13 @@ L'équipe de gestion des PV`;
                 
                 document.getElementById('createPVButton').addEventListener('click', function() {
                     if (isAdminAuthenticated) {
-                        // Ouvrir le formulaire Google
                         window.open(GOOGLE_FORM_URL, '_blank');
                         hideDateOptionsModal();
                     } else {
-                        // Demander le mot de passe
                         showPasswordModalForAction('create');
                     }
                 });
             } else {
-                // Date avec PV existant - options pour voir ou modifier
                 buttonsContainer.innerHTML = `
                     <button class="date-option-btn secondary" id="viewPVButton">
                         <span>👁️</span> Voir le PV
@@ -4886,24 +5340,20 @@ L'équipe de gestion des PV`;
                 `;
                 
                 document.getElementById('viewPVButton').addEventListener('click', function() {
-                    // AFFICHER DIRECTEMENT LES DONNÉES
                     displayDataForDate(date);
                     hideDateOptionsModal();
                 });
                 
                 document.getElementById('editPVButton').addEventListener('click', function() {
                     if (isAdminAuthenticated) {
-                        // Ouvrir le lien "Rohy fiche" correspondant
                         openEditLinkForDate(date);
                         hideDateOptionsModal();
                     } else {
-                        // Si pas authentifié, afficher le bouton pour s'authentifier
                         showPasswordModalForAction('edit');
                     }
                 });
                 
                 document.getElementById('downloadPDFButton').addEventListener('click', function() {
-                    // Exporter le PV de cette date en PDF avec présentation complète
                     const matchingRows = findPVByDate(date);
                     if (matchingRows.length > 0) {
                         exportToPDFWithPresentation(matchingRows, `PV du ${formatDateForDisplay(date)}`);
@@ -4911,7 +5361,6 @@ L'équipe de gestion des PV`;
                     }
                 });
                 
-                // Si pas authentifié comme admin, afficher le bouton pour s'authentifier
                 if (!isAdminAuthenticated) {
                     const authButton = document.createElement('button');
                     authButton.className = 'date-option-btn secondary';
@@ -4924,7 +5373,6 @@ L'équipe de gestion des PV`;
                 }
             }
             
-            // Bouton annuler
             const cancelButton = document.createElement('button');
             cancelButton.className = 'date-option-btn secondary';
             cancelButton.innerHTML = '<span>❌</span> Annuler';
@@ -4934,13 +5382,11 @@ L'équipe de gestion des PV`;
             modal.style.display = 'flex';
         }
 
-        // NOUVELLE FONCTION : Afficher directement les données pour une date
         function displayDataForDate(date) {
             const matchingRows = findPVByDate(date);
             if (matchingRows.length > 0) {
                 displayResults(matchingRows, `PV du ${formatDateForDisplay(date)}`);
             } else {
-                // Ce cas ne devrait normalement pas se produire car on vérifie hasPV avant
                 alert('Aucun PV trouvé pour cette date.');
             }
         }
@@ -4953,7 +5399,6 @@ L'équipe de gestion des PV`;
             const modal = document.getElementById('passwordModal');
             const submitButton = document.getElementById('submitPassword');
             
-            // Stocker l'action à effectuer après authentification
             submitButton.dataset.action = action;
             
             modal.style.display = 'flex';
@@ -4963,12 +5408,10 @@ L'équipe de gestion des PV`;
         }
 
         function openEditLinkForDate(date) {
-            // Trouver la ligne correspondant à la date
             const matchingRows = findPVByDate(date);
             if (matchingRows.length > 0) {
                 const row = matchingRows[0];
                 
-                // Trouver l'index de la colonne "Rohy fiche"
                 const rohyFicheIndex = headers.findIndex(header => 
                     header.toLowerCase().includes('rohy fiche')
                 );
@@ -4992,7 +5435,6 @@ L'équipe de gestion des PV`;
             document.getElementById('passwordError').style.display = 'none';
             document.getElementById('passwordInput').focus();
             
-            // Effacer l'action stockée
             document.getElementById('submitPassword').dataset.action = '';
         }
 
@@ -5010,25 +5452,8 @@ L'équipe de gestion des PV`;
                 showProtectedColumns = true;
                 hidePasswordModal();
                 
-                // Activer les boutons d'export dans les deux vues
-                document.querySelectorAll('.export-btn').forEach(btn => {
-                    btn.disabled = false;
-                });
-                document.getElementById('exportSection').classList.remove('locked');
-                document.getElementById('exportSectionSide').classList.remove('locked');
+                updateAdminButtons();
                 
-                // Activer le bouton d'export PDF des statistiques
-                document.getElementById('exportStatsTablePDF').disabled = false;
-                document.getElementById('exportStatsTablePDF').title = "";
-                
-                // Mettre à jour le bouton modifier dans la modal si elle est ouverte
-                const editButton = document.getElementById('editPVButton');
-                if (editButton) {
-                    editButton.disabled = false;
-                    editButton.textContent = '✏️ Modifier le PV';
-                }
-                
-                // Si une action était en attente, l'exécuter
                 if (action === 'create') {
                     window.open(GOOGLE_FORM_URL, '_blank');
                 } else if (action === 'edit' && selectedDate) {
@@ -5046,10 +5471,9 @@ L'équipe de gestion des PV`;
                 } else if (action === 'sheet') {
                     accessSheetSource();
                 } else if (action === 'sheetDirect') {
-                    accessSheetSourceDirect();
+                    accessSheetSource();
                 }
                 
-                // Recharger les résultats actuels si des résultats sont affichés
                 if (document.getElementById('resultsSection').style.display === 'block') {
                     const currentSearch = document.getElementById('resultTitle').textContent.replace('Résultats pour "', '').replace('"', '');
                     if (currentSearch.includes('PV du')) {
@@ -5082,7 +5506,6 @@ L'équipe de gestion des PV`;
             return months[monthName.toLowerCase()] || 0;
         }
         
-        // MODIFICATION : Ajouter l'appel à renderDatesButtons et collecter les informations
         function extractDatesWithData() {
             datesWithData = [];
             
@@ -5093,7 +5516,6 @@ L'équipe de gestion des PV`;
                 if (dateStr && dateStr.trim() !== '') {
                     const date = parseDate(dateStr);
                     if (date) {
-                        // Trouver le lieu (Toerana) pour cette date
                         const toeranaIndex = headers.findIndex(h => 
                             h && h.toLowerCase().includes('toerana')
                         );
@@ -5102,7 +5524,6 @@ L'équipe de gestion des PV`;
                             toerana = row[toeranaIndex] || '';
                         }
                         
-                        // Calculer le nombre de participants pour cette date
                         const fahatongavanaData = extractFahatongavanaData(row);
                         const totalParticipants = countTotalParticipants(fahatongavanaData);
                         
@@ -5121,11 +5542,9 @@ L'équipe de gestion des PV`;
             
             console.log(`📅 ${datesWithData.length} dates avec données trouvées`);
             
-            // Générer les boutons de dates
             renderDatesButtons();
         }
 
-        // MODIFICATION : Le calendrier réduit montre les options, le lieu et le nombre de participants
         function renderCalendar(view = 'mobile') {
             let calendarGrid, currentMonthElement, calendarId, dateInputId, goToDateId;
             
@@ -5189,7 +5608,6 @@ L'équipe de gestion des PV`;
                 if (dateData) {
                     day.classList.add('has-data');
                     
-                    // Ajouter l'information du lieu et nombre de participants
                     const infoSpan = document.createElement('div');
                     infoSpan.className = 'calendar-day-info';
                     
@@ -5218,7 +5636,6 @@ L'équipe de gestion des PV`;
                 }
                 
                 day.addEventListener('click', () => {
-                    // AFFICHER LES OPTIONS (seulement pour le calendrier)
                     const clickedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), i);
                     showDateOptions(clickedDate);
                 });
@@ -5238,7 +5655,6 @@ L'équipe de gestion des PV`;
             }
         }
 
-        // MODIFICATION : La sélection de date via le champ de date va directement aux options
         function goToSelectedDate(view = 'mobile') {
             let dateInput, dateValue;
             
@@ -5260,13 +5676,11 @@ L'équipe de gestion des PV`;
             renderCalendar('mobile');
             renderCalendar('desktop');
             
-            // AFFICHER LES OPTIONS (comme pour le calendrier)
             showDateOptions(selectedDate);
         }
 
-        // MODIFICATION : Mettre à jour l'affichage des statistiques sur 3 lignes
         function updateStatsDisplay() {
-            // VUE MOBILE (dans mobile-search-section)
+            // VUE MOBILE
             if (document.getElementById('statsSection')) {
                 document.getElementById('statsSection').innerHTML = `
                     <!-- 1ère ligne -->
@@ -5343,7 +5757,7 @@ L'équipe de gestion des PV`;
                 `;
             }
             
-            // VUE DESKTOP (dans side-panel)
+            // VUE DESKTOP
             if (document.getElementById('statsSectionDesktop')) {
                 document.getElementById('statsSectionDesktop').innerHTML = `
                     <!-- 1ère ligne -->
@@ -5421,15 +5835,12 @@ L'équipe de gestion des PV`;
             }
         }
         
-        // MODIFICATION : Calculer les nouvelles statistiques
         function calculateStatistics() {
-            // Réinitialiser les statistiques
             allNames.clear();
             nameStatistics = {};
             toeranaStats = {};
             totalPV = sheetData.length;
             
-            // Variables pour les nouvelles statistiques
             let totalPresenceCount = 0;
             let totalOnTimeCount = 0;
             let totalLateCount = 0;
@@ -5438,7 +5849,6 @@ L'équipe de gestion des PV`;
             let totalExcuseCount = 0;
             maxParticipantsInMeeting = 0;
             
-            // Variables pour les totaux par personne
             let totalPresenceByPerson = 0;
             let totalOnTimeByPerson = 0;
             let totalLateByPerson = 0;
@@ -5446,7 +5856,6 @@ L'équipe de gestion des PV`;
             let totalEarlyLeaveByPerson = 0;
             let totalExcuseByPerson = 0;
             
-            // Variables pour les statistiques avancées
             maxPresenceMeeting = { date: '', participants: 0, dateFormatted: '' };
             maxOnTimeMeeting = { date: '', participants: 0, dateFormatted: '' };
             maxPresenceRateMeeting = { date: '', rate: 0, dateFormatted: '' };
@@ -5456,16 +5865,13 @@ L'équipe de gestion des PV`;
                 const dateStr = row[1] || '';
                 const dateFormatted = formatDateForDisplay(parseDate(dateStr) || new Date());
                 
-                // Extraire les données de présence
                 const fahatongavanaData = extractFahatongavanaData(row);
                 
-                // Compter les participants pour cette réunion
                 const meetingParticipants = countTotalParticipants(fahatongavanaData);
                 if (meetingParticipants > maxParticipantsInMeeting) {
                     maxParticipantsInMeeting = meetingParticipants;
                 }
                 
-                // Compter les participants "Ara-potoana" pour cette réunion
                 const onTimeParticipants = fahatongavanaData.araPotoana.reduce((count, fullName) => {
                     if (fullName && fullName.trim()) {
                         const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
@@ -5474,7 +5880,6 @@ L'équipe de gestion des PV`;
                     return count;
                 }, 0);
                 
-                // Mettre à jour les statistiques de présence max
                 if (meetingParticipants > maxPresenceMeeting.participants) {
                     maxPresenceMeeting = {
                         date: dateStr,
@@ -5483,7 +5888,6 @@ L'équipe de gestion des PV`;
                     };
                 }
                 
-                // Mettre à jour les statistiques "Ara-potoana" max
                 if (onTimeParticipants > maxOnTimeMeeting.participants) {
                     maxOnTimeMeeting = {
                         date: dateStr,
@@ -5492,10 +5896,8 @@ L'équipe de gestion des PV`;
                     };
                 }
                 
-                // Calculer les taux pour cette réunion
                 const totalUniqueNames = new Set();
                 
-                // Compter tous les noms uniques dans cette PV
                 Object.values(fahatongavanaData).forEach(namesArray => {
                     namesArray.forEach(fullName => {
                         if (fullName && fullName.trim()) {
@@ -5533,7 +5935,6 @@ L'équipe de gestion des PV`;
                     }
                 }
                 
-                // Créer un Set pour chaque catégorie pour éviter les doublons dans une même PV
                 const araPotoanaSet = new Set();
                 const taraLatsaky30minSet = new Set();
                 const taraLatsaky1hSet = new Set();
@@ -5544,7 +5945,6 @@ L'équipe de gestion des PV`;
                 const nialaTsinyTaraSet = new Set();
                 const nialaTsinyTsyHoAvySet = new Set();
                 
-                // Traiter les noms dans chaque catégorie
                 const processCategory = (namesArray, targetSet) => {
                     namesArray.forEach(fullName => {
                         if (fullName && fullName.trim()) {
@@ -5569,7 +5969,6 @@ L'équipe de gestion des PV`;
                 processCategory(fahatongavanaData.nialaTsinyTara, nialaTsinyTaraSet);
                 processCategory(fahatongavanaData.nialaTsinyTsyHoAvy, nialaTsinyTsyHoAvySet);
                 
-                // Mettre à jour les statistiques globales pour cette PV
                 totalOnTimeCount += araPotoanaSet.size;
                 totalLateCount += taraLatsaky30minSet.size + taraLatsaky1hSet.size + taraMihoatra1hSet.size + tapakAndroSet.size;
                 totalPresenceCount += araPotoanaSet.size + taraLatsaky30minSet.size + taraLatsaky1hSet.size + taraMihoatra1hSet.size + tapakAndroSet.size;
@@ -5577,7 +5976,6 @@ L'équipe de gestion des PV`;
                 totalAbsenceCount += tsyTongaSet.size;
                 totalExcuseCount += nialaTsinyTaraSet.size + nialaTsinyTsyHoAvySet.size;
                 
-                // Mettre à jour les statistiques par personne
                 const updateStatsForCategory = (nameSet, categoryKey) => {
                     nameSet.forEach(name => {
                         if (!nameStatistics[name]) {
@@ -5596,10 +5994,8 @@ L'équipe de gestion des PV`;
                             };
                         }
                         
-                        // Incrémenter le compteur pour cette catégorie
                         nameStatistics[name][categoryKey]++;
                         
-                        // Compter les présences (somme des catégories de présence)
                         if (categoryKey === 'araPotoana' || 
                             categoryKey === 'taraLatsaky30min' || 
                             categoryKey === 'taraLatsaky1h' || 
@@ -5620,7 +6016,6 @@ L'équipe de gestion des PV`;
                 updateStatsForCategory(nialaTsinyTaraSet, 'nialaTsinyTara');
                 updateStatsForCategory(nialaTsinyTsyHoAvySet, 'nialaTsinyTsyHoAvy');
                 
-                // Statistiques des lieux (Toerana)
                 const toeranaIndex = headers.findIndex(h => 
                     h && h.toLowerCase().includes('toerana')
                 );
@@ -5636,7 +6031,6 @@ L'équipe de gestion des PV`;
                 }
             });
             
-            // Calculer les totaux par personne pour les moyennes
             Object.keys(nameStatistics).forEach(name => {
                 const stats = nameStatistics[name];
                 totalPresenceByPerson += stats.presenceCount || 0;
@@ -5648,7 +6042,6 @@ L'équipe de gestion des PV`;
                 totalExcuseByPerson += (stats.nialaTsinyTara || 0) + (stats.nialaTsinyTsyHoAvy || 0);
             });
             
-            // Calculer les taux moyens
             const totalPersons = allNames.size;
             const totalPossiblePresences = totalPV * totalPersons;
             
@@ -5661,7 +6054,6 @@ L'équipe de gestion des PV`;
                 excuseRate = (totalExcuseByPerson / totalPossiblePresences) * 100;
             }
             
-            // Formater les dates pour l'affichage (jj-mm-aa)
             if (maxPresenceMeeting.date) {
                 const date = parseDate(maxPresenceMeeting.date);
                 if (date) {
@@ -5682,25 +6074,17 @@ L'équipe de gestion des PV`;
                 }
             }
             
-            // Mettre à jour l'affichage des statistiques
             updateStatsDisplay();
-            
-            // Afficher la liste des noms
             displayNamesList();
-            
-            // Afficher la liste des lieux
             displayToeranaList();
-            
-            // Extraire tous les mots uniques pour les suggestions
             extractAllWords();
+            updateAdminButtons(); // Mettre à jour les boutons admin
         }
         
         function displayNamesList() {
-            // Vue mobile
             const namesListContainer = document.getElementById('namesListContainer');
             const namesList = document.getElementById('namesList');
             
-            // Vue desktop
             const namesListContainerDesktop = document.getElementById('namesListContainerDesktop');
             const namesListDesktop = document.getElementById('namesListDesktop');
             
@@ -5710,7 +6094,6 @@ L'équipe de gestion des PV`;
                 return;
             }
             
-            // Vue mobile
             if (namesListContainer) {
                 namesListContainer.style.display = 'block';
                 if (namesList) {
@@ -5728,7 +6111,6 @@ L'équipe de gestion des PV`;
                 }
             }
             
-            // Vue desktop
             if (namesListContainerDesktop) {
                 namesListContainerDesktop.style.display = 'block';
                 if (namesListDesktop) {
@@ -5748,11 +6130,9 @@ L'équipe de gestion des PV`;
         }
         
         function displayToeranaList() {
-            // Vue mobile
             const toeranaListContainer = document.getElementById('toeranaListContainer');
             const toeranaList = document.getElementById('toeranaList');
             
-            // Vue desktop
             const toeranaListContainerDesktop = document.getElementById('toeranaListContainerDesktop');
             const toeranaListDesktop = document.getElementById('toeranaListDesktop');
             
@@ -5762,10 +6142,8 @@ L'équipe de gestion des PV`;
                 return;
             }
             
-            // Trier les lieux par nombre de réunions (décroissant)
             const sortedToerana = Object.entries(toeranaStats).sort((a, b) => b[1] - a[1]);
             
-            // Vue mobile
             if (toeranaListContainer) {
                 toeranaListContainer.style.display = 'block';
                 if (toeranaList) {
@@ -5781,7 +6159,6 @@ L'équipe de gestion des PV`;
                             </span>
                         `;
                         toeranaItem.addEventListener('click', () => {
-                            // Filtrer les PV pour ce lieu
                             const filteredData = sheetData.filter(row => {
                                 const toeranaIndex = headers.findIndex(h => 
                                     h && h.toLowerCase().includes('toerana')
@@ -5795,7 +6172,6 @@ L'équipe de gestion des PV`;
                 }
             }
             
-            // Vue desktop
             if (toeranaListContainerDesktop) {
                 toeranaListContainerDesktop.style.display = 'block';
                 if (toeranaListDesktop) {
@@ -5811,7 +6187,6 @@ L'équipe de gestion des PV`;
                             </span>
                         `;
                         toeranaItem.addEventListener('click', () => {
-                            // Filtrer les PV pour ce lieu
                             const filteredData = sheetData.filter(row => {
                                 const toeranaIndex = headers.findIndex(h => 
                                     h && h.toLowerCase().includes('toerana')
@@ -5837,10 +6212,8 @@ L'équipe de gestion des PV`;
             
             title.textContent = `Statistiques pour ${name}`;
             
-            // MODIFICATION : Calculer le pourcentage de présence par rapport au nombre total de PV
             const presencePercentage = stats.totalPVs > 0 ? ((stats.presenceCount / stats.totalPVs) * 100).toFixed(1) : 0;
             
-            // Créer un graphique donut pour le pourcentage
             const donutOffset = 314 - (presencePercentage * 314 / 100);
             
             let html = `
@@ -5872,7 +6245,6 @@ L'équipe de gestion des PV`;
                 <div class="cylinder-chart-container">
             `;
             
-            // Liste des catégories à afficher avec couleurs
             const categories = [
                 { key: 'araPotoana', label: 'Ara-potoana', color: '#4CAF50' },
                 { key: 'taraLatsaky30min', label: 'Tara latsaky ny 30min', color: '#8BC34A' },
@@ -6044,7 +6416,6 @@ L'équipe de gestion des PV`;
                     const searchTerm = this.getAttribute('data-search');
                     const dateStr = this.getAttribute('data-date');
                     
-                    // Mettre à jour le champ de recherche correspondant
                     if (view === 'desktop') {
                         document.getElementById('searchTextDesktop').value = searchTerm;
                     } else {
@@ -6121,7 +6492,6 @@ L'équipe de gestion des PV`;
             const results = searchData(searchValue);
             displayResults(results, searchValue);
             
-            // Masquer les suggestions
             if (view === 'desktop') {
                 document.getElementById('suggestionsContainerDesktop').style.display = 'none';
             } else {
@@ -6180,9 +6550,9 @@ L'équipe de gestion des PV`;
         function highlightSearchText(text, searchTerm) {
             if (!searchTerm) return text;
             
-            const searchLower = searchTerm.toLowerCase();
             const textStr = String(text);
             const textLower = textStr.toLowerCase();
+            const searchLower = searchTerm.toLowerCase();
             
             let result = '';
             let lastIndex = 0;
@@ -6205,9 +6575,8 @@ L'équipe de gestion des PV`;
             
             const headerLower = header.toLowerCase();
             
-            // MODIFICATION : Retirer la classe pour "title-nanoratra" car il n'est plus dans la fiche principale
             if (headerLower.includes('nanoratra') || headerLower.includes('rédigé') || headerLower.includes('signature')) {
-                return ''; // Retourner une chaîne vide pour ne pas appliquer de style spécial
+                return '';
             }
             
             if (headerLower.includes('fanamarihana famerenana')) {
@@ -6374,85 +6743,115 @@ L'équipe de gestion des PV`;
             return match ? parseInt(match[1]) : 0;
         }
 
+        // MODIFICATION : Fonction formatFahatongavanaSection avec compteurs
         function formatFahatongavanaSection(fahatongavanaData) {
             let html = '<div class="fahatongavana-section">';
             
+            // Fonction pour compter les noms uniques dans une catégorie
+            const countNamesInCategory = (namesArray) => {
+                let count = 0;
+                const countedNames = new Set();
+                
+                namesArray.forEach(fullName => {
+                    if (fullName && fullName.trim()) {
+                        const names = fullName.split(/[,/]/).map(name => name.trim()).filter(name => name);
+                        names.forEach(name => {
+                            if (name && !countedNames.has(name)) {
+                                countedNames.add(name);
+                                count++;
+                            }
+                        });
+                    }
+                });
+                
+                return count;
+            };
+            
             if (fahatongavanaData.araPotoana.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.araPotoana);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Ara-potoana</div>
+                        <div class="fahatongavana-label">Ara-potoana (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.araPotoana.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraLatsaky30min.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraLatsaky30min);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara latsaky ny 30min</div>
+                        <div class="fahatongavana-label">Tara latsaky ny 30min (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky30min.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraLatsaky1h.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraLatsaky1h);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara latsaky ny 1h</div>
+                        <div class="fahatongavana-label">Tara latsaky ny 1h (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraLatsaky1h.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.taraMihoatra1h.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.taraMihoatra1h);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tara mihoatra ny 1h</div>
+                        <div class="fahatongavana-label">Tara mihoatra ny 1h (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.taraMihoatra1h.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.tapakAndro.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.tapakAndro);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tapak'andro</div>
+                        <div class="fahatongavana-label">Tapak'andro (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.tapakAndro.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nodyAloha.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nodyAloha);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Nody aloha</div>
+                        <div class="fahatongavana-label">Nody aloha (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nodyAloha.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.tsyTonga.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.tsyTonga);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Tsy tonga</div>
+                        <div class="fahatongavana-label">Tsy tonga (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.tsyTonga.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nialaTsinyTara.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nialaTsinyTara);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Niala-tsiny tara</div>
+                        <div class="fahatongavana-label">Niala-tsiny tara (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTara.join(' / ')}</div>
                     </div>
                 `;
             }
             
             if (fahatongavanaData.nialaTsinyTsyHoAvy.length > 0) {
+                const count = countNamesInCategory(fahatongavanaData.nialaTsinyTsyHoAvy);
                 html += `
                     <div class="fahatongavana-row">
-                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy</div>
+                        <div class="fahatongavana-label">Niala-tsiny tsy ho avy (${count})</div>
                         <div class="fahatongavana-value">${fahatongavanaData.nialaTsinyTsyHoAvy.join(' / ')}</div>
                     </div>
                 `;
@@ -6480,10 +6879,16 @@ L'équipe de gestion des PV`;
             return html;
         }
         
+        // MODIFICATION : Fonction displayResults avec navigation et mise en page améliorée
         function displayResults(results, searchTerm) {
             const resultsSection = document.getElementById('resultsSection');
             const resultContent = document.getElementById('resultContent');
             const resultTitle = document.getElementById('resultTitle');
+            const resultsNavigation = document.getElementById('resultsNavigation');
+            
+            // Réinitialiser la navigation
+            currentResultIndex = 0;
+            allResultElements = [];
             
             if (results.length === 0) {
                 resultContent.innerHTML = `
@@ -6492,6 +6897,7 @@ L'équipe de gestion des PV`;
                         <p>Aucun procès-verbal ne correspond à votre recherche "${searchTerm}"</p>
                     </div>
                 `;
+                resultsNavigation.style.display = 'none';
             } else {
                 let html = `
                     <div class="search-stats">
@@ -6522,16 +6928,14 @@ L'équipe de gestion des PV`;
                         titre = row[2] || `PV ${index + 1}`;
                     }
                     
-                    // NOUVEAU : Calculer le nombre de personnes présentes pour ce PV
                     const fahatongavanaData = extractFahatongavanaData(row);
                     const totalParticipants = countTotalParticipants(fahatongavanaData);
                     const participantText = totalParticipants > 0 ? `${totalParticipants} personnes présentes` : '';
                     
-                    // MODIFICATION : Extraire le rédacteur (Nanoratra) pour la signature
                     const nanoratra = extractNanoratra(row);
                     
                     html += `
-                        <div class="pv-item">
+                        <div class="pv-item" id="result-${index}">
                             <div class="pv-header">
                                 <h2>📋 Procès-Verbal de Réunion</h2>
                                 <h3 class="pv-title">
@@ -6562,14 +6966,15 @@ L'équipe de gestion des PV`;
                         }
                     }
                     
+                    // MODIFICATION : Date-time items avec label et valeur sur la même ligne
                     if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
                         html += `
                             <div class="date-time-row">
                                 ${datyValue ? `
                                     <div class="date-time-item">
                                         <div>📅</div>
-                                        <div>
-                                            <div class="date-time-label">Daty</div>
+                                        <div class="date-time-content">
+                                            <div class="date-time-label">Daty:</div>
                                             <div class="date-time-value">${currentSearchTerm ? highlightSearchText(datyValue, currentSearchTerm) : datyValue}</div>
                                         </div>
                                     </div>
@@ -6577,8 +6982,8 @@ L'équipe de gestion des PV`;
                                 ${oraFanombohanaValue ? `
                                     <div class="date-time-item">
                                         <div>⏰</div>
-                                        <div>
-                                            <div class="date-time-label">Ora fanombohana</div>
+                                        <div class="date-time-content">
+                                            <div class="date-time-label">Ora fanombohana:</div>
                                             <div class="date-time-value">${currentSearchTerm ? highlightSearchText(oraFanombohanaValue, currentSearchTerm) : oraFanombohanaValue}</div>
                                         </div>
                                     </div>
@@ -6586,8 +6991,8 @@ L'équipe de gestion des PV`;
                                 ${oraFiravanaValue ? `
                                     <div class="date-time-item">
                                         <div>⏰</div>
-                                        <div>
-                                            <div class="date-time-label">Ora firavana</div>
+                                        <div class="date-time-content">
+                                            <div class="date-time-label">Ora firavana:</div>
                                             <div class="date-time-value">${currentSearchTerm ? highlightSearchText(oraFiravanaValue, currentSearchTerm) : oraFiravanaValue}</div>
                                         </div>
                                     </div>
@@ -6595,8 +7000,8 @@ L'équipe de gestion des PV`;
                                 ${toeranaValue ? `
                                     <div class="date-time-item">
                                         <div>📍</div>
-                                        <div>
-                                            <div class="date-time-label">Toerana</div>
+                                        <div class="date-time-content">
+                                            <div class="date-time-label">Toerana:</div>
                                             <div class="date-time-value">${currentSearchTerm ? highlightSearchText(toeranaValue, currentSearchTerm) : toeranaValue}</div>
                                         </div>
                                     </div>
@@ -6609,7 +7014,7 @@ L'équipe de gestion des PV`;
                     
                     if (hasFahatongavana) {
                         html += `
-                            <div class="section-title">FAHATONGAVANA</div>
+                            <div class="section-title">FAHATONGAVANA (${totalParticipants})</div>
                             ${formatFahatongavanaSection(fahatongavanaData)}
                         `;
                     }
@@ -6622,7 +7027,6 @@ L'équipe de gestion des PV`;
                         `;
                     }
                     
-                    // MODIFICATION : Exclure "Nanoratra" et ses variantes de la fiche principale
                     const excludedHeaders = [
                         'horodateur', 'timestamp', 'daty', 'ora fanombohana', 'ora firavana', 'toerana',
                         'nanoratra', 'nanoratra:', 'rédigé', 'signature'
@@ -6678,7 +7082,6 @@ L'équipe de gestion des PV`;
                         }
                     }
                     
-                    // MODIFICATION : Ajouter la signature avec "Nanoratra:" au lieu de "Rédigé par :"
                     if (nanoratra) {
                         html += `
                             <div class="signature-section">
@@ -6695,6 +7098,16 @@ L'équipe de gestion des PV`;
                 });
                 
                 resultContent.innerHTML = html;
+                
+                // Initialiser les éléments de résultats pour la navigation
+                allResultElements = Array.from(document.querySelectorAll('.pv-item'));
+                
+                // Afficher la navigation si plus d'un résultat
+                if (results.length > 1) {
+                    resultsNavigation.style.display = 'flex';
+                } else {
+                    resultsNavigation.style.display = 'none';
+                }
             }
             
             resultTitle.textContent = `Résultats pour "${searchTerm}"`;
@@ -6704,7 +7117,88 @@ L'équipe de gestion des PV`;
         
         function closeResults() {
             document.getElementById('resultsSection').style.display = 'none';
+            document.getElementById('resultsNavigation').style.display = 'none';
             currentSearchTerm = '';
+        }
+
+        // Fonction : Afficher Vaovao
+        function showVaovao() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    const headerLower = header.toLowerCase();
+                    
+                    if (headerLower.includes('vaovao') || 
+                        headerLower.includes('nouvelle') || 
+                        headerLower.includes('news')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Vaovao');
+        }
+
+        function showFanamarihanaFamerenana() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    if (header.toLowerCase().includes('fanamarihana famerenana')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanamarihana Famerenana');
+        }
+        
+        function showFanapahanKevitra() {
+            if (sheetData.length === 0) {
+                alert('Aucune donnée chargée');
+                return;
+            }
+            
+            currentSearchTerm = '';
+            const filteredData = sheetData.map((row, originalIndex) => {
+                const filteredRow = [];
+                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
+                    const header = headers[colIndex] || '';
+                    if (header.toLowerCase().includes('fanapahan') || 
+                        header.toLowerCase().includes('kevitra') || 
+                        header.toLowerCase().includes('asa ho atao') ||
+                        header.toLowerCase().includes('asa ata')) {
+                        filteredRow[colIndex] = row[colIndex] || '';
+                    } else {
+                        filteredRow[colIndex] = '';
+                    }
+                }
+                filteredRow.originalIndex = originalIndex;
+                return filteredRow;
+            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
+            
+            displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
         }
 
         async function loadDataFromGoogleSheets() {
@@ -6833,87 +7327,6 @@ L'équipe de gestion des PV`;
                 document.getElementById('loadingIndicator').style.display = 'none';
             }
         }
-
-        // CORRECTION : Fonction modifiée pour afficher correctement les Vaovao
-        function showVaovao() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    const headerLower = header.toLowerCase(); // CORRECTION: Définir headerLower correctement
-                    
-                    if (headerLower.includes('vaovao') || 
-                        headerLower.includes('nouvelle') || 
-                        headerLower.includes('news')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
-                    }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Vaovao');
-        }
-
-        function showFanamarihanaFamerenana() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    if (header.toLowerCase().includes('fanamarihana famerenana')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
-                    }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Fanamarihana Famerenana');
-        }
-        
-        function showFanapahanKevitra() {
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            currentSearchTerm = '';
-            const filteredData = sheetData.map((row, originalIndex) => {
-                const filteredRow = [];
-                for (let colIndex = 0; colIndex < headers.length; colIndex++) {
-                    const header = headers[colIndex] || '';
-                    if (header.toLowerCase().includes('fanapahan') || 
-                        header.toLowerCase().includes('kevitra') || 
-                        header.toLowerCase().includes('asa ho atao') ||
-                        header.toLowerCase().includes('asa ata')) {
-                        filteredRow[colIndex] = row[colIndex] || '';
-                    } else {
-                        filteredRow[colIndex] = '';
-                    }
-                }
-                filteredRow.originalIndex = originalIndex;
-                return filteredRow;
-            }).filter(row => row.some(cell => cell && cell.trim() !== ''));
-            
-            displayResults(filteredData, 'Fanapahan-kevitra sy Asa ho atao');
-        }
     </script>
 </body>
 </html>
-
