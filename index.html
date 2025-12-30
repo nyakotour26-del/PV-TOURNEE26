@@ -17,7 +17,7 @@
             --orange-dark: #FF7A00;
             --apple-green: #4CAF50;
             --apple-green-dark: #45a049;
-            --turquoise-blue: #40E0D0;
+            --turquoise-blue: #48D1CC; /* Changé de #40E0D0 à #48D1CC */
             --turquoise-dark: #20B2AA;
         }
         
@@ -26,7 +26,7 @@
             margin: 0;
             padding: 0;
         }
-        /* hi mmr*/ 
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -38,7 +38,6 @@
             padding-top: 70px;
         }
         
-        /* CONTENEUR PRINCIPAL AVEC DISPOSITION FLEX POUR ORDINATEUR */
         .main-container {
             display: flex;
             gap: 20px;
@@ -46,7 +45,6 @@
             margin: 0 auto;
         }
         
-        /* PANEL LATÉRAL GAUCHE - 40% - UNIQUEMENT SUR ORDINATEUR */
         .side-panel {
             flex: 0 0 40%;
             background: white;
@@ -60,13 +58,11 @@
             display: none;
         }
         
-        /* CONTENU PRINCIPAL - 60% */
         .main-content {
             flex: 0 0 60%;
             min-width: 0;
         }
         
-        /* Pour les écrans larges (mode ordinateur) */
         @media (min-width: 1024px) {
             .side-panel {
                 display: block;
@@ -76,30 +72,25 @@
                 flex: 0 0 60%;
             }
             
-            /* Cacher les éléments de recherche mobile en vue ordinateur */
             .mobile-search-section {
                 display: none !important;
             }
             
-            /* Section export dans le panneau latéral */
             .side-panel .export-section {
                 margin-top: 30px;
                 margin-bottom: 10px;
             }
             
-            /* Masquer la section export du contenu principal en vue ordi */
             .main-content .export-section {
                 display: none;
             }
             
-            /* 5 cartes statistiques par ligne sur ordinateur */
             .stats-line .stat-card {
                 min-width: calc(20% - 8px) !important;
                 height: 55px !important;
             }
         }
         
-        /* Pour les tablettes et mobiles - cacher le panneau latéral */
         @media (max-width: 1023px) {
             .side-panel {
                 display: none;
@@ -114,17 +105,14 @@
                 flex-direction: column;
             }
             
-            /* Afficher la section de recherche mobile */
             .mobile-search-section {
                 display: block;
             }
             
-            /* Afficher la section export dans le contenu principal en mobile */
             .main-content .export-section {
                 display: block;
             }
             
-            /* 5 cartes statistiques par ligne sur mobile */
             .stats-line .stat-card {
                 min-width: calc(20% - 8px) !important;
                 height: 50px !important;
@@ -142,7 +130,6 @@
                 line-height: 1.1 !important;
             }
             
-            /* 2 boutons d'export par ligne sur mobile */
             .export-buttons {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
@@ -155,9 +142,23 @@
                 padding: 10px 8px !important;
                 font-size: 0.85em !important;
             }
+            
+            /* NOUVELLE MODIFICATION : Hauteur réduite pour mobile */
+            .date-time-item {
+                height: 35px !important;
+                min-height: 35px !important;
+                padding: 6px 8px !important;
+            }
+            
+            .date-time-label {
+                font-size: 11px !important;
+            }
+            
+            .date-time-value {
+                font-size: 12px !important;
+            }
         }
         
-        /* Conteneur pour les 3 lignes de statistiques */
         .stats-three-lines {
             display: flex;
             flex-direction: column;
@@ -210,8 +211,7 @@
             color: #7f8c8d;
             line-height: 1.1;
         }
-
-        /* Ajustements responsive */
+        
         @media (max-width: 768px) {
             .stats-line .stat-card {
                 padding: 6px 4px;
@@ -226,7 +226,6 @@
                 font-size: 0.6em;
             }
             
-            /* Calendrier responsive - ajustement de largeur */
             .calendar {
                 max-width: 100% !important;
                 min-width: 100% !important;
@@ -250,6 +249,21 @@
             .calendar-day.has-data::after {
                 display: block !important;
             }
+            
+            /* NOUVELLE MODIFICATION : Hauteur encore plus réduite sur petits écrans */
+            .date-time-item {
+                height: 30px !important;
+                min-height: 30px !important;
+                padding: 4px 6px !important;
+            }
+            
+            .date-time-label {
+                font-size: 10px !important;
+            }
+            
+            .date-time-value {
+                font-size: 11px !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -266,7 +280,6 @@
                 font-size: 0.55em;
             }
             
-            /* Calendrier encore plus compact sur petits écrans */
             .calendar-day {
                 min-height: 35px !important;
                 padding: 2px 0 !important;
@@ -277,9 +290,15 @@
                 font-size: 9px !important;
                 padding: 3px !important;
             }
+            
+            /* NOUVELLE MODIFICATION : Hauteur minimale sur très petits écrans */
+            .date-time-item {
+                height: 28px !important;
+                min-height: 28px !important;
+                padding: 3px 5px !important;
+            }
         }
         
-        /* VUE MOBILE - CONTENU ORGANISÉ COMME LE PANEL LATÉRAL */
         .mobile-search-section {
             background-color: white;
             padding: 20px;
@@ -293,7 +312,7 @@
             margin: 0 auto;
         }
         
-        /* HEADER MODERNE ET ATTRACTIF - FONDS VERT POMME - HAUTEUR RÉDUITE À 2CM */
+        /* MODIFICATION : Icônes ajoutées de chaque côté du titre */
         header {
             text-align: center;
             margin-bottom: 15px;
@@ -327,24 +346,36 @@
             flex-wrap: wrap;
         }
         
-        .header-icons {
+        /* MODIFICATION : Positionnement des icônes à gauche et droite */
+        .header-icons-left, .header-icons-right {
             display: flex;
             gap: 8px;
             font-size: 1.2em;
         }
         
-        .header-icons span {
+        .header-icons-left span, .header-icons-right span {
             animation: float 3s ease-in-out infinite;
         }
         
-        .header-icons span:nth-child(1) { animation-delay: 0s; }
-        .header-icons span:nth-child(2) { animation-delay: 0.5s; }
-        .header-icons span:nth-child(3) { animation-delay: 1s; }
-        .header-icons span:nth-child(4) { animation-delay: 1.5s; }
+        .header-icons-left span:nth-child(1) { animation-delay: 0s; }
+        .header-icons-left span:nth-child(2) { animation-delay: 0.5s; }
+        .header-icons-left span:nth-child(3) { animation-delay: 1s; }
+        .header-icons-left span:nth-child(4) { animation-delay: 1.5s; }
+        .header-icons-right span:nth-child(1) { animation-delay: 0.2s; }
+        .header-icons-right span:nth-child(2) { animation-delay: 0.7s; }
+        .header-icons-right span:nth-child(3) { animation-delay: 1.2s; }
+        .header-icons-right span:nth-child(4) { animation-delay: 1.7s; }
         
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-3px); }
+        }
+        
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         h1 {
@@ -387,12 +418,15 @@
                 font-size: 0.65em;
             }
             
-            .header-icons {
+            .header-icons-left, .header-icons-right {
                 font-size: 1em;
+            }
+            
+            .header-icons-left, .header-icons-right {
+                display: none; /* Cacher sur mobile pour économiser de l'espace */
             }
         }
         
-        /* Section export en fin de page */
         .export-section {
             background: white;
             padding: 20px;
@@ -496,7 +530,6 @@
             background: #8e44ad;
         }
         
-        /* Modal pour l'export de dates sélectionnées */
         .export-dates-modal {
             display: none;
             position: fixed;
@@ -552,7 +585,6 @@
             cursor: pointer;
         }
         
-        /* Bouton tableau statistiques */
         .stats-table-button-container {
             margin: 15px 0;
             width: 100%;
@@ -583,7 +615,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
         
-        /* Améliorations du tableau statistique */
         .stats-explanation {
             background: #f8f9fa;
             padding: 12px;
@@ -594,7 +625,6 @@
             border-left: 4px solid #3498db;
         }
         
-        /* NOUVELLE SECTION STATISTIQUES POUR TABLEAU */
         .table-stats-summary {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -634,7 +664,6 @@
             line-height: 1.2;
         }
         
-        /* NOUVELLE SECTION POUR STATISTIQUES AVANCÉES (3 LIGNES) */
         .advanced-stats-section {
             display: flex;
             flex-direction: column;
@@ -816,7 +845,6 @@
             }
         }
         
-        /* BOUTONS DE FILTRE ORANGE */
         .filter-buttons {
             display: flex;
             gap: 10px;
@@ -860,7 +888,6 @@
             }
         }
         
-        /* BOUTONS DE DATES DISPONIBLES EN ROUGE - FORMAT MODIFIÉ: ddd dd-mmm - TAILLE RÉDUITE */
         .date-button {
             background: linear-gradient(135deg, #ff6b6b 0%, #e74c3c 100%) !important;
             color: white;
@@ -898,7 +925,6 @@
             font-size: 0.8em;
         }
         
-        /* Pour les écrans larges (mode ordinateur) */
         @media (min-width: 769px) {
             .available-dates-container.mobile-dates-above {
                 display: none;
@@ -945,7 +971,6 @@
             }
         }
         
-        /* Pour les écrans mobiles - NOUVELLE TAILLE REDUITE */
         @media (max-width: 768px) {
             .dates-buttons {
                 gap: 6px;
@@ -973,7 +998,6 @@
             }
         }
         
-        /* Petits écrans (téléphones très petits) */
         @media (max-width: 480px) {
             .date-button {
                 min-width: 85px;
@@ -990,7 +1014,6 @@
             }
         }
         
-        /* DATES DISPONIBLES EN BOUTONS VERT POMME - POUR MOBILE */
         .available-dates-container {
             margin: 12px 0;
         }
@@ -1015,7 +1038,6 @@
             gap: 6px;
         }
         
-        /* CALENDRIER REDUIT */
         .calendar-day.has-data {
             position: relative;
             min-height: 65px !important;
@@ -1038,14 +1060,18 @@
             text-align: center;
             font-weight: normal;
             display: flex;
-                flex-direction: column;
+            flex-direction: column;
             gap: 0.5px;
         }
         
+        /* MODIFICATION : Style pour les bulles de calendrier - Daty + Toerana + Nb présence */
         .calendar-day-location {
             font-weight: bold;
             color: #2980b9;
             font-size: 7px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         
         .calendar-day-participants {
@@ -1054,11 +1080,17 @@
             font-weight: bold;
         }
         
+        .calendar-day-date {
+            font-weight: bold;
+            color: #e74c3c;
+            font-size: 7px;
+            margin-bottom: 1px;
+        }
+        
         .calendar-day.has-data .calendar-day-info {
             display: flex;
         }
         
-        /* RESTE DU CSS */
         .search-form {
             display: flex;
             flex-wrap: wrap;
@@ -1294,7 +1326,6 @@
             overflow: hidden;
         }
         
-        /* TITRE DE FICHE - MODIFIÉ POUR RÉDUIRE LES INTERLIGNES */
         .pv-header {
             background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c8e6c9 100%);
             color: #2e7d32;
@@ -1332,7 +1363,6 @@
             line-height: 1.2;
         }
         
-        /* STYLE POUR LE NOMBRE DE PERSONNES DANS LE TITRE */
         .participant-count {
             font-size: 0.7em;
             color: var(--apple-green) !important;
@@ -1344,7 +1374,6 @@
             border: 1px solid rgba(76, 175, 80, 0.3);
         }
         
-        /* STYLE POUR LA SIGNATURE DU RÉDACTEUR - MODIFIÉ : "Nanoratra:" */
         .signature-section {
             margin-top: 20px;
             padding: 15px;
@@ -1465,14 +1494,16 @@
             margin: 0 auto 10px;
         }
         
+        /* MODIFICATION : Message de succès avec fond transparent */
         .success-message {
-            background-color: #27ae60;
-            color: white;
+            background-color: transparent;
+            color: var(--apple-green);
             padding: 12px;
             border-radius: 5px;
             margin: 8px 0;
             text-align: center;
             font-size: 0.9em;
+            border: 2px solid var(--apple-green);
         }
         
         .error-message {
@@ -1492,8 +1523,17 @@
             margin-bottom: 15px;
             font-size: 13px;
         }
-
-        /* MODAL POUR LES OPTIONS DE DATE */
+        
+        /* MODIFICATION : Couleur pour Daty, Ora fanombohana, Ora firavana, Toerana et Ara-potoana */
+        .date-time-label, 
+        .fahatongavana-label,
+        .title-daty,
+        .title-ora-fanombohana,
+        .title-ora-firavana,
+        .title-toerana {
+            color: var(--turquoise-blue) !important;
+        }
+        
         .date-options-modal {
             display: none;
             position: fixed;
@@ -1750,7 +1790,6 @@
             line-height: 1.2;
         }
 
-        /* MODIFICATION : DATE-TIME ROW POUR METTRE LABEL ET VALEUR SUR LA MÊME LIGNE */
         .date-time-row {
             display: flex;
             gap: 10px;
@@ -1768,8 +1807,8 @@
             border-radius: 5px;
             border: 1px solid #e1f5fe;
             min-width: 180px;
-            height: 0.7cm; /* Hauteur réduite à 0.7cm */
-            min-height: 20px; /* Minimum pour le contenu */
+            height: 0.7cm;
+            min-height: 20px;
         }
 
         .date-time-item i {
@@ -1785,7 +1824,7 @@
 
         .date-time-label {
             font-weight: bold;
-            color: var(--turquoise-blue); /* Bleu turquoise */
+            color: var(--turquoise-blue);
             font-size: 13px;
             white-space: nowrap;
         }
@@ -1902,7 +1941,6 @@
             color: #2c3e50;
         }
         
-        /* BOUTONS FLOTTANTS - TOUS À 1CM DE HAUTEUR ET 1CM DE LARGEUR */
         .floating-buttons {
             position: fixed;
             right: 15px;
@@ -1913,7 +1951,6 @@
             gap: 8px;
         }
         
-        /* CLASSE DE BASE POUR TOUS LES BOUTONS FLOTTANTS */
         .floating-button {
             width: 40px;
             height: 40px;
@@ -1935,7 +1972,6 @@
             margin: 0;
         }
         
-        /* SPÉCIFIQUE POUR CHAQUE BOUTON */
         .floating-button.home {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -2006,93 +2042,96 @@
             box-shadow: 0 5px 10px rgba(0,0,0,0.3);
         }
         
-      .floating-button-tooltip {
-    position: absolute;
-    right: 55px;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 3px;
-    font-size: 11px;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s;
-    pointer-events: none;
-}
+        .floating-button-tooltip {
+            position: absolute;
+            right: 55px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
 
-.floating-button:hover .floating-button-tooltip {
-    opacity: 1;
-}
+        .floating-button:hover .floating-button-tooltip {
+            opacity: 1;
+        }
 
-.results-navigation {
-    position: fixed;
-    bottom: 70px;
-    left: 15px;
-    z-index: 1000;
-    display: none;
-    flex-direction: column;
-    gap: 2px;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
-    box-shadow: none;
-    backdrop-filter: none;
-    width: 1cm;
-    min-width: 1cm;
-    max-width: 1cm;
-    overflow: hidden;
-    align-items: center;
-}
+        /* MODIFICATION : Flèches de navigation avec fond gris */
+        .results-navigation {
+            position: fixed;
+            bottom: 70px;
+            left: 15px;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            width: 1cm;
+            min-width: 1cm;
+            max-width: 1cm;
+            overflow: hidden;
+            align-items: center;
+        }
 
-.nav-button {
-    width: 1cm;
-    height: 1cm;
-    border-radius: 0;
-    border: 1px solid #ddd;
-    background: white;
-    color: #333;
-    font-size: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    font-weight: normal;
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    flex-shrink: 0;
-}
+        .nav-button {
+            width: 1cm;
+            height: 1cm;
+            border-radius: 0;
+            border: 1px solid #ddd;
+            background: #f5f5f5; /* Fond gris */
+            color: #333;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-weight: normal;
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
 
-.nav-button:hover {
-    background: #f8f9fa;
-    border-color: #999;
-}
+        .nav-button:hover {
+            background: #e0e0e0; /* Fond gris plus foncé au survol */
+            border-color: #999;
+        }
 
-.nav-button.up {
-    background: white;
-    color: #333;
-}
+        .nav-button.up {
+            background: #f5f5f5;
+            color: #333;
+        }
 
-.nav-button.up:hover {
-    background: #f8f9fa;
-    color: #333;
-}
+        .nav-button.up:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
 
-.nav-button.down {
-    background: white;
-    color: #333;
-}
+        .nav-button.down {
+            background: #f5f5f5;
+            color: #333;
+        }
 
-.nav-button.down:hover {
-    background: #f8f9fa;
-    color: #333;
-}.nav-button::before {
-    content: "";
-    display: inline-block;
-    font-size: 16px; /* Taille des emojis */
-    line-height: 1;
-}/* Graphique pour les statistiques */
+        .nav-button.down:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .nav-button::before {
+            content: "";
+            display: inline-block;
+            font-size: 16px;
+            line-height: 1;
+        }
 
         .progress-bar-container {
             width: 100%;
@@ -2118,7 +2157,6 @@
             font-weight: bold;
         }
         
-        /* STYLE POUR LES CYLINDRES */
         .cylinder-chart-container {
             display: flex;
             flex-direction: column;
@@ -2214,7 +2252,6 @@
             color: #666;
         }
         
-        /* SIDEBAR MOBILE */
         .mobile-sidebar {
             position: fixed;
             top: 0;
@@ -2328,7 +2365,6 @@
                 display: flex;
             }
             
-            /* MODIFICATION : Ajustement de la position de navigation pour mobile */
             .results-navigation {
                 left: 15px;
                 bottom: 70px;
@@ -2390,8 +2426,8 @@
 
             .date-time-item {
                 min-width: auto;
-                height: auto; /* Hauteur automatique sur mobile */
-                min-height: 35px; /* Minimum pour le contenu */
+                height: 35px; /* Hauteur réduite pour mobile */
+                min-height: 35px;
             }
 
             .fahatongavana-row {
@@ -2424,7 +2460,6 @@
                 font-size: 1em;
             }
             
-            /* Calendrier mobile ajustements */
             .calendar-day {
                 min-height: 40px;
                 padding: 5px 2px;
@@ -2491,7 +2526,6 @@
                 padding: 4px 6px;
             }
             
-            /* Export buttons mobile - 2 par ligne */
             .export-buttons {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important;
@@ -2525,34 +2559,43 @@
             .calendar-day-info {
                 font-size: 4px !important;
             }
+            
+            .date-time-item {
+                height: 30px; /* Hauteur encore plus réduite sur très petits écrans */
+                min-height: 30px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- MODIFICATION : Icônes ajoutées de chaque côté du titre -->
     <header>
         <div class="header-content">
-            <div class="header-icons">
+            <div class="header-icons-left">
                 <span>📋</span>
                 <span>🎵</span>
                 <span>📅</span>
                 <span>🎤</span>
             </div>
-            <div>
+            <div class="header-text">
                 <h1>PV RÉUNION / RÉPÉTITION TOURNÉE NY AKO 2026</h1>
                 <div class="header-tagline">Agenda musical • Calendrier des réunions • Gestion des PV</div>
+            </div>
+            <div class="header-icons-right">
+                <span>📊</span>
+                <span>👥</span>
+                <span>📍</span>
+                <span>⏰</span>
             </div>
         </div>
     </header>
     
-    <!-- VUE MOBILE - ORGANISÉE COMME LE PANEL LATÉRAL GAUCHE -->
     <div class="mobile-search-section">
         <form id="searchForm" class="search-form" autocomplete="off">
             <div class="form-group">
                 <label for="searchText">Rechercher un mot ou une phrase :</label>
                 <input type="text" id="searchText" placeholder="Entrez votre recherche..." autocomplete="off">
-                <div class="suggestions-container" id="suggestionsContainer">
-                    <!-- Les suggestions dynamiques apparaîtront ici -->
-                </div>
+                <div class="suggestions-container" id="suggestionsContainer"></div>
             </div>
             
             <div class="form-group">
@@ -2560,47 +2603,34 @@
             </div>
         </form>
         
-        <!-- Section Statistiques - 3 LIGNES DE 5 CARTES -->
-        <div class="stats-three-lines" id="statsSection">
-            <!-- Les cartes statistiques seront ajoutées dynamiquement -->
-        </div>
+        <div class="stats-three-lines" id="statsSection"></div>
         
-        <!-- Bouton tableau statistiques -->
         <div class="stats-table-button-container">
             <button class="stats-table-btn" id="showStatsTableButtonMobile">
                 <span>📈</span> Tableau statistiques complet
             </button>
         </div>
         
-        <!-- Section Dates disponibles en boutons - Position mobile -->
         <div class="available-dates-container mobile-dates-above" id="availableDatesContainer" style="display: none;">
             <h3 class="dates-title" style="color: #e74c3c; border-bottom: 2px solid #ff6b6b; padding-bottom: 6px;">
                 <i>📅</i> Dates disponibles
                 <span style="font-size: 0.75em; color: #666; margin-left: 8px;" id="datesCount"></span>
             </h3>
-            <div class="dates-buttons" id="datesButtons">
-                <!-- Les boutons de dates seront générés ici -->
-            </div>
+            <div class="dates-buttons" id="datesButtons"></div>
         </div>
         
-        <!-- Section Dates disponibles en mode ordinateur -->
-        <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;">
-            <!-- Les boutons de dates seront générés ici -->
-        </div>
+        <div class="available-dates-desktop" id="availableDatesDesktop" style="display: none;"></div>
         
-        <!-- Liste des noms -->
         <div id="namesListContainer" style="display: none;">
             <h3>👤 Liste des participants</h3>
             <div class="names-list" id="namesList"></div>
         </div>
         
-        <!-- Liste des lieux -->
         <div id="toeranaListContainer" style="display: none;">
             <h3>📍 Réunions par lieu</h3>
             <div id="toeranaList"></div>
         </div>
         
-        <!-- Boutons de filtre orange -->
         <div class="filter-buttons">
             <button id="showFanamarihanaButton" class="filter-btn">
                 📝 Fanamarihana Famerenana
@@ -2613,7 +2643,6 @@
             </button>
         </div>
         
-        <!-- Section calendrier uniquement -->
         <div class="calendar-container">
             <div class="calendar">
                 <div class="calendar-header">
@@ -2621,9 +2650,7 @@
                     <h3 id="currentMonth"></h3>
                     <button id="nextMonth" class="secondary">▶</button>
                 </div>
-                <div class="calendar-grid" id="calendarGrid">
-                    <!-- Le calendrier sera généré ici -->
-                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
             </div>
             
             <div class="date-picker" id="desktopDateList">
@@ -2646,20 +2673,21 @@
         <button id="retryButton" style="margin-top: 10px; display: none;">
             🔄 Réessayer le chargement
         </button>
+        
+        <!-- MODIFICATION : Bouton Accès au Sheet ajouté -->
+        <button id="accessSheetButton" class="show-links-btn" style="margin-top: 10px; background: #9b59b6;">
+            📊 Accès au Sheet Source
+        </button>
     </div>
     
-    <!-- CONTENEUR PRINCIPAL AVEC DISPOSITION FLEX -->
     <div class="main-container">
-        <!-- PANEL LATÉRAL GAUCHE (40%) - UNIQUEMENT SUR ORDINATEUR -->
         <div class="side-panel">
             <section class="search-section">
                 <form id="searchFormDesktop" class="search-form" autocomplete="off">
                     <div class="form-group">
                         <label for="searchTextDesktop">Rechercher un mot ou une phrase :</label>
                         <input type="text" id="searchTextDesktop" placeholder="Entrez votre recherche..." autocomplete="off">
-                        <div class="suggestions-container" id="suggestionsContainerDesktop">
-                            <!-- Les suggestions dynamiques apparaîtront ici -->
-                        </div>
+                        <div class="suggestions-container" id="suggestionsContainerDesktop"></div>
                     </div>
                     
                     <div class="form-group">
@@ -2667,36 +2695,26 @@
                     </div>
                 </form>
                 
-                <!-- Section Statistiques - 3 LIGNES DE 5 CARTES -->
-                <div class="stats-three-lines" id="statsSectionDesktop">
-                    <!-- Les cartes statistiques seront ajoutées dynamiquement -->
-                </div>
+                <div class="stats-three-lines" id="statsSectionDesktop"></div>
                 
-                <!-- Bouton tableau statistiques -->
                 <div class="stats-table-button-container">
                     <button class="stats-table-btn" id="showStatsTableButtonDesktop">
                         <span>📈</span> Tableau statistiques complet
                     </button>
                 </div>
                 
-                <!-- Section Dates disponibles en mode ordinateur -->
-                <div class="available-dates-desktop" id="availableDatesDesktopSide" style="display: none;">
-                    <!-- Les boutons de dates seront générés ici -->
-                </div>
+                <div class="available-dates-desktop" id="availableDatesDesktopSide" style="display: none;"></div>
                 
-                <!-- Liste des noms -->
                 <div id="namesListContainerDesktop" style="display: none;">
                     <h3>👤 Liste des participants</h3>
                     <div class="names-list" id="namesListDesktop"></div>
                 </div>
                 
-                <!-- Liste des lieux -->
                 <div id="toeranaListContainerDesktop" style="display: none;">
                     <h3>📍 Réunions par lieu</h3>
                     <div id="toeranaListDesktop"></div>
                 </div>
                 
-                <!-- Boutons de filtre orange -->
                 <div class="filter-buttons">
                     <button id="showFanamarihanaButtonDesktop" class="filter-btn">
                         📝 Fanamarihana Famerenana
@@ -2709,7 +2727,6 @@
                     </button>
                 </div>
                 
-                <!-- Section calendrier uniquement -->
                 <div class="calendar-container">
                     <div class="calendar">
                         <div class="calendar-header">
@@ -2717,9 +2734,7 @@
                             <h3 id="currentMonthDesktop"></h3>
                             <button id="nextMonthDesktop" class="secondary">▶</button>
                         </div>
-                        <div class="calendar-grid" id="calendarGridDesktop">
-                            <!-- Le calendrier sera généré ici -->
-                        </div>
+                        <div class="calendar-grid" id="calendarGridDesktop"></div>
                     </div>
                     
                     <div class="date-picker" id="desktopDateListSide">
@@ -2739,7 +2754,11 @@
                     🔗 Admin - Afficher les colonnes protégées
                 </button>
                 
-                <!-- SECTION EXPORT DANS LE PANEL LATÉRAL (EN BAS) -->
+                <!-- MODIFICATION : Bouton Accès au Sheet ajouté dans le panel latéral -->
+                <button id="accessSheetButtonDesktop" class="show-links-btn" style="margin-top: 10px; background: #9b59b6;">
+                    📊 Accès au Sheet Source
+                </button>
+                
                 <section class="export-section locked" id="exportSectionSide">
                     <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
                     <div class="export-buttons">
@@ -2767,7 +2786,6 @@
             </section>
         </div>
         
-        <!-- CONTENU PRINCIPAL (60%) -->
         <div class="main-content">
             <div class="loading" id="loadingIndicator">
                 <div class="spinner"></div>
@@ -2781,12 +2799,9 @@
                     <h2 id="resultTitle">Résultats de la recherche</h2>
                     <button id="closeResults">✕ Fermer</button>
                 </div>
-                <div class="result-content" id="resultContent">
-                    <!-- Les résultats seront affichés ici -->
-                </div>
+                <div class="result-content" id="resultContent"></div>
             </section>
 
-            <!-- Section export en fin de page (VISIBLE UNIQUEMENT EN MOBILE) -->
             <section class="export-section locked" id="exportSection">
                 <h3>📤 Export des données <small style="color: #e74c3c; font-size: 0.75em;">(Accès admin requis)</small></h3>
                 <div class="export-buttons">
@@ -2808,17 +2823,13 @@
                 </div>
             </section>
 
-            <!-- Modal pour les options de date -->
             <div class="date-options-modal" id="dateOptionsModal">
                 <div class="date-options-content">
                     <h3 class="date-options-title" id="dateOptionsTitle">Options pour la date sélectionnée</h3>
-                    <div class="date-options-buttons" id="dateOptionsButtons">
-                        <!-- Les boutons d'options seront générés dynamiquement ici -->
-                    </div>
+                    <div class="date-options-buttons" id="dateOptionsButtons"></div>
                 </div>
             </div>
 
-            <!-- Modal pour le mot de passe -->
             <div class="password-modal" id="passwordModal">
                 <div class="password-modal-content">
                     <h3>🔑 Admin - Accès aux colonnes protégées</h3>
@@ -2836,7 +2847,6 @@
                 </div>
             </div>
             
-            <!-- Modal pour les statistiques des noms -->
             <div class="stats-modal" id="statsModal">
                 <div class="stats-modal-content">
                     <h3 id="statsModalTitle">Statistiques</h3>
@@ -2845,7 +2855,6 @@
                 </div>
             </div>
             
-            <!-- Modal pour le tableau des statistiques de présence -->
             <div class="stats-modal" id="statsTableModal">
                 <div class="stats-modal-content">
                     <h3 id="statsTableModalTitle">📊 Statistiques de présence par personne</h3>
@@ -2855,10 +2864,7 @@
                         Chaque pourcentage représente la proportion de réunions où la personne était dans cette catégorie.
                     </div>
                     
-                    <!-- SECTION STATISTIQUES AVEC 5 CARTES PAR LIGNE (3 LIGNES) -->
-                    <div class="advanced-stats-section" id="tableStatsSummary">
-                        <!-- Les cartes de statistiques seront ajoutées dynamiquement -->
-                    </div>
+                    <div class="advanced-stats-section" id="tableStatsSummary"></div>
                     
                     <div id="statsTableContent"></div>
                     <div style="margin-top: 20px; display: flex; gap: 10px;">
@@ -2870,15 +2876,12 @@
                 </div>
             </div>
 
-            <!-- Modal pour l'export de dates sélectionnées -->
             <div class="export-dates-modal" id="exportDatesModal">
                 <div class="export-dates-content">
                     <h3>📅 Sélection des dates à exporter</h3>
                     <p>Sélectionnez les dates que vous souhaitez exporter :</p>
                     
-                    <div class="export-dates-list" id="exportDatesList">
-                        <!-- Les dates seront ajoutées ici dynamiquement -->
-                    </div>
+                    <div class="export-dates-list" id="exportDatesList"></div>
                     
                     <div style="margin: 15px 0;">
                         <label>
@@ -2903,15 +2906,12 @@
                 </div>
             </div>
 
-            <!-- Modal pour l'envoi par email avec sélection de PV -->
             <div class="export-dates-modal" id="emailExportModal">
                 <div class="export-dates-content">
                     <h3>📧 Envoyer le rapport par email</h3>
                     <p>Sélectionnez les PV que vous souhaitez envoyer :</p>
                     
-                    <div class="export-dates-list" id="emailPVList">
-                        <!-- Les PV seront ajoutés ici dynamiquement -->
-                    </div>
+                    <div class="export-dates-list" id="emailPVList"></div>
                     
                     <div style="margin: 15px 0;">
                         <label>
@@ -2960,14 +2960,14 @@
         </div>
     </div>
 
-    <!-- SIDEBAR MOBILE -->
+    <!-- MODIFICATION : Ajout des éléments dans le sidebar mobile -->
     <div class="mobile-sidebar" id="mobileSidebar">
         <div class="sidebar-header">
             <h3>📋 Menu</h3>
             <button class="sidebar-close" id="closeSidebar">✕</button>
         </div>
         <div class="sidebar-menu">
-            <button class="sidebar-item disabled" id="sidebarSheetSource" title="Accès admin requis">
+            <button class="sidebar-item" id="sidebarSheetSource">
                 <span>📊</span> Accès Sheet Source
             </button>
             <button class="sidebar-item" id="sidebarCalendar">
@@ -2976,26 +2976,35 @@
             <button class="sidebar-item" id="sidebarAllSheets">
                 <span>📋</span> Afficher toutes les fiches
             </button>
-            <button class="sidebar-item disabled" id="sidebarNewPV" title="Accès admin requis">
+            <button class="sidebar-item" id="sidebarNewPV">
                 <span>✍️</span> Nouveau PV
             </button>
             <button class="sidebar-item" id="sidebarStats">
                 <span>📈</span> Afficher statistiques
             </button>
-            <button class="sidebar-item disabled" id="sidebarExportBook" title="Accès admin requis">
+            <!-- MODIFICATION : Ajout des boutons dans le sidebar -->
+            <button class="sidebar-item" id="sidebarFanamarihana">
+                <span>📝</span> Fanamarihana Famerenana
+            </button>
+            <button class="sidebar-item" id="sidebarFanapahanKevitra">
+                <span>📋</span> Fanapahan-kevitra & Asa
+            </button>
+            <button class="sidebar-item" id="sidebarVaovao">
+                <span>📢</span> Vaovao
+            </button>
+            <button class="sidebar-item" id="sidebarExportBook">
                 <span>📚</span> Exporter livre PDF
             </button>
-            <button class="sidebar-item disabled" id="sidebarExportDates" title="Accès admin requis">
+            <button class="sidebar-item" id="sidebarExportDates">
                 <span>📅</span> Exporter par sélection de dates
             </button>
-            <button class="sidebar-item disabled" id="sidebarEmailReport" title="Accès admin requis">
+            <button class="sidebar-item" id="sidebarEmailReport">
                 <span>📧</span> Envoyer rapport par email
             </button>
         </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- BOUTONS FLOTTANTS -->
     <div class="floating-buttons">
         <a href="#" class="floating-button home" id="floatingHome" title="Accueil">
             🏠
@@ -3027,13 +3036,11 @@
         </a>
     </div>
     
-    <!-- BOUTON SIDEBAR TOGGLE (MOBILE) -->
     <a href="#" class="floating-button sidebar-toggle" id="floatingSidebarToggle" title="Menu">
         ☰
         <span class="floating-button-tooltip">Menu</span>
     </a>
 
-    <!-- MODIFICATION : NOUVELLES FLÈCHES DE NAVIGATION - AVEC EMOJIS -->
     <div class="results-navigation" id="resultsNavigation">
         <button class="nav-button up" id="navUp" title="Résultat précédent">
             🔼
@@ -3060,13 +3067,11 @@
         let currentSearchTerm = '';
         let isAdminAuthenticated = false;
         
-        // Variables pour les statistiques
         let allNames = new Set();
         let nameStatistics = {};
         let toeranaStats = {};
         let totalPV = 0;
         
-        // Nouveaux statistiques ajoutés
         let maxParticipantsInMeeting = 0;
         let maxOnTimeParticipants = 0;
         let maxPresenceRate = 0;
@@ -3080,43 +3085,33 @@
         let earlyLeaveRate = 0;
         let excuseRate = 0;
         
-        // Variables pour les statistiques avancées
         let maxPresenceMeeting = { date: '', participants: 0, dateFormatted: '' };
         let maxOnTimeMeeting = { date: '', participants: 0, dateFormatted: '' };
         let maxPresenceRateMeeting = { date: '', rate: 0, dateFormatted: '' };
         let maxOnTimeRateMeeting = { date: '', rate: 0, dateFormatted: '' };
         
-        // Variable pour stocker tous les mots uniques pour les suggestions
         let allWords = new Set();
 
-        // Variable pour suivre la position actuelle dans les résultats
         let currentResultIndex = 0;
         let allResultElements = [];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialisation des événements pour la vue mobile
             initMobileView();
-            
-            // Initialisation des événements pour la vue desktop
             initDesktopView();
             
-            // Événements communs
             document.getElementById('closeResults').addEventListener('click', closeResults);
             document.getElementById('retryButton').addEventListener('click', loadDataFromGoogleSheets);
             document.getElementById('submitPassword').addEventListener('click', checkPassword);
             document.getElementById('cancelPassword').addEventListener('click', hidePasswordModal);
             
-            // Modal d'export de dates
             document.getElementById('cancelExportDates').addEventListener('click', hideExportDatesModal);
             document.getElementById('confirmExportDates').addEventListener('click', confirmExportDates);
             document.getElementById('selectAllDates').addEventListener('change', selectAllExportDates);
             
-            // Modal d'email
             document.getElementById('cancelEmailExport').addEventListener('click', hideEmailExportModal);
             document.getElementById('confirmEmailExport').addEventListener('click', confirmEmailExport);
             document.getElementById('selectAllPVs').addEventListener('change', selectAllPVsForEmail);
             
-            // Boutons statistiques
             document.getElementById('showStatsTableButtonMobile').addEventListener('click', showStatsTable);
             document.getElementById('showStatsTableButtonDesktop').addEventListener('click', showStatsTable);
             document.getElementById('showStatsTableButtonSide').addEventListener('click', showStatsTable);
@@ -3124,11 +3119,13 @@
             document.getElementById('exportStatsTablePDF').addEventListener('click', exportStatsTablePDF);
             document.getElementById('closeStatsTableModal').addEventListener('click', hideStatsTableModal);
             
-            // Boutons livre PDF
             document.getElementById('exportBookButton').addEventListener('click', exportBookPDF);
             document.getElementById('exportBookButtonMobile').addEventListener('click', exportBookPDF);
             
-            // Boutons sidebar mobile
+            // MODIFICATION : Ajout de l'événement pour le bouton Accès au Sheet
+            document.getElementById('accessSheetButton').addEventListener('click', accessSheetSource);
+            document.getElementById('accessSheetButtonDesktop').addEventListener('click', accessSheetSource);
+            
             document.getElementById('floatingSidebarToggle').addEventListener('click', function(e) {
                 e.preventDefault();
                 toggleMobileSidebar();
@@ -3137,9 +3134,8 @@
             document.getElementById('closeSidebar').addEventListener('click', toggleMobileSidebar);
             document.getElementById('sidebarOverlay').addEventListener('click', toggleMobileSidebar);
             
-            // Événements des éléments du sidebar
+            // MODIFICATION : Ajout des événements pour les nouveaux boutons du sidebar
             document.getElementById('sidebarSheetSource').addEventListener('click', function() {
-                if (this.classList.contains('disabled')) return;
                 toggleMobileSidebar();
                 accessSheetSource();
             });
@@ -3155,9 +3151,12 @@
             });
             
             document.getElementById('sidebarNewPV').addEventListener('click', function() {
-                if (this.classList.contains('disabled')) return;
                 toggleMobileSidebar();
-                window.open(GOOGLE_FORM_URL, '_blank');
+                if (!isAdminAuthenticated) {
+                    showPasswordModalForAction('create');
+                } else {
+                    window.open(GOOGLE_FORM_URL, '_blank');
+                }
             });
             
             document.getElementById('sidebarStats').addEventListener('click', function() {
@@ -3165,8 +3164,23 @@
                 showStatsTable();
             });
             
+            // MODIFICATION : Nouveaux boutons du sidebar
+            document.getElementById('sidebarFanamarihana').addEventListener('click', function() {
+                toggleMobileSidebar();
+                showFanamarihanaFamerenana();
+            });
+            
+            document.getElementById('sidebarFanapahanKevitra').addEventListener('click', function() {
+                toggleMobileSidebar();
+                showFanapahanKevitra();
+            });
+            
+            document.getElementById('sidebarVaovao').addEventListener('click', function() {
+                toggleMobileSidebar();
+                showVaovao();
+            });
+            
             document.getElementById('sidebarExportBook').addEventListener('click', function() {
-                if (this.classList.contains('disabled')) return;
                 toggleMobileSidebar();
                 if (!isAdminAuthenticated) {
                     showPasswordModalForAction('book');
@@ -3176,7 +3190,6 @@
             });
             
             document.getElementById('sidebarExportDates').addEventListener('click', function() {
-                if (this.classList.contains('disabled')) return;
                 toggleMobileSidebar();
                 if (!isAdminAuthenticated) {
                     showPasswordModalForAction('export');
@@ -3186,7 +3199,6 @@
             });
             
             document.getElementById('sidebarEmailReport').addEventListener('click', function() {
-                if (this.classList.contains('disabled')) return;
                 toggleMobileSidebar();
                 if (!isAdminAuthenticated) {
                     showPasswordModalForAction('export');
@@ -3195,11 +3207,9 @@
                 }
             });
             
-            // Boutons de navigation des résultats
             document.getElementById('navUp').addEventListener('click', navigateResultsUp);
             document.getElementById('navDown').addEventListener('click', navigateResultsDown);
             
-            // Boutons flottants
             document.getElementById('floatingHome').addEventListener('click', function(e) {
                 e.preventDefault();
                 hideResultsNavigation();
@@ -3252,22 +3262,18 @@
                 }
             });
             
-            // Statistiques
             document.getElementById('closeStatsModal').addEventListener('click', hideStatsModal);
             
-            // Ajuster l'affichage des dates sur mobile
             adjustDateDisplay();
             window.addEventListener('resize', adjustDateDisplay);
             
             loadDataFromGoogleSheets();
         });
 
-        // Fonction pour masquer la navigation des résultats
         function hideResultsNavigation() {
             document.getElementById('resultsNavigation').style.display = 'none';
         }
 
-        // Fonction pour basculer le sidebar mobile
         function toggleMobileSidebar() {
             const sidebar = document.getElementById('mobileSidebar');
             const overlay = document.getElementById('sidebarOverlay');
@@ -3276,7 +3282,6 @@
             overlay.classList.toggle('active');
         }
 
-        // MODIFICATION : Fonctions de navigation des résultats améliorées
         function navigateResultsUp() {
             if (currentResultIndex > 0) {
                 currentResultIndex--;
@@ -3291,12 +3296,10 @@
             }
         }
 
-        // MODIFICATION : Fonction pour scroller vers le texte recherché dans le résultat
         function scrollToSearchTermInResult(index) {
             if (allResultElements[index]) {
                 const resultElement = allResultElements[index];
                 
-                // Chercher le texte recherché dans ce résultat
                 if (currentSearchTerm && currentSearchTerm.trim() !== '') {
                     const searchLower = currentSearchTerm.toLowerCase();
                     const elementsWithText = resultElement.querySelectorAll('td, .date-time-value, .fahatongavana-value, .ordre-du-jour-item');
@@ -3311,13 +3314,11 @@
                     }
                     
                     if (foundElement) {
-                        // Scroller vers l'élément contenant le texte recherché
                         foundElement.scrollIntoView({ 
                             behavior: 'smooth', 
                             block: 'center' 
                         });
                         
-                        // Ajouter un effet visuel temporaire
                         foundElement.style.backgroundColor = '#ffeb3b';
                         foundElement.style.transition = 'background-color 0.5s ease';
                         setTimeout(() => {
@@ -3328,7 +3329,6 @@
                     }
                 }
                 
-                // Si aucun texte recherché trouvé, scroller vers le début du résultat
                 resultElement.scrollIntoView({ 
                     behavior: 'smooth', 
                     block: 'start' 
@@ -3358,12 +3358,10 @@
             document.getElementById('showLinksButton').addEventListener('click', showPasswordModal);
             document.getElementById('retryButton').addEventListener('click', loadDataFromGoogleSheets);
             
-            // Boutons de filtre mobile
             document.getElementById('showFanamarihanaButton').addEventListener('click', showFanamarihanaFamerenana);
             document.getElementById('showFanapahanKevitraButton').addEventListener('click', showFanapahanKevitra);
             document.getElementById('showVaovaoButton').addEventListener('click', showVaovao);
             
-            // Boutons d'export mobile
             document.getElementById('exportSelected').addEventListener('click', showExportDatesModal);
             document.getElementById('exportAll').addEventListener('click', exportAllData);
             document.getElementById('sendEmail').addEventListener('click', showEmailExportModal);
@@ -3407,12 +3405,10 @@
             document.getElementById('showLinksButtonDesktop').addEventListener('click', showPasswordModal);
             document.getElementById('retryButtonDesktop').addEventListener('click', loadDataFromGoogleSheets);
             
-            // Boutons de filtre desktop
             document.getElementById('showFanamarihanaButtonDesktop').addEventListener('click', showFanamarihanaFamerenana);
             document.getElementById('showFanapahanKevitraButtonDesktop').addEventListener('click', showFanapahanKevitra);
             document.getElementById('showVaovaoButtonDesktop').addEventListener('click', showVaovao);
             
-            // Boutons d'export desktop (dans le panneau latéral)
             document.getElementById('exportSelectedSide').addEventListener('click', showExportDatesModal);
             document.getElementById('exportAllSide').addEventListener('click', exportAllData);
             document.getElementById('sendEmailSide').addEventListener('click', showEmailExportModal);
@@ -3456,7 +3452,6 @@
             const availableDatesDesktopSide = document.getElementById('availableDatesDesktopSide');
             
             if (window.innerWidth <= 768) {
-                // Vue mobile
                 if (desktopDateList) desktopDateList.style.display = 'none';
                 if (availableDatesDesktop) availableDatesDesktop.style.display = 'none';
                 if (desktopDateListSide) desktopDateListSide.style.display = 'none';
@@ -3467,7 +3462,6 @@
                     document.getElementById('datesCount').textContent = `(${datesWithData.length} dates)`;
                 }
             } else if (window.innerWidth >= 1024) {
-                // Vue ordinateur - panneau latéral
                 if (desktopDateListSide) desktopDateListSide.style.display = 'block';
                 if (availableDatesDesktopSide && datesWithData.length > 0) {
                     availableDatesDesktopSide.style.display = 'flex';
@@ -3476,7 +3470,6 @@
                     availableDatesContainer.style.display = 'none';
                 }
             } else {
-                // Tablette (768px - 1023px)
                 if (desktopDateList) desktopDateList.style.display = 'block';
                 if (availableDatesDesktop && datesWithData.length > 0) {
                     availableDatesDesktop.style.display = 'flex';
@@ -3491,12 +3484,10 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Fonction : Accès au Sheet Source
         function accessSheetSource() {
             window.open(GOOGLE_SHEETS_SOURCE_URL, '_blank');
         }
 
-        // Fonction : Mettre à jour l'état des boutons admin
         function updateAdminButtons() {
             const adminButtons = [
                 'sidebarSheetSource', 'sidebarNewPV', 'sidebarExportBook', 
@@ -3528,7 +3519,6 @@
                 button.disabled = !isAdminAuthenticated;
             });
             
-            // Mettre à jour les sections export
             if (isAdminAuthenticated) {
                 document.getElementById('exportSection').classList.remove('locked');
                 document.getElementById('exportSectionSide').classList.remove('locked');
@@ -3542,7 +3532,6 @@
             }
         }
 
-        // Fonction : Extraire tous les mots uniques des données
         function extractAllWords() {
             allWords.clear();
             
@@ -3565,7 +3554,6 @@
             console.log(`📝 ${allWords.size} mots uniques extraits pour les suggestions`);
         }
 
-        // Fonction : Afficher les suggestions de mots
         function showWordSuggestions(searchTerm, view = 'mobile') {
             let suggestionsContainer;
             
@@ -3642,7 +3630,6 @@
             });
         }
 
-        // Fonction : Afficher le tableau des statistiques
         function showStatsTable() {
             const modal = document.getElementById('statsTableModal');
             const content = document.getElementById('statsTableContent');
@@ -3659,9 +3646,7 @@
                 return;
             }
             
-            // Créer les cartes de résumé avec 3 lignes de 5 cartes
             summaryCards.innerHTML = `
-                <!-- 1ère ligne -->
                 <div class="stats-line">
                     <div class="stat-card">
                         <div class="stat-value">${totalPV}</div>
@@ -3685,7 +3670,6 @@
                     </div>
                 </div>
                 
-                <!-- 2ème ligne -->
                 <div class="stats-line">
                     <div class="stat-card">
                         <div class="stat-value">${allNames.size}</div>
@@ -3709,7 +3693,6 @@
                     </div>
                 </div>
                 
-                <!-- 3ème ligne -->
                 <div class="stats-line">
                     <div class="stat-card">
                         <div class="stat-value">${lateRate.toFixed(1)}%</div>
@@ -3881,7 +3864,6 @@
                     
                     <h2>📈 Statistiques sur 3 lignes</h2>
                     <div class="stats-grid">
-                        <!-- 1ère ligne -->
                         <div class="stat-card">
                             <div class="stat-value">${totalPVs}</div>
                             <div class="stat-label">Total PV</div>
@@ -3903,7 +3885,6 @@
                             <div class="stat-label">Taux max présence</div>
                         </div>
                         
-                        <!-- 2ème ligne -->
                         <div class="stat-card">
                             <div class="stat-value">${allNames.size}</div>
                             <div class="stat-label">Participants</div>
@@ -3925,7 +3906,6 @@
                             <div class="stat-label">Date max présence</div>
                         </div>
                         
-                        <!-- 3ème ligne -->
                         <div class="stat-card">
                             <div class="stat-value">${lateRate.toFixed(1)}%</div>
                             <div class="stat-label">Retard moyen</div>
@@ -4022,7 +4002,6 @@
             printWindow.print();
         }
         
-        // Fonction : Exporter un livre PDF complet
         function exportBookPDF() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('book');
@@ -4062,15 +4041,14 @@
                         .summary-value { font-size: 24px; font-weight: bold; color: #2980b9; margin: 10px 0; }
                         .summary-label { color: #666; font-size: 14px; }
                         
-                        /* Styles pour les fiches de données */
                         .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
                         .date-time-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
-                        .date-time-label { font-weight: bold; color: #40E0D0; font-size: 13px; margin-right: 5px; white-space: nowrap; }
+                        .date-time-label { font-weight: bold; color: #48D1CC; font-size: 13px; margin-right: 5px; white-space: nowrap; }
                         .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
                         .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
                         .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
                         .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
-                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #40E0D0; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #48D1CC; padding-right: 12px; font-size: 12px; }
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
@@ -4102,7 +4080,6 @@
                         <h2>📊 Statistiques Globales</h2>
                         
                         <div class="stats-grid">
-                            <!-- 1ère ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${totalPV}</div>
                                 <div class="stat-label">Total PV</div>
@@ -4124,7 +4101,6 @@
                                 <div class="stat-label">Taux max présence</div>
                             </div>
                             
-                            <!-- 2ème ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${allNames.size}</div>
                                 <div class="stat-label">Participants</div>
@@ -4146,7 +4122,6 @@
                                 <div class="stat-label">Date max présence</div>
                             </div>
                             
-                            <!-- 3ème ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${lateRate.toFixed(1)}%</div>
                                 <div class="stat-label">Retard moyen</div>
@@ -4244,7 +4219,6 @@
                         <h2>📋 Procès-Verbaux Détailés</h2>
             `;
             
-            // Ajouter tous les PV avec la même présentation que les fiches
             sheetData.forEach((row, index) => {
                 const dateStr = row[1] || 'Date non spécifiée';
                 const titre = row[2] || `PV ${index + 1}`;
@@ -4421,7 +4395,6 @@
             printWindow.print();
         }
         
-        // Fonction : Extraire le rédacteur (Nanoratra)
         function extractNanoratra(row) {
             for (let colIndex = 0; colIndex < headers.length; colIndex++) {
                 const header = headers[colIndex] || '';
@@ -4437,11 +4410,9 @@
             return '';
         }
         
-        // Fonctions auxiliaires pour le PDF
         function formatFahatongavanaSectionForPDF(fahatongavanaData) {
             let html = '<div class="fahatongavana-section">';
             
-            // Compter le nombre de personnes dans chaque catégorie
             const countNamesInCategory = (namesArray) => {
                 let count = 0;
                 const countedNames = new Set();
@@ -4573,7 +4544,6 @@
             return html;
         }
 
-        // MODAL D'EXPORT DE DATES SELECTIONNEES
         function showExportDatesModal() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('export');
@@ -4666,7 +4636,6 @@
             }
         }
         
-        // Fonction : Exporter en PDF avec présentation complète
         function exportToPDFWithPresentation(data, title) {
             const printWindow = window.open('', '_blank');
             let html = `
@@ -4690,12 +4659,12 @@
                         .pv-header { background: #e8f5e8; padding: 10px; margin: -15px -15px 15px -15px; }
                         .date-time-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
                         .date-time-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 8px; background: #f8fdff; border-radius: 5px; border: 1px solid #e1f5fe; min-width: 180px; }
-                        .date-time-label { font-weight: bold; color: #40E0D0; font-size: 13px; margin-right: 5px; white-space: nowrap; }
+                        .date-time-label { font-weight: bold; color: #48D1CC; font-size: 13px; margin-right: 5px; white-space: nowrap; }
                         .date-time-value { font-weight: 500; font-size: 14px; line-height: 1.2; }
                         .section-title { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%); color: #0d47a1; font-weight: bold; padding: 8px 10px; border-radius: 5px; margin: 12px 0 6px 0; border-left: 3px solid #2196F3; font-size: 14px; }
                         .fahatongavana-section { background: #f8fdff; border: 1px solid #e1f5fe; border-radius: 6px; padding: 8px 10px; margin: 6px 0; }
                         .fahatongavana-row { display: flex; align-items: flex-start; margin-bottom: 3px; padding-bottom: 3px; line-height: 1.2; min-height: auto; }
-                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #40E0D0; padding-right: 12px; font-size: 12px; }
+                        .fahatongavana-label { font-weight: bold; min-width: 160px; color: #48D1CC; padding-right: 12px; font-size: 12px; }
                         .fahatongavana-value { flex: 1; font-weight: 500; font-size: 12px; line-height: 1.2; }
                         .ordre-du-jour-section { margin: 6px 0; line-height: 1.2; }
                         .ordre-du-jour-item { margin-bottom: 3px; padding-left: 12px; font-size: 13px; line-height: 1.2; }
@@ -4725,7 +4694,6 @@
                     <div class="stats-summary">
                         <h2>Résumé des statistiques</h2>
                         <div class="stats-grid">
-                            <!-- 1ère ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${data.length}</div>
                                 <div class="stat-label">PV exportés</div>
@@ -4747,7 +4715,6 @@
                                 <div class="stat-label">Taux max présence</div>
                             </div>
                             
-                            <!-- 2ème ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${allNames.size}</div>
                                 <div class="stat-label">Participants</div>
@@ -4769,7 +4736,6 @@
                                 <div class="stat-label">Date max présence</div>
                             </div>
                             
-                            <!-- 3ème ligne -->
                             <div class="stat-card">
                                 <div class="stat-value">${lateRate.toFixed(1)}%</div>
                                 <div class="stat-label">Retard moyen</div>
@@ -4959,7 +4925,6 @@
             printWindow.focus();
         }
         
-        // Fonction : Modal d'envoi par email avec sélection de PV
         function showEmailExportModal() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('export');
@@ -5110,7 +5075,6 @@ L'équipe de gestion des PV`;
             }, 1000);
         }
         
-        // FONCTIONS D'EXPORT
         function exportAllData() {
             if (!isAdminAuthenticated) {
                 showPasswordModalForAction('export');
@@ -5166,7 +5130,6 @@ L'équipe de gestion des PV`;
             exportToPDFWithPresentation(data, title);
         }
         
-        // MODIFICATION : Générer les boutons de dates avec format ddd dd-mmm
         function renderDatesButtons() {
             const datesButtons = document.getElementById('datesButtons');
             const availableDatesContainer = document.getElementById('availableDatesContainer');
@@ -5225,12 +5188,10 @@ L'équipe de gestion des PV`;
             adjustDateDisplay();
         }
         
-        // MODIFICATION : Créer un bouton de date avec format ddd dd-mmm
         function createDateButton(item) {
             const dateButton = document.createElement('button');
             dateButton.className = 'date-button';
             
-            // Formater la date : ddd dd-mmm
             const dayName = item.date.toLocaleDateString('fr-FR', { weekday: 'short' });
             const day = item.date.getDate().toString().padStart(2, '0');
             const month = item.date.toLocaleDateString('fr-FR', { month: 'short' }).substring(0, 3);
@@ -5268,7 +5229,6 @@ L'équipe de gestion des PV`;
             return dateButton;
         }
         
-        // Fonction : Compter le nombre total de participants
         function countTotalParticipants(fahatongavanaData) {
             let count = 0;
             const countedNames = new Set();
@@ -5611,6 +5571,14 @@ L'équipe de gestion des PV`;
                     const infoSpan = document.createElement('div');
                     infoSpan.className = 'calendar-day-info';
                     
+                    // MODIFICATION : Ajout de la date formatée dans les bulles du calendrier
+                    const dateSpan = document.createElement('div');
+                    dateSpan.className = 'calendar-day-date';
+                    const dayNum = dateToCheck.getDate().toString().padStart(2, '0');
+                    const monthNum = (dateToCheck.getMonth() + 1).toString().padStart(2, '0');
+                    dateSpan.textContent = `${dayNum}/${monthNum}`;
+                    infoSpan.appendChild(dateSpan);
+                    
                     if (dateData.toerana && dateData.toerana.trim() !== '') {
                         const locationSpan = document.createElement('div');
                         locationSpan.className = 'calendar-day-location';
@@ -5680,10 +5648,8 @@ L'équipe de gestion des PV`;
         }
 
         function updateStatsDisplay() {
-            // VUE MOBILE
             if (document.getElementById('statsSection')) {
                 document.getElementById('statsSection').innerHTML = `
-                    <!-- 1ère ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${totalPV}</div>
@@ -5707,7 +5673,6 @@ L'équipe de gestion des PV`;
                         </div>
                     </div>
                     
-                    <!-- 2ème ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${allNames.size}</div>
@@ -5731,7 +5696,6 @@ L'équipe de gestion des PV`;
                         </div>
                     </div>
                     
-                    <!-- 3ème ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${lateRate.toFixed(1)}%</div>
@@ -5757,10 +5721,8 @@ L'équipe de gestion des PV`;
                 `;
             }
             
-            // VUE DESKTOP
             if (document.getElementById('statsSectionDesktop')) {
                 document.getElementById('statsSectionDesktop').innerHTML = `
-                    <!-- 1ère ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${totalPV}</div>
@@ -5784,7 +5746,6 @@ L'équipe de gestion des PV`;
                         </div>
                     </div>
                     
-                    <!-- 2ème ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${allNames.size}</div>
@@ -5808,7 +5769,6 @@ L'équipe de gestion des PV`;
                         </div>
                     </div>
                     
-                    <!-- 3ème ligne -->
                     <div class="stats-line">
                         <div class="stat-card">
                             <div class="stat-value">${lateRate.toFixed(1)}%</div>
@@ -6078,7 +6038,7 @@ L'équipe de gestion des PV`;
             displayNamesList();
             displayToeranaList();
             extractAllWords();
-            updateAdminButtons(); // Mettre à jour les boutons admin
+            updateAdminButtons();
         }
         
         function displayNamesList() {
@@ -6201,7 +6161,6 @@ L'équipe de gestion des PV`;
             }
         }
         
-        // MODIFICATION : Affiche les statistiques avec graphiques cylindriques
         function showNameStatistics(name) {
             const stats = nameStatistics[name];
             if (!stats) return;
@@ -6743,11 +6702,9 @@ L'équipe de gestion des PV`;
             return match ? parseInt(match[1]) : 0;
         }
 
-        // MODIFICATION : Fonction formatFahatongavanaSection avec compteurs
         function formatFahatongavanaSection(fahatongavanaData) {
             let html = '<div class="fahatongavana-section">';
             
-            // Fonction pour compter les noms uniques dans une catégorie
             const countNamesInCategory = (namesArray) => {
                 let count = 0;
                 const countedNames = new Set();
@@ -6879,14 +6836,12 @@ L'équipe de gestion des PV`;
             return html;
         }
         
-        // MODIFICATION : Fonction displayResults avec navigation et mise en page améliorée
         function displayResults(results, searchTerm) {
             const resultsSection = document.getElementById('resultsSection');
             const resultContent = document.getElementById('resultContent');
             const resultTitle = document.getElementById('resultTitle');
             const resultsNavigation = document.getElementById('resultsNavigation');
             
-            // Réinitialiser la navigation
             currentResultIndex = 0;
             allResultElements = [];
             
@@ -6966,7 +6921,6 @@ L'équipe de gestion des PV`;
                         }
                     }
                     
-                    // MODIFICATION : Date-time items avec label et valeur sur la même ligne
                     if (datyValue || oraFanombohanaValue || oraFiravanaValue || toeranaValue) {
                         html += `
                             <div class="date-time-row">
@@ -7099,10 +7053,8 @@ L'équipe de gestion des PV`;
                 
                 resultContent.innerHTML = html;
                 
-                // Initialiser les éléments de résultats pour la navigation
                 allResultElements = Array.from(document.querySelectorAll('.pv-item'));
                 
-                // Afficher la navigation si plus d'un résultat
                 if (results.length > 1) {
                     resultsNavigation.style.display = 'flex';
                 } else {
@@ -7121,7 +7073,6 @@ L'équipe de gestion des PV`;
             currentSearchTerm = '';
         }
 
-        // Fonction : Afficher Vaovao
         function showVaovao() {
             if (sheetData.length === 0) {
                 alert('Aucune donnée chargée');
@@ -7330,4 +7281,3 @@ L'équipe de gestion des PV`;
     </script>
 </body>
 </html>
-
