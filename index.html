@@ -249,7 +249,13 @@
             .calendar-day.has-data::after {
                 display: block !important;
             }
-            
+            .calendar-day-compact {
+    font-size: 8px !important;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: center;
+    line-height: 1.1;
+}
             /* NOUVELLE MODIFICATION : Hauteur encore plus réduite sur petits écrans */
             .date-time-item {
                 height: 30px !important;
@@ -425,6 +431,41 @@
             .header-icons-left, .header-icons-right {
                 display: none; /* Cacher sur mobile pour économiser de l'espace */
             }
+ .calendar-day-info {
+        font-size: 6px !important;
+        bottom: 1px;
+        padding: 1px 1px;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 2px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5px;
+    }
+    
+    .calendar-day.has-data .calendar-day-info {
+        display: flex !important;
+    }
+    
+    .calendar-day-date {
+        font-size: 7px !important;
+        font-weight: bold;
+        color: #e74c3c;
+    }
+    
+    .calendar-day-location {
+        font-size: 6px !important;
+        color: #2980b9;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    
+    .calendar-day-participants {
+        font-size: 7px !important;
+        font-weight: bold;
+        color: #4CAF50;
+    }
+
         }
         
         .export-section {
@@ -2060,71 +2101,65 @@
             opacity: 1;
         }
 
-        /* MODIFICATION : Flèches de navigation avec fond gris */
-        .results-navigation {
-            position: fixed;
-            bottom: 70px;
-            left: 15px;
-            z-index: 1000;
-            display: none;
-            flex-direction: column;
-            gap: 2px;
-            background: transparent;
-            padding: 0;
-            border-radius: 0;
-            box-shadow: none;
-            backdrop-filter: none;
-            width: 1cm;
-            min-width: 1cm;
-            max-width: 1cm;
-            overflow: hidden;
-            align-items: center;
-        }
+      /* MODIFICATION : Flèches de navigation - fond gris autour de l'emoji */
+.results-navigation {
+    position: fixed;
+    bottom: 70px;
+    left: 15px;
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    overflow: hidden;
+    align-items: center;
+}
 
-        .nav-button {
-            width: 1cm;
-            height: 1cm;
-            border-radius: 0;
-            border: 1px solid #ddd;
-            background: #f5f5f5; /* Fond gris */
-            color: #333;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-weight: normal;
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-            flex-shrink: 0;
-        }
+.nav-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 1px solid #bdc3c7;
+    background: #ecf0f1; /* FOND GRIS autour de l'emoji */
+    color: #333; /* Couleur de l'emoji (noir/gris foncé) */
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-weight: normal;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
 
-        .nav-button:hover {
-            background: #e0e0e0; /* Fond gris plus foncé au survol */
-            border-color: #999;
-        }
+.nav-button:hover {
+    background: #d5dbdb; /* FOND GRIS PLUS FONCÉ au survol */
+    border-color: #95a5a6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    color: #000; /* Emoji plus foncé au survol */
+}
 
-        .nav-button.up {
-            background: #f5f5f5;
-            color: #333;
-        }
+.nav-button:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
 
-        .nav-button.up:hover {
-            background: #e0e0e0;
-            color: #333;
-        }
-
-        .nav-button.down {
-            background: #f5f5f5;
-            color: #333;
-        }
-
-        .nav-button.down:hover {
-            background: #e0e0e0;
-            color: #333;
-        }
+/* Supprimez les sélecteurs .nav-button.up et .nav-button.down s'ils existent */
+.nav-button.up, .nav-button.down {
+    /* Laissez vide ou supprimez ces règles */
+}
 
         .nav-button::before {
             content: "";
@@ -5269,92 +5304,115 @@ L'équipe de gestion des PV`;
             return count;
         }
 
-        function showDateOptions(date) {
-            const modal = document.getElementById('dateOptionsModal');
-            const title = document.getElementById('dateOptionsTitle');
-            const buttonsContainer = document.getElementById('dateOptionsButtons');
-            
-            const formattedDate = formatDateForDisplay(date);
-            title.textContent = `Options pour le ${formattedDate}`;
-            
-            const hasPV = datesWithData.some(item => 
-                item.date.getDate() === date.getDate() &&
-                item.date.getMonth() === date.getMonth() &&
-                item.date.getFullYear() === date.getFullYear()
-            );
-            
-            buttonsContainer.innerHTML = '';
-            
-            if (!hasPV) {
-                buttonsContainer.innerHTML = `
-                    <button class="date-option-btn primary" id="createPVButton">
-                        <span>✍️</span> Créer un nouveau PV pour cette date
-                    </button>
-                `;
-                
-                document.getElementById('createPVButton').addEventListener('click', function() {
-                    if (isAdminAuthenticated) {
-                        window.open(GOOGLE_FORM_URL, '_blank');
-                        hideDateOptionsModal();
-                    } else {
-                        showPasswordModalForAction('create');
-                    }
-                });
-            } else {
-                buttonsContainer.innerHTML = `
-                    <button class="date-option-btn secondary" id="viewPVButton">
-                        <span>👁️</span> Voir le PV
-                    </button>
-                    <button class="date-option-btn primary" id="editPVButton" ${isAdminAuthenticated ? '' : 'disabled'}>
-                        <span>✏️</span> Modifier le PV
-                    </button>
-                    <button class="date-option-btn tertiary" id="downloadPDFButton">
-                        <span>📄</span> Télécharger la fiche du jour en PDF
-                    </button>
-                `;
-                
-                document.getElementById('viewPVButton').addEventListener('click', function() {
-                    displayDataForDate(date);
-                    hideDateOptionsModal();
-                });
-                
-                document.getElementById('editPVButton').addEventListener('click', function() {
-                    if (isAdminAuthenticated) {
-                        openEditLinkForDate(date);
-                        hideDateOptionsModal();
-                    } else {
-                        showPasswordModalForAction('edit');
-                    }
-                });
-                
-                document.getElementById('downloadPDFButton').addEventListener('click', function() {
-                    const matchingRows = findPVByDate(date);
-                    if (matchingRows.length > 0) {
-                        exportToPDFWithPresentation(matchingRows, `PV du ${formatDateForDisplay(date)}`);
-                        hideDateOptionsModal();
-                    }
-                });
-                
-                if (!isAdminAuthenticated) {
-                    const authButton = document.createElement('button');
-                    authButton.className = 'date-option-btn secondary';
-                    authButton.innerHTML = '<span>🔑</span> Authentifier pour modifier';
-                    authButton.addEventListener('click', function() {
-                        showPasswordModalForAction('edit');
-                        hideDateOptionsModal();
-                    });
-                    buttonsContainer.appendChild(authButton);
-                }
-            }
-            
-            const cancelButton = document.createElement('button');
-            cancelButton.className = 'date-option-btn secondary';
-            cancelButton.innerHTML = '<span>❌</span> Annuler';
-            cancelButton.addEventListener('click', hideDateOptionsModal);
-            buttonsContainer.appendChild(cancelButton);
-            
-            modal.style.display = 'flex';
+       function showDateOptions(date) {
+    const modal = document.getElementById('dateOptionsModal');
+    const title = document.getElementById('dateOptionsTitle');
+    const buttonsContainer = document.getElementById('dateOptionsButtons');
+    
+    // Trouver les données pour cette date
+    const dateData = datesWithData.find(item => 
+        item.date.getDate() === date.getDate() &&
+        item.date.getMonth() === date.getMonth() &&
+        item.date.getFullYear() === date.getFullYear()
+    );
+    
+    // Formater la date : "Mer 21-déc"
+const dayName = date.toLocaleDateString('fr-FR', { weekday: 'short' });
+const day = date.getDate().toString().padStart(2, '0');
+const month = date.toLocaleDateString('fr-FR', { month: 'short' }).toLowerCase();
+const dateFormatted = `${dayName} ${day}-${month}`;
+    
+    // Préparer le titre
+    let titleText = dateFormatted;
+    
+    if (dateData) {
+        // Ajouter le lieu si disponible
+        if (dateData.toerana && dateData.toerana.trim() !== '') {
+            titleText += ` - ${dateData.toerana}`;
         }
+        
+        // Ajouter le nombre de participants si disponible
+        if (dateData.totalParticipants > 0) {
+            titleText += ` (${dateData.totalParticipants} pers.)`;
+        }
+    }
+    
+    title.textContent = titleText;
+    
+    const hasPV = dateData !== undefined;
+    
+    buttonsContainer.innerHTML = '';
+    
+    if (!hasPV) {
+        buttonsContainer.innerHTML = `
+            <button class="date-option-btn primary" id="createPVButton">
+                <span>✍️</span> Créer un nouveau PV pour cette date
+            </button>
+        `;
+        
+        document.getElementById('createPVButton').addEventListener('click', function() {
+            if (isAdminAuthenticated) {
+                window.open(GOOGLE_FORM_URL, '_blank');
+                hideDateOptionsModal();
+            } else {
+                showPasswordModalForAction('create');
+            }
+        });
+    } else {
+        buttonsContainer.innerHTML = `
+            <button class="date-option-btn secondary" id="viewPVButton">
+                <span>👁️</span> Voir le PV
+            </button>
+            <button class="date-option-btn primary" id="editPVButton" ${isAdminAuthenticated ? '' : 'disabled'}>
+                <span>✏️</span> Modifier le PV
+            </button>
+            <button class="date-option-btn tertiary" id="downloadPDFButton">
+                <span>📄</span> Télécharger la fiche du jour en PDF
+            </button>
+        `;
+        
+        document.getElementById('viewPVButton').addEventListener('click', function() {
+            displayDataForDate(date);
+            hideDateOptionsModal();
+        });
+        
+        document.getElementById('editPVButton').addEventListener('click', function() {
+            if (isAdminAuthenticated) {
+                openEditLinkForDate(date);
+                hideDateOptionsModal();
+            } else {
+                showPasswordModalForAction('edit');
+            }
+        });
+        
+        document.getElementById('downloadPDFButton').addEventListener('click', function() {
+            const matchingRows = findPVByDate(date);
+            if (matchingRows.length > 0) {
+                exportToPDFWithPresentation(matchingRows, `PV du ${formatDateForDisplay(date)}`);
+                hideDateOptionsModal();
+            }
+        });
+        
+        if (!isAdminAuthenticated) {
+            const authButton = document.createElement('button');
+            authButton.className = 'date-option-btn secondary';
+            authButton.innerHTML = '<span>🔑</span> Authentifier pour modifier';
+            authButton.addEventListener('click', function() {
+                showPasswordModalForAction('edit');
+                hideDateOptionsModal();
+            });
+            buttonsContainer.appendChild(authButton);
+        }
+    }
+    
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'date-option-btn secondary';
+    cancelButton.innerHTML = '<span>❌</span> Annuler';
+    cancelButton.addEventListener('click', hideDateOptionsModal);
+    buttonsContainer.appendChild(cancelButton);
+    
+    modal.style.display = 'flex';
+}
 
         function displayDataForDate(date) {
             const matchingRows = findPVByDate(date);
@@ -5582,35 +5640,38 @@ L'équipe de gestion des PV`;
                 );
                 
                 if (dateData) {
-                    day.classList.add('has-data');
-                    
-                    const infoSpan = document.createElement('div');
-                    infoSpan.className = 'calendar-day-info';
-                    
-                    // MODIFICATION : Ajout de la date formatée dans les bulles du calendrier
-                    const dateSpan = document.createElement('div');
-                    dateSpan.className = 'calendar-day-date';
-                    const dayNum = dateToCheck.getDate().toString().padStart(2, '0');
-                    const monthNum = (dateToCheck.getMonth() + 1).toString().padStart(2, '0');
-                    dateSpan.textContent = `${dayNum}/${monthNum}`;
-                    infoSpan.appendChild(dateSpan);
-                    
-                    if (dateData.toerana && dateData.toerana.trim() !== '') {
-                        const locationSpan = document.createElement('div');
-                        locationSpan.className = 'calendar-day-location';
-                        locationSpan.textContent = `📍 ${dateData.toerana.substring(0, 15)}${dateData.toerana.length > 15 ? '...' : ''}`;
-                        infoSpan.appendChild(locationSpan);
-                    }
-                    
-                    if (dateData.totalParticipants > 0) {
-                        const participantsSpan = document.createElement('div');
-                        participantsSpan.className = 'calendar-day-participants';
-                        participantsSpan.textContent = `👥 ${dateData.totalParticipants}`;
-                        infoSpan.appendChild(participantsSpan);
-                    }
-                    
-                    day.appendChild(infoSpan);
-                }
+    day.classList.add('has-data');
+    
+    const infoSpan = document.createElement('div');
+    infoSpan.className = 'calendar-day-info';
+    
+    // Date formatée (jj/mm)
+    const dateSpan = document.createElement('div');
+    dateSpan.className = 'calendar-day-date';
+    const dayNum = dateToCheck.getDate().toString().padStart(2, '0');
+    const monthNum = (dateToCheck.getMonth() + 1).toString().padStart(2, '0');
+    dateSpan.textContent = `${dayNum}/${monthNum}`;
+    infoSpan.appendChild(dateSpan);
+    
+    // Lieu (tronqué sur mobile)
+    if (dateData.toerana && dateData.toerana.trim() !== '') {
+        const locationSpan = document.createElement('div');
+        locationSpan.className = 'calendar-day-location';
+        // Plus court sur mobile
+        locationSpan.textContent = `${dateData.toerana.substring(0, 10)}${dateData.toerana.length > 10 ? '...' : ''}`;
+        infoSpan.appendChild(locationSpan);
+    }
+    
+    // Nombre de personnes (TOUJOURS affiché si > 0)
+    if (dateData.totalParticipants > 0) {
+        const participantsSpan = document.createElement('div');
+        participantsSpan.className = 'calendar-day-participants';
+        participantsSpan.textContent = `👥${dateData.totalParticipants}`;
+        infoSpan.appendChild(participantsSpan);
+    }
+    
+    day.appendChild(infoSpan);
+}
                 
                 if (selectedDate && 
                     selectedDate.getDate() === i &&
@@ -6387,27 +6448,29 @@ L'équipe de gestion des PV`;
             suggestionsContainer.style.display = 'block';
             
             document.querySelectorAll('.suggestion-item').forEach(item => {
-                item.addEventListener('click', function() {
-                    const searchTerm = this.getAttribute('data-search');
-                    const dateStr = this.getAttribute('data-date');
-                    
-                    if (view === 'desktop') {
-                        document.getElementById('searchTextDesktop').value = searchTerm;
-                    } else {
-                        document.getElementById('searchText').value = searchTerm;
-                    }
-                    
-                    currentSearchTerm = searchTerm;
-                    
-                    suggestionsContainer.style.display = 'none';
-                    
-                    const date = parseDate(dateStr);
-                    if (date) {
-                        const matchingRows = findPVByDate(date);
-                        displayResults(matchingRows, `PV du ${formatDateForDisplay(date)} contenant "${searchTerm}"`);
-                    }
-                });
-            });
+    item.addEventListener('click', function() {
+        const word = this.getAttribute('data-word');
+        
+        if (view === 'desktop') {
+            document.getElementById('searchTextDesktop').value = word;
+        } else {
+            document.getElementById('searchText').value = word;
+        }
+        
+        currentSearchTerm = word;
+        
+        suggestionsContainer.style.display = 'none';
+        
+        const results = searchData(word);
+        displayResults(results, word);
+        
+        // AFFICHER LES FLÈCHES DE NAVIGATION
+        const resultsNavigation = document.getElementById('resultsNavigation');
+        if (results.length > 1 && resultsNavigation) {
+            resultsNavigation.style.display = 'flex';
+        }
+    });
+});
         }
         
         function showDataInfo() {
@@ -6442,37 +6505,37 @@ L'équipe de gestion des PV`;
             errorMessages.forEach(msg => msg.remove());
         }
         
-        function handleSearch(event, view = 'mobile') {
-            if (event) event.preventDefault();
-            
-            let searchValue;
-            if (view === 'desktop') {
-                searchValue = document.getElementById('searchTextDesktop').value.trim();
-            } else {
-                searchValue = document.getElementById('searchText').value.trim();
-            }
-            
-            currentSearchTerm = searchValue;
-            
-            if (!searchValue) {
-                alert('Veuillez entrer un mot ou une phrase pour la recherche');
-                return;
-            }
-            
-            if (sheetData.length === 0) {
-                alert('Aucune donnée chargée');
-                return;
-            }
-            
-            const results = searchData(searchValue);
-            displayResults(results, searchValue);
-            
-            if (view === 'desktop') {
-                document.getElementById('suggestionsContainerDesktop').style.display = 'none';
-            } else {
-                document.getElementById('suggestionsContainer').style.display = 'none';
-            }
-        }
+function handleSearch(event, view = 'mobile') {
+    if (event) event.preventDefault();
+    
+    let searchValue;
+    if (view === 'desktop') {
+        searchValue = document.getElementById('searchTextDesktop').value.trim();
+    } else {
+        searchValue = document.getElementById('searchText').value.trim();
+    }
+    
+    currentSearchTerm = searchValue;
+    
+    if (!searchValue) {
+        alert('Veuillez entrer un mot ou une phrase pour la recherche');
+        return;
+    }
+    
+    if (sheetData.length === 0) {
+        alert('Aucune donnée chargée');
+        return;
+    }
+    
+    const results = searchData(searchValue);
+    displayResults(results, searchValue);
+    
+    if (view === 'desktop') {
+        document.getElementById('suggestionsContainerDesktop').style.display = 'none';
+    } else {
+        document.getElementById('suggestionsContainer').style.display = 'none';
+    }
+}
         
         function showAllData() {
             if (sheetData.length === 0) {
