@@ -3123,8 +3123,21 @@
             document.getElementById('exportBookButtonMobile').addEventListener('click', exportBookPDF);
             
             // MODIFICATION : Ajout de l'événement pour le bouton Accès au Sheet
-            document.getElementById('accessSheetButton').addEventListener('click', accessSheetSource);
-            document.getElementById('accessSheetButtonDesktop').addEventListener('click', accessSheetSource);
+document.getElementById('accessSheetButton').addEventListener('click', function() {
+    if (!isAdminAuthenticated) {
+        showPasswordModalForAction('sheetDirect');
+    } else {
+        accessSheetSource();
+    }
+});
+
+document.getElementById('accessSheetButtonDesktop').addEventListener('click', function() {
+    if (!isAdminAuthenticated) {
+        showPasswordModalForAction('sheetDirect');
+    } else {
+        accessSheetSource();
+    }
+});
             
             document.getElementById('floatingSidebarToggle').addEventListener('click', function(e) {
                 e.preventDefault();
@@ -3489,31 +3502,32 @@
         }
 
         function updateAdminButtons() {
-            const adminButtons = [
-                'sidebarSheetSource', 'sidebarNewPV', 'sidebarExportBook', 
-                'sidebarExportDates', 'sidebarEmailReport', 'floatingNewPV'
-            ];
-            
-            const exportButtons = document.querySelectorAll('.export-btn');
-            
-            adminButtons.forEach(buttonId => {
-                const button = document.getElementById(buttonId);
-                if (button) {
-                    if (isAdminAuthenticated) {
-                        button.classList.remove('disabled');
-                        button.disabled = false;
-                        if (button.title) {
-                            button.title = button.title.replace(' (Admin)', '').replace('Accès admin requis', '');
-                        }
-                    } else {
-                        button.classList.add('disabled');
-                        button.disabled = true;
-                        if (!button.title.includes('Accès admin requis')) {
-                            button.title = 'Accès admin requis';
-                        }
-                    }
+    const adminButtons = [
+        'sidebarSheetSource', 'sidebarNewPV', 'sidebarExportBook', 
+        'sidebarExportDates', 'sidebarEmailReport', 'floatingNewPV',
+        'accessSheetButton', 'accessSheetButtonDesktop' // AJOUTEZ CES DEUX
+    ];
+    
+    const exportButtons = document.querySelectorAll('.export-btn');
+    
+    adminButtons.forEach(buttonId => {
+        const button = document.getElementById(buttonId);
+        if (button) {
+            if (isAdminAuthenticated) {
+                button.classList.remove('disabled');
+                button.disabled = false;
+                if (button.title) {
+                    button.title = button.title.replace(' (Admin)', '').replace('Accès admin requis', '');
                 }
-            });
+            } else {
+                button.classList.add('disabled');
+                button.disabled = true;
+                if (!button.title.includes('Accès admin requis')) {
+                    button.title = 'Accès admin requis';
+                }
+            }
+        }
+    });
             
             exportButtons.forEach(button => {
                 button.disabled = !isAdminAuthenticated;
@@ -5407,32 +5421,34 @@ L'équipe de gestion des PV`;
             const submitButton = document.getElementById('submitPassword');
             const action = submitButton.dataset.action;
             
-            if (passwordInput === PASSWORD) {
-                isAdminAuthenticated = true;
-                showProtectedColumns = true;
-                hidePasswordModal();
-                
-                updateAdminButtons();
-                
-                if (action === 'create') {
-                    window.open(GOOGLE_FORM_URL, '_blank');
-                } else if (action === 'edit' && selectedDate) {
-                    openEditLinkForDate(selectedDate);
-                } else if (action === 'export') {
-                    if (window.innerWidth >= 1024) {
-                        document.getElementById('exportSectionSide').scrollIntoView({ behavior: 'smooth' });
-                    } else {
-                        document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
-                    }
-                } else if (action === 'book') {
-                    exportBookPDF();
-                } else if (action === 'statsExport') {
-                    exportStatsTablePDF();
-                } else if (action === 'sheet') {
-                    accessSheetSource();
-                } else if (action === 'sheetDirect') {
-                    accessSheetSource();
-                }
+           if (passwordInput === PASSWORD) {
+    isAdminAuthenticated = true;
+    showProtectedColumns = true;
+    hidePasswordModal();
+    
+    updateAdminButtons();
+    
+    if (action === 'create') {
+        window.open(GOOGLE_FORM_URL, '_blank');
+    } else if (action === 'edit' && selectedDate) {
+        openEditLinkForDate(selectedDate);
+    } else if (action === 'export') {
+        if (window.innerWidth >= 1024) {
+            document.getElementById('exportSectionSide').scrollIntoView({ behavior: 'smooth' });
+        } else {
+            document.getElementById('exportSection').scrollIntoView({ behavior: 'smooth' });
+        }
+    } else if (action === 'book') {
+        exportBookPDF();
+    } else if (action === 'statsExport') {
+        exportStatsTablePDF();
+    } else if (action === 'sheet') {
+        accessSheetSource();
+    } else if (action === 'sheetDirect') {
+        accessSheetSource();
+    }
+    
+
                 
                 if (document.getElementById('resultsSection').style.display === 'block') {
                     const currentSearch = document.getElementById('resultTitle').textContent.replace('Résultats pour "', '').replace('"', '');
